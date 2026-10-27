@@ -20,7 +20,8 @@ COPY assets assets
 RUN npm run build
 
 FROM dunglas/frankenphp:1-php8.4-bookworm AS app
-ENV SERVER_NAME=:80
+ENV SERVER_NAME=:80 \
+    DEFAULT_URI=https://guilloche.memolabs.dev
 WORKDIR /app
 # Seul ce qui sert à l'exécution entre dans l'image finale.
 COPY --from=vendor /app/bin bin
