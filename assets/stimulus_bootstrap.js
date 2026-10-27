@@ -14,5 +14,6 @@ application.register('shell', ShellController);
 application.register('theme', ThemeController);
 application.register('catalog', CatalogController);
 application.register('filtered-results', FilteredResultsController);
+application.register('ui--rosette', RosetteController);
 
 export const app = application;
