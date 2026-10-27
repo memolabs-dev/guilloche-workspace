@@ -6,6 +6,7 @@ import ShellController from './controllers/shell_controller.js';
 import ThemeController from './controllers/theme_controller.js';
 import CatalogController from './controllers/catalog_controller.js';
 import FilteredResultsController from './controllers/filtered_results_controller.js';
+import RosetteController from './controllers/rosette_controller.js';
 
 const application = Application.start();
 
