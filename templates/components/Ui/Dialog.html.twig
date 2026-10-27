@@ -1,4 +1,5 @@
 {# Ui:Dialog — élément natif, titre nommé, fermeture par formulaire method=dialog #}
+{% props id, title %}
 <dialog {{ attributes.defaults({ class: 'ui-dialog', id: id, 'aria-labelledby': id ~ '-title' }) }}>
   <twig:Ui:Guilloche variant="band" :seed="4" class="ui-dialog__band" />
   <form method="dialog" class="ui-dialog__close">

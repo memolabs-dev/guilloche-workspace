@@ -21,3 +21,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+when@test:
+    services:
+        # Les 400 et 404 attendus par les tests ne polluent pas la sortie.
+        logger:
+            class: Psr\Log\NullLogger

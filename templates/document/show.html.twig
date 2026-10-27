@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ document.title }}{% endblock %}
+{% block context %}Documents{% endblock %}
+{% block body %}
+  <div class="standalone standalone--wide">
+    <a class="page-back" href="{{ path('app_document_index', libraryFilter.toQuery) }}">Retour aux documents</a>
+
+    <div class="document-view">
+      <header class="document-view__head">
+        <twig:Ui:Status :tone="document.state.tone" :text="document.state.label" />
+        <h1>{{ document.title }}</h1>
+        <dl class="document-view__meta">
+          <div><dt>Mission</dt><dd>{{ document.mission.title }}</dd></div>
+          <div><dt>Catégorie</dt><dd>{{ document.category }}</dd></div>
+          <div><dt>Ajouté le</dt><dd class="ui-numeric">{{ document.addedOn|short_date }}</dd></div>
+          <div><dt>Taille</dt><dd class="ui-numeric">{{ document.sizeInKb }} Ko</dd></div>
+        </dl>
+        <twig:Ui:Button href="{{ path('app_mission_index', { selected: document.mission.id }) }}" intent="secondary">
+          Voir la mission associée
+        </twig:Ui:Button>
+      </header>
+
+      <article class="document-paper" aria-labelledby="document-paper-title">
+        <twig:Ui:Guilloche variant="band" :seed="document.id + 2" class="document-paper__band" />
+        <div class="document-paper__body">
+          <div class="document-paper__top">
+            <span class="wordmark wordmark--ink" aria-hidden="true">guilloché<span>.</span></span>
+            <span class="ui-serial">PIÈCE N° {{ '%03d'|format(document.id) }}</span>
+          </div>
+          <h2 id="document-paper-title">Exemple fictif</h2>
+          <p>Ce document illustre une pièce associée à votre mission. Aucun document réel n’est chargé ou modifié.</p>
+          <p>Il ne contient aucune information client, analyse fiscale ou recommandation juridique.</p>
+          <div class="document-paper__lines" aria-hidden="true">
+            {% for width in [92, 78, 86, 64, 90, 72, 40] %}<span style="--w: {{ width }}%"></span>{% endfor %}
+          </div>
+          <div class="document-paper__foot">
+            <twig:Ui:Guilloche :seed="document.mission.id" :size="72" />
+            <span class="ui-microtext" aria-hidden="true">DOCUMENT DE DÉMONSTRATION SANS VALEUR ATELIER RIVAGE DOCUMENT DE DÉMONSTRATION SANS VALEUR ATELIER RIVAGE</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+{% endblock %}

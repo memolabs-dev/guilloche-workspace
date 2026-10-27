@@ -22,18 +22,25 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Captures régénérables (tests/browser.mjs, revues Impeccable)
-/.agent/project/screenshots/
-/.impeccable/review/
-
-# Notes de travail privées : recherche, suivi, archives et rendus refusés (restent en local)
-/docs/research/*
-!/docs/research/agent-guides-2026-10-27.md
-/docs/design-system.md
-/docs/design-system-v2.md
-/docs/design-proposal.md
-/docs/screenshots/
-/.agent/project/
-/.agent/archive/
+# Outillage local des agents et notes de travail privées (non publiés)
+/AGENTS.md
+/PRODUCT.md
+/DESIGN.md
+/.agents/
+/.agent/
+/.impeccable/
 /.hallmark/
-/.impeccable/questions/
+/.vscode/
+/scripts/
+/docs/*
+!/docs/design-system.md
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###

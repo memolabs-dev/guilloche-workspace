@@ -13,15 +13,15 @@
 
     position: relative;
 
-    &:has(.ui-status--amber) {
+    &--amber {
       --rosette-ink: var(--copper-line);
     }
 
-    &:has(.ui-status--blue) {
+    &--blue {
       --rosette-ink: var(--blue-line);
     }
 
-    &:has(.ui-status--green) {
+    &--green {
       --rosette-ink: var(--green-line);
     }
   }

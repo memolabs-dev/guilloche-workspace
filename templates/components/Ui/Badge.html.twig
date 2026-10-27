@@ -1,2 +1,3 @@
 {# Ui:Badge — tone neutral|green|blue|amber|red ; variant solid|soft|outline #}
+{% props tone = 'neutral', variant = 'soft' %}
 <span {{ attributes.defaults({ class: 'ui-badge ui-badge--' ~ tone ~ ' ui-badge--' ~ variant }) }}>{% block content %}{% endblock %}</span>

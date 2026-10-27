@@ -1,17 +1,15 @@
-{# Mission:Detail — fiche (les liens vers une pièce sortent de toute Frame : data-turbo-frame="_top") de mission façon titre : rosette d'avancement, prochaine étape, pièces et interlocuteur.
-   headingLevel ajuste la hiérarchie ; focusTarget nomme le contrôleur Stimulus qui reçoit le focus après chargement. #}
+{# Mission:Detail — fiche d'une mission façon titre : rosette d'avancement, prochaine étape, pièces.
+   headingLevel ajuste la hiérarchie ; focusable expose le titre au contrôleur filtered-results.
+   Les liens vers une pièce sortent de toute Turbo Frame (data-turbo-frame="_top"). #}
+{% props mission, documents = [], headingLevel = 2, focusable = false %}
 {% set heading = 'h' ~ headingLevel %}
+{% set titleId = 'mission-' ~ mission.id ~ '-title' %}
 {% set first = documents|first %}
-<article {{ attributes.defaults({ class: 'mission-sheet mission-sheet--' ~ mission.status ~ ' is-entering', 'aria-labelledby': 'mission-title' }) }}>
+<article {{ attributes.defaults({ class: 'mission-sheet mission-sheet--' ~ mission.status.tone ~ ' is-entering', 'aria-labelledby': titleId }) }}>
   <header class="mission-sheet__head">
     <twig:Ui:Guilloche variant="band" :seed="mission.id" class="mission-sheet__band" />
     <p class="mission-sheet__serial ui-serial">N° {{ mission.reference }}</p>
-    <{{ heading }}
-      class="mission-sheet__title"
-      id="mission-title"
-      tabindex="-1"
-      {{ focusTarget ? ('data-' ~ focusTarget ~ '-target="focus"')|raw : '' }}
-    >{{ mission.title }}</{{ heading }}>
+    <{{ heading }} class="mission-sheet__title" id="{{ titleId }}" tabindex="-1" {{ focusable ? stimulus_target('filtered-results', 'focus') }}>{{ mission.title }}</{{ heading }}>
   </header>
 
   <div class="mission-sheet__value">
@@ -20,30 +18,28 @@
       <span class="mission-sheet__percent"><strong>{{ mission.progress }}</strong>%</span>
     </div>
     <dl class="mission-sheet__facts">
-      <div><dt>État</dt><dd><twig:Ui:Status :code="mission.status" :text="mission.label" /></dd></div>
-      <div><dt>Échéance</dt><dd class="ui-numeric">{{ mission.date }}</dd></div>
+      <div><dt>État</dt><dd><twig:Ui:Status :tone="mission.status.tone" :text="mission.status.label" /></dd></div>
+      <div><dt>Échéance</dt><dd class="ui-numeric">{{ mission.dueOn|short_date }}</dd></div>
       <div><dt>Interlocuteur</dt><dd>{{ mission.advisor }}</dd></div>
     </dl>
   </div>
 
-  <section class="mission-sheet__next" aria-labelledby="mission-next-{{ mission.id }}">
-    <h3 id="mission-next-{{ mission.id }}">Prochaine étape : {{ mission.step|slice(0, 1)|lower }}{{ mission.step|slice(1) }}</h3>
-    {% if first and mission.status == 'action' %}
-      <twig:Ui:Button href="{{ path('document_detail', { id: first.id }) }}" data-turbo-frame="_top">
-        Ouvrir le document
-      </twig:Ui:Button>
+  <section class="mission-sheet__next" aria-labelledby="{{ titleId }}-next">
+    <h3 id="{{ titleId }}-next">Prochaine étape : {{ mission.nextStep|slice(0, 1)|lower }}{{ mission.nextStep|slice(1) }}</h3>
+    {% if first and mission.awaitingClient %}
+      <twig:Ui:Button href="{{ path('app_document_show', { id: first.id }) }}" data-turbo-frame="_top">Ouvrir le document</twig:Ui:Button>
     {% endif %}
   </section>
 
-  <section class="mission-sheet__documents" aria-labelledby="mission-docs-{{ mission.id }}">
-    <h3 id="mission-docs-{{ mission.id }}">Pièces du dossier <span class="ui-count">{{ documents|length }}</span></h3>
+  <section class="mission-sheet__documents" aria-labelledby="{{ titleId }}-documents">
+    <h3 id="{{ titleId }}-documents">Pièces du dossier <span class="ui-count">{{ documents|length }}</span></h3>
     {% if documents %}
       <ul class="document-mini" role="list">
         {% for document in documents %}
           <li class="document-item document-item--mini">
-            <a href="{{ path('document_detail', { id: document.id }) }}" data-turbo-frame="_top">
+            <a href="{{ path('app_document_show', { id: document.id }) }}" data-turbo-frame="_top">
               <twig:Ui:Icon name="file" />
-              <span><strong>{{ document.title }}</strong><small>{{ document.category }}, {{ document.date }}</small></span>
+              <span><strong>{{ document.title }}</strong><small>{{ document.category }}, {{ document.addedOn|short_date }}</small></span>
               <twig:Ui:Icon name="chevron" class="document-mini__chevron" />
             </a>
           </li>

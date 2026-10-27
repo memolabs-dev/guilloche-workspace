@@ -35,31 +35,6 @@
   }
 }
 
-// Ui:Progress
-.ui-progress {
-  display: block;
-  height: 4px;
-  overflow: hidden;
-  border-radius: var(--r-pill);
-  background: var(--sheet-sunken);
-
-  &__bar {
-    display: block;
-    width: calc(var(--p) * 1%);
-    height: 100%;
-    border-radius: inherit;
-    background: var(--action);
-    transform-origin: left;
-    animation: progress-fill var(--t-trace) var(--ease-out) both;
-  }
-}
-
-@keyframes progress-fill {
-  from {
-    transform: scaleX(0);
-  }
-}
-
 // Ui:Skeleton : des lignes hachurées qui défilent, comme une feuille en cours d'impression.
 .ui-skeleton {
   display: grid;
@@ -192,8 +167,7 @@
 @include reduced-motion {
   .ui-skeleton__mark,
   .ui-skeleton__lines span,
-  .ui-skeleton__chip,
-  .ui-progress__bar {
+  .ui-skeleton__chip {
     animation: none;
   }
 
