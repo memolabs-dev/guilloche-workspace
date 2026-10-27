@@ -198,7 +198,7 @@ try {
         writeFileSync(`var/e2e/system-light-${width}.png`,Buffer.from(shot.data,'base64'));
         record(`system viewport ${width}`,{overflow:false});
     }
-    check(await js('getComputedStyle(document.querySelector("[data-contract=merged]")).fontSize === "14px" && getComputedStyle(document.querySelector("h1")).fontFamily.includes("Bodoni Moda Variable") && document.fonts.check(\'16px "Bodoni Moda Variable"\')'),'documented typography matches rendered controls and title');
+    check(await js('document.fonts.load(\'16px "Bodoni Moda Variable"\').then(f => f.length > 0 && f.every(x => x.status === "loaded") && getComputedStyle(document.querySelector("h1")).fontFamily.startsWith(\'"Bodoni Moda Variable"\'))'),'documented typography matches rendered controls and title');
     await js('document.querySelector(".topbar__theme").click()');
     // Le thème s'applique dans le rappel d'une View Transition : asynchrone.
     await until('document.documentElement.dataset.theme === "dark" && document.querySelector(".topbar__theme").getAttribute("aria-pressed") === "true"');

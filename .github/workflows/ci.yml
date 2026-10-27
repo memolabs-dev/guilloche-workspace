@@ -53,6 +53,35 @@ jobs:
       - run: APP_SECRET=secret-ci php bin/console asset-map:compile --env=prod
       - run: python3 tests/contrast.py
 
+  e2e:
+    name: E2E (Chromium)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: none
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+      - run: composer install --no-interaction --no-progress
+      - run: php bin/console sass:build
+      - run: APP_SECRET=secret-ci php bin/console asset-map:compile
+      - name: Serveur local
+        run: |
+          APP_ENV=dev APP_SECRET=secret-ci DEFAULT_URI=http://localhost \
+            php -S 127.0.0.1:8087 -t public tests/e2e/router.php > /tmp/server.log 2>&1 &
+          for i in $(seq 1 40); do curl -sf -o /dev/null http://127.0.0.1:8087/ && break; sleep 1; done
+          curl -sf -o /dev/null http://127.0.0.1:8087/missions
+      - run: node tests/e2e/browser.mjs
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+      - name: Journal du serveur si echec
+        if: failure()
+        run: tail -50 /tmp/server.log
+
   image:
     name: Image (GHCR)
     needs: [php, assets]
