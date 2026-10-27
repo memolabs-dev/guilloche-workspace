@@ -29,6 +29,21 @@
             "bin/phpunit"
         ]
     },
+    "symfony/asset-mapper": {
+        "version": "7.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "6.4",
+            "ref": "c01c47af2ec66a74ec046eccb919cfe27d3464ec"
+        },
+        "files": [
+            "assets/app.js",
+            "assets/styles/app.css",
+            "config/packages/asset_mapper.yaml",
+            "importmap.php"
+        ]
+    },
     "symfony/console": {
         "version": "7.4",
         "recipe": {
@@ -150,20 +165,17 @@
             "config/packages/twig_component.yaml"
         ]
     },
-    "symfony/webpack-encore-bundle": {
-        "version": "2.4",
+    "symfonycasts/sass-bundle": {
+        "version": "0.10",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "2.2",
-            "ref": "b618bf5f17ed61f523da7153025bf58ec9502f65"
+            "version": "0.6",
+            "ref": "89c0e817b8256281c0a3623781525aec583ca3f4"
         },
         "files": [
-            "assets/app.js",
-            "assets/styles/app.css",
-            "config/packages/webpack_encore.yaml",
-            "package.json",
-            "webpack.config.js"
+            "config/packages/symfonycasts_sass.yaml",
+            "assets/styles/app.scss"
         ]
     }
 }

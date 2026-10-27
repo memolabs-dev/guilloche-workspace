@@ -1,5 +1,6 @@
-// Point d'entrée Encore. Ordre des couches : réglages, base, composants Ui,
-// mise en page, composants métier, pages, mouvement.
+// Point d'entrée Sass (AssetMapper + SassBundle). Ordre des couches : réglages,
+// base, composants Ui, mise en page, composants métier, pages, mouvement.
+@use 'settings/fonts';
 @use 'settings/tokens';
 @use 'base/reset';
 @use 'base/document';
