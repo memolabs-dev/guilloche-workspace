@@ -64,6 +64,8 @@ const check=(value,message)=>{assert.ok(value,message);console.log('PASS '+messa
 const result=[];
 const record=(name,detail)=>result.push({name,detail});
 await cmd('Page.enable'); await cmd('Page.bringToFront'); await cmd('Runtime.enable'); await cmd('Network.enable');
+// Le rendu ne doit pas dépendre du thème système de la machine qui lance le test.
+await cmd('Emulation.setEmulatedMedia',{features:[{name:'prefers-color-scheme',value:'light'}]});
 const errors=[];
 let stage='initial';
 listeners.set('Runtime.exceptionThrown',[event=>errors.push({stage,text:event.exceptionDetails.text,description:event.exceptionDetails.exception?.description})]);
@@ -141,7 +143,7 @@ try {
     check(await js('document.querySelectorAll(".mission-list__item").length === 5'),'loading feedback keeps occupied region stable');
     await settled();
     await cmd('Network.emulateNetworkConditions',{offline:false,latency:0,downloadThroughput:-1,uploadThroughput:-1});
-    await cmd('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
+    await cmd('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'},{name:'prefers-color-scheme',value:'light'}]});
     check(await js('[...document.querySelectorAll(".ui-guilloche__trace")].every(p => getComputedStyle(p).animationName === "none") && [...document.querySelectorAll(".mission-sheet.is-entering")].every(e => getComputedStyle(e).animationName === "fade-in")'),'reduced motion removes the trace and the sheet print');
     stage='documents';
     for(const width of [390,768,1280,1440]) {
@@ -187,7 +189,7 @@ try {
         check(await js('document.querySelector(".results-error").hidden'),`documents ${kind} retry recovers filters`);
     }
     stage='system';
-    await cmd('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'no-preference'}]});
+    await cmd('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'no-preference'},{name:'prefers-color-scheme',value:'light'}]});
     for(const width of [320,390,768,1280,1440]) {
         await cmd('Emulation.setDeviceMetricsOverride',{width,height:1000,deviceScaleFactor:1,mobile:false});
         await go('/design-system');
@@ -196,7 +198,7 @@ try {
         writeFileSync(`var/e2e/system-light-${width}.png`,Buffer.from(shot.data,'base64'));
         record(`system viewport ${width}`,{overflow:false});
     }
-    check(await js('getComputedStyle(document.querySelector("[data-contract=merged]")).fontSize === "14px" && getComputedStyle(document.querySelector("h1")).fontFamily.includes("Bodoni")'),'documented typography matches rendered controls and title');
+    check(await js('getComputedStyle(document.querySelector("[data-contract=merged]")).fontSize === "14px" && getComputedStyle(document.querySelector("h1")).fontFamily.includes("Bodoni Moda Variable") && document.fonts.check(\'16px "Bodoni Moda Variable"\')'),'documented typography matches rendered controls and title');
     await js('document.querySelector(".topbar__theme").click()');
     // Le thème s'applique dans le rappel d'une View Transition : asynchrone.
     await until('document.documentElement.dataset.theme === "dark" && document.querySelector(".topbar__theme").getAttribute("aria-pressed") === "true"');
