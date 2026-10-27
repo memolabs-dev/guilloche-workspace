@@ -1,0 +1,24 @@
+{# Ui:Rosette — empreinte guillochee d'un objet.
+   La graine est un texte (reference, identifiant) : la meme graine donne
+   toujours le meme dessin. Le calcul est fait par le controleur ui--rosette ;
+   sans JavaScript, un trace de repli reste affiche ; paths permet
+   d'injecter les deux chemins calcules par PHP avant le rendu.
+   progress : 0 a 100, le trait principal s'arrete a la valeur.
+   loading : le trait se trace en boucle.
+   label : nom accessible ; sans label, la rosette est decorative. #}
+{% props seed, size = 32, progress = null, loading = false, label = null, paths = null %}
+<span {{ attributes.defaults({
+  class: 'ui-rosette ui-rosette--' ~ size ~ (loading ? ' is-loading' : ''),
+  role: label ? 'img' : 'presentation',
+  'aria-label': label ?? false,
+  'aria-hidden': label ? false : 'true'
+}) }} data-controller="ui--rosette"
+  data-ui--rosette-seed-value="{{ seed }}"
+  data-ui--rosette-ssr-value="{{ paths is not null ? 'true' : 'false' }}"
+  data-ui--rosette-size-value="{{ size }}"
+  data-ui--rosette-progress-value="{{ progress ?? 100 }}">
+  <svg viewBox="0 0 100 100" width="{{ size }}" height="{{ size }}" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" focusable="false" aria-hidden="true">
+    <path class="ui-rosette__main" vector-effect="non-scaling-stroke"{% if paths is not null and progress is not null %} pathLength="100" style="stroke-dasharray: 100; stroke-dashoffset: {{ 100 - max(0, min(100, progress)) }}"{% endif %} d="{{ paths.main|default('M50 6a44 44 0 1 1-.1 0z') }}" />
+    <path class="ui-rosette__counter" vector-effect="non-scaling-stroke" opacity="0.2" d="{{ paths.counter|default('M50 14a36 36 0 1 1-.1 0z') }}" />
+  </svg>
+</span>
