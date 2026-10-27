@@ -4,9 +4,10 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "memolabs-dev/guilloche": "dev-main#7eccdff342e2d27b3393cac2b8934eec873b281b",
+        "php": ">=8.4",
         "symfony/asset": "7.4.*",
         "symfony/asset-mapper": "7.4.*",
         "symfony/console": "7.4.*",
@@ -79,5 +80,11 @@
         "phpunit/phpunit": "^13.4.5",
         "symfony/browser-kit": "7.4.*",
         "symfony/css-selector": "7.4.*"
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/memolabs-dev/guilloche"
+        }
+    ]
 }

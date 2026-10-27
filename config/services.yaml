@@ -19,6 +19,11 @@ services:
     App\:
         resource: '../src/'
 
+    # Guilloche is optional to other apps; Workspace installs its PHP runtime.
+    # The PreRender subscriber makes seed/by alone sufficient for deterministic SSR.
+    Guilloche\Signature\AutoGeometrySubscriber:
+        tags: ['kernel.event_subscriber']
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 

@@ -9,7 +9,7 @@
         href="{{ path('app_mission_index', (filter ? filter.toQuery : {})|merge({ selected: mission.id })) }}"
         aria-current="{{ isSelected ? 'true' : 'false' }}"
       >
-        <twig:Ui:Guilloche :seed="mission.id" :progress="mission.progress" :size="44" class="mission-list__rosette" />
+        <twig:Ui:Rosette :seed="mission.reference" :progress="mission.progress" :size="40" class="mission-list__rosette" />
         <span class="mission-list__main">
           <span class="mission-list__title">{{ mission.title }}</span>
           <span class="mission-list__step">{{ mission.nextStep }}</span>

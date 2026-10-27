@@ -84,7 +84,7 @@ jobs:
 
   image:
     name: Image (GHCR)
-    needs: [php, assets]
+    needs: [php, assets, e2e]
     runs-on: ubuntu-latest
     permissions:
       contents: read

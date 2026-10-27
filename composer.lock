@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8bbb5e85e06d8aa42892827773b66562",
+    "content-hash": "0a3d8635af1c2a1c98c812d9e68fe985",
     "packages": [
         {
             "name": "composer/semver",
@@ -82,6 +82,55 @@
                 }
             ],
             "time": "2026-10-22T15:37:26+00:00"
+        },
+        {
+            "name": "memolabs-dev/guilloche",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/memolabs-dev/guilloche.git",
+                "reference": "7eccdff342e2d27b3393cac2b8934eec873b281b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/memolabs-dev/guilloche/zipball/7eccdff342e2d27b3393cac2b8934eec873b281b",
+                "reference": "7eccdff342e2d27b3393cac2b8934eec873b281b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.4",
+                "symfony/ux-twig-component": "^3.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Guilloche\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guillaume Flambard"
+                }
+            ],
+            "description": "Design system natif Symfony : composants Twig, tokens CSS et controleurs Stimulus, distribues par le Symfony UX Toolkit.",
+            "homepage": "https://github.com/memolabs-dev/guilloche",
+            "keywords": [
+                "symfony",
+                "design-system",
+                "twig",
+                "components",
+                "ux-toolkit",
+                "css",
+                "stimulus"
+            ],
+            "support": {
+                "issues": "https://github.com/memolabs-dev/guilloche/issues",
+                "source": "https://github.com/memolabs-dev/guilloche"
+            },
+            "time": "2026-10-27T23:35:00+00:00"
         },
         {
             "name": "psr/cache",
@@ -7865,7 +7914,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "memolabs-dev/guilloche": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
