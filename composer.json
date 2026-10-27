@@ -8,17 +8,18 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "symfony/asset": "7.4.*",
+        "symfony/asset-mapper": "7.4.*",
         "symfony/console": "7.4.*",
         "symfony/dotenv": "7.4.*",
-        "symfony/flex": "^2",
+        "symfony/flex": "^2.11",
         "symfony/framework-bundle": "7.4.*",
         "symfony/runtime": "7.4.*",
         "symfony/stimulus-bundle": "^3.6",
         "symfony/twig-bundle": "7.4.*",
         "symfony/ux-turbo": "^3.6",
         "symfony/ux-twig-component": "^3.6",
-        "symfony/webpack-encore-bundle": "^2.4",
-        "symfony/yaml": "7.4.*"
+        "symfony/yaml": "7.4.*",
+        "symfonycasts/sass-bundle": "^0.10"
     },
     "config": {
         "allow-plugins": {
@@ -52,7 +53,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "importmap:install": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
@@ -71,10 +73,10 @@
         }
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.95",
-        "phpstan/phpstan": "^2.3",
-        "phpstan/phpstan-symfony": "^2.1",
-        "phpunit/phpunit": "^13.4",
+        "friendsofphp/php-cs-fixer": "^3.95.27",
+        "phpstan/phpstan": "^2.3.3",
+        "phpstan/phpstan-symfony": "^2.1.1",
+        "phpunit/phpunit": "^13.4.5",
         "symfony/browser-kit": "7.4.*",
         "symfony/css-selector": "7.4.*"
     }

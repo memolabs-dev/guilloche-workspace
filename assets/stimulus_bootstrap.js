@@ -1,7 +1,17 @@
-import { startStimulusApp } from '@symfony/stimulus-bridge';
+import { Application } from '@hotwired/stimulus';
 
-// Enregistre les contrôleurs de controllers.json et du dossier controllers/, chargés à la demande.
-export const app = startStimulusApp(import.meta.webpackContext('@symfony/stimulus-bridge/lazy-controller-loader!./controllers', {
-    recursive: true,
-    regExp: /\.[jt]sx?$/,
-}));
+// Contrôleurs Stimulus enregistrés explicitement : import.meta.glob n'est pas
+// supporté par les navigateurs et aucun bundler ne le résout ici.
+import ShellController from './controllers/shell_controller.js';
+import ThemeController from './controllers/theme_controller.js';
+import CatalogController from './controllers/catalog_controller.js';
+import FilteredResultsController from './controllers/filtered_results_controller.js';
+
+const application = Application.start();
+
+application.register('shell', ShellController);
+application.register('theme', ThemeController);
+application.register('catalog', CatalogController);
+application.register('filtered-results', FilteredResultsController);
+
+export const app = application;

@@ -33,11 +33,13 @@ jobs:
           PHP_CS_FIXER_IGNORE_ENV: 1
       # PHPStan lit le conteneur compilé de l'environnement dev.
       - run: php bin/console cache:warmup --env=dev
+      # Les tests fonctionnels rendent base.html.twig, qui a besoin du CSS compilé.
+      - run: php bin/console sass:build
       - run: vendor/bin/phpstan analyse --no-progress
       - run: php bin/phpunit
 
   assets:
-    name: Assets (build, contrastes)
+    name: Assets (Sass, carte des assets, contrastes)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -46,14 +48,9 @@ jobs:
           php-version: '8.4'
           tools: composer:v2
           coverage: none
-      # package.json lit le paquet JavaScript de symfony/ux-turbo depuis vendor/.
       - run: composer install --no-interaction --no-progress --no-scripts
-      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+      - run: php bin/console sass:build
+      - run: APP_SECRET=secret-ci php bin/console asset-map:compile --env=prod
       - run: python3 tests/contrast.py
 
   image:

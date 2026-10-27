@@ -19,8 +19,9 @@
       document.documentElement.classList.add('js');
       try { document.documentElement.dataset.theme = localStorage.getItem('guilloche-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (e) {}
     </script>
-    {{ encore_entry_link_tags('app') }}
-    {{ encore_entry_script_tags('app') }}
+    {{ importmap('app') }}
+    <script src="{{ asset('app.js') }}" type="module" defer></script>
+    <link rel="stylesheet" href="{{ asset('styles/app.scss') }}" />
   </head>
   <body
     class="app"
