@@ -1,19 +1,19 @@
-{# Document:DocumentList — documents ; libraryFilters conservés pour le retour depuis une pièce #}
-{% set filters = (libraryFilters ?? {})|filter(v => v is not null and v != '') %}
+{# Document:DocumentList — le filtre de la bibliothèque est transmis pour revenir à la même vue. #}
+{% props documents, filter = null %}
 {% if documents %}
   <ul {{ attributes.defaults({ class: 'document-list', role: 'list' }) }}>
     {% for document in documents %}
       <li class="document-item document-item--library">
-        <a class="document-item__link" data-turbo-frame="_top" href="{{ path('document_detail', { id: document.id }|merge(filters)) }}">
+        <a class="document-item__link" data-turbo-frame="_top" href="{{ path('app_document_show', { id: document.id }|merge(filter ? filter.toQuery : {})) }}">
           <span class="document-item__sheet" aria-hidden="true"><twig:Ui:Icon name="file" /></span>
           <span class="document-item__main">
             <span class="document-item__title">{{ document.title }}</span>
-            <span class="document-item__meta">{{ document.mission }}</span>
+            <span class="document-item__meta">{{ document.mission.title }}</span>
             <span class="document-item__serial ui-serial">Pièce N° {{ '%03d'|format(document.id) }}</span>
           </span>
           <span class="document-item__category">{{ document.category }}</span>
-          <span class="document-item__date ui-numeric">{{ document.date }}<span class="document-item__size">{{ document.size }}</span></span>
-          <twig:Ui:Status :code="document.status" :text="document.label" />
+          <span class="document-item__date ui-numeric">{{ document.addedOn|short_date }}<span class="document-item__size">{{ document.sizeInKb }} Ko</span></span>
+          <twig:Ui:Status :tone="document.state.tone" :text="document.state.label" />
           <twig:Ui:Icon name="chevron" class="document-item__chevron" />
         </a>
       </li>

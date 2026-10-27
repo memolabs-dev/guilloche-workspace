@@ -1,0 +1,348 @@
+{% extends 'base.html.twig' %}
+{% set sections = {
+  overview: 'Vue d’ensemble',
+  tokens: 'Fondations',
+  button: 'Boutons',
+  field: 'Champs',
+  feedback: 'États',
+  motion: 'Mouvement',
+  pattern: 'En situation'
+} %}
+{% set headings = {
+  overview: 'Le titre guilloché.',
+  tokens: 'Encres, lettres et trames.',
+  button: 'Un seul geste principal.',
+  field: 'Des champs sans ambiguïté.',
+  feedback: 'Le texte dit, l’encre confirme.',
+  motion: 'Le trait s’imprime.',
+  pattern: 'Un système en situation.'
+} %}
+{% set show = section == 'overview' ? sections|keys : [section] %}
+{% block title %}Design system{% endblock %}
+{% block body %}
+  <div class="catalog" data-controller="catalog" data-action="turbo:before-cache@document->catalog#beforeCache">
+    <header class="catalog-hero{{ section == 'overview' ? ' catalog-hero--full' : '' }}">
+      <div class="catalog-hero__copy">
+        <h1>{{ headings[section] }}</h1>
+        <p>
+          Le système d’interface d’un espace dirigeant, imaginé comme un titre fiduciaire :
+          encre intaille, rosettes guillochées, numéros de série. Des composants Twig maison, du SCSS
+          par couches, Stimulus et Turbo pour le comportement.
+        </p>
+        <ul class="catalog-hero__stack" role="list">
+          <li>Twig Components</li><li>SCSS modules</li><li>Stimulus</li><li>Turbo</li><li>Sans dépendance UI</li>
+        </ul>
+        <div class="catalog-hero__actions">
+          <twig:Ui:Button href="{{ path('app_mission_index', { selected: 1 }) }}">Voir le produit</twig:Ui:Button>
+          <twig:Ui:Button href="{{ path('app_guide') }}" intent="secondary" appearance="ghost">Comprendre la stack</twig:Ui:Button>
+        </div>
+      </div>
+      {% if section == 'overview' %}
+        <div class="catalog-hero__specimen" aria-hidden="true">
+          <twig:Ui:Guilloche :seed="5" :size="360" :animated="true" class="catalog-hero__rosette" />
+          <twig:Ui:Guilloche :seed="3" :size="220" :animated="true" class="catalog-hero__rosette catalog-hero__rosette--inner" />
+          <span class="ui-serial catalog-hero__serial">N° GW-DS-2026</span>
+        </div>
+      {% endif %}
+    </header>
+
+    <nav class="catalog-nav" aria-label="Sections du design system">
+      {% for key, label in sections %}
+        <a href="{{ path('app_design_system', { section: key }) }}" aria-current="{{ section == key ? 'page' : 'false' }}">{{ label }}</a>
+      {% endfor %}
+    </nav>
+
+    {% if 'tokens' in show %}
+      <section class="catalog-section" id="tokens" aria-labelledby="tokens-title">
+        <div class="catalog-section__head">
+          <h2 id="tokens-title">Couleurs &amp; encres</h2>
+          <p>Des rôles avant des valeurs. Chaque composant lit un rôle ; le thème sombre redéfinit les rôles, jamais les composants.</p>
+          <code>settings/_tokens.scss</code>
+        </div>
+        <div class="ink-plates">
+          {% for plate in [
+            { token: 'paper', name: 'Papier de sécurité', role: 'Fond de travail' },
+            { token: 'sheet-raised', name: 'Feuille', role: 'Surfaces et fiches' },
+            { token: 'ink', name: 'Encre', role: 'Texte principal' },
+            { token: 'intaglio', name: 'Intaille', role: 'Rail et bandeaux' },
+            { token: 'action', name: 'Vert de marque', role: 'Action principale' },
+            { token: 'copper', name: 'Cuivre', role: 'À votre tour' },
+            { token: 'blue', name: 'Bleu fiduciaire', role: 'En cours' },
+            { token: 'green', name: 'Vert de contrôle', role: 'Terminé' },
+            { token: 'red', name: 'Rouge', role: 'Erreur, danger' }
+          ] %}
+            <figure class="ink-plate" style="--plate: var(--{{ plate.token }})">
+              <div class="ink-plate__print">
+                <twig:Ui:Guilloche variant="band" :seed="loop.index" class="ink-plate__band" />
+              </div>
+              <figcaption>
+                <strong>{{ plate.name }}</strong>
+                <span>{{ plate.role }}</span>
+                <code>--{{ plate.token }}</code>
+              </figcaption>
+            </figure>
+          {% endfor %}
+        </div>
+
+        <div class="type-specimens">
+          <div class="type-specimen type-specimen--display">
+            <h3 class="type-specimen__label">Bodoni Moda, titres et valeurs</h3>
+            <p class="type-specimen__big">Rémunération<br />du dirigeant</p>
+            <p class="type-specimen__figures">75 %, 480,00 €</p>
+          </div>
+          <div class="type-specimen">
+            <h3 class="type-specimen__label">Inter, interface</h3>
+            <p class="type-specimen__ui">Valider la synthèse avant le 30 octobre.</p>
+            <p class="type-specimen__scale">
+              {% for size, name in { xl: 'Titre de section', lg: 'Lecture', md: 'Interface', xs: 'Libellé' } %}
+                <span style="font-size: var(--text-{{ size }})">{{ name }}</span>
+              {% endfor %}
+            </p>
+          </div>
+          <div class="type-specimen">
+            <h3 class="type-specimen__label">Fira Code, numéros de série</h3>
+            <p><span class="ui-serial type-specimen__serial">N° AR-2026-042</span></p>
+            <p class="type-specimen__note">Réservée aux références et identifiants, jamais en décor.</p>
+          </div>
+        </div>
+
+        <div class="catalog-section__head catalog-section__head--sub">
+          <h3>Trames guillochées</h3>
+          <p>Calculées en PHP par <code>Ui:Guilloche</code> : une graine donne une rosette unique et stable. Sans JavaScript, le dessin reste complet.</p>
+        </div>
+        <div class="rosette-grid">
+          {% for seed in 1..6 %}
+            <figure>
+              <twig:Ui:Guilloche :seed="seed" :size="112" :animated="true" />
+              <figcaption><code>seed {{ seed }}</code></figcaption>
+            </figure>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+    {% if 'button' in show %}
+      <section class="catalog-section" id="buttons" aria-labelledby="buttons-title">
+        <div class="catalog-section__head">
+          <h2 id="buttons-title">Actions</h2>
+          <p>Une seule action principale pleine par contexte : elle porte la trame guillochée qui moire au survol. Un bouton agit, un lien navigue.</p>
+          <code>Ui:Button</code>
+        </div>
+        <div class="specimen-board">
+          <div class="specimen">
+            <h3 class="specimen__label">Intentions et poids</h3>
+            <div class="specimen__row">
+              <twig:Ui:Button class="catalog-merged" data-contract="merged" data-action="catalog#notify" data-catalog-message-param="Le bouton a reçu votre action. Rien n’est enregistré.">
+                Continuer
+              </twig:Ui:Button>
+              <twig:Ui:Button intent="secondary" data-action="catalog#notify">Secondaire</twig:Ui:Button>
+              <twig:Ui:Button appearance="soft" data-action="catalog#notify">Douce</twig:Ui:Button>
+              <twig:Ui:Button appearance="outline" data-action="catalog#notify">Contour</twig:Ui:Button>
+              <twig:Ui:Button appearance="ghost" data-action="catalog#notify">Discrète</twig:Ui:Button>
+            </div>
+            <div class="specimen__row">
+              <twig:Ui:Button intent="danger" appearance="soft" data-action="catalog#notify" data-catalog-message-param="Exemple d’intention danger. Aucune donnée supprimée.">
+                <twig:Ui:Icon name="close" size="18" />Retirer
+              </twig:Ui:Button>
+              <twig:Ui:Button disabled>Indisponible</twig:Ui:Button>
+              <twig:Ui:Button :loading="true">Envoi</twig:Ui:Button>
+            </div>
+            <div class="specimen__row">
+              <twig:Ui:Button size="sm">Petit</twig:Ui:Button>
+              <twig:Ui:Button>Moyen</twig:Ui:Button>
+              <twig:Ui:Button size="lg">Grand</twig:Ui:Button>
+            </div>
+          </div>
+          <div class="specimen specimen--paper">
+            <h3 class="specimen__label">En contexte</h3>
+            <div class="mini-coupon">
+              <twig:Ui:Guilloche :seed="1" :progress="75" :size="64" />
+              <div>
+                <twig:Ui:Status tone="amber" text="À votre tour" />
+                <strong>Synthèse de votre situation</strong>
+                <span>Rémunération du dirigeant</span>
+              </div>
+            </div>
+            <div class="specimen__row">
+              <twig:Ui:Button href="{{ path('app_document_show', { id: 1 }) }}">Consulter</twig:Ui:Button>
+              <twig:Ui:Button href="{{ path('app_mission_index', { selected: 1 }) }}" intent="secondary" appearance="ghost">Voir la mission</twig:Ui:Button>
+            </div>
+          </div>
+        </div>
+        <details class="catalog-code">
+          <summary>Contrat du composant</summary>
+          <p>
+            Props : <code>intent</code> primary, secondary, danger ; <code>appearance</code> solid, soft, outline, ghost ;
+            <code>size</code> sm, md, lg ; <code>disabled</code>, <code>loading</code> (bouton désactivé et
+            <code>aria-busy</code>) ; <code>href</code> rend un lien. Les classes et attributs Stimulus de l’appelant sont
+            fusionnés par <code>attributes.defaults()</code>.
+          </p>
+          <pre><code>{% verbatim %}&lt;twig:Ui:Button appearance="soft" data-action="catalog#notify"&gt;
+  Continuer
+&lt;/twig:Ui:Button&gt;{% endverbatim %}</code></pre>
+        </details>
+      </section>
+    {% endif %}
+
+    {% if 'field' in show %}
+      <section class="catalog-section" id="fields" aria-labelledby="fields-title">
+        <div class="catalog-section__head">
+          <h2 id="fields-title">Champs &amp; formulaires</h2>
+          <p>Contrôles natifs, libellés permanents. Une erreur nomme le problème et la manière d’avancer.</p>
+          <code>Ui:Field, Ui:Input</code>
+        </div>
+        <div class="specimen-board">
+          <div class="specimen">
+            <h3 class="specimen__label">Saisie</h3>
+            <twig:Ui:Field id="sample-search" label="Rechercher une mission" help="Un nom de mission ou une catégorie.">
+              <twig:Ui:Input id="sample-search" type="search" placeholder="Rémunération du dirigeant" describedBy="sample-search-help" />
+            </twig:Ui:Field>
+            <twig:Ui:Field id="sample-select" label="État">
+              <select id="sample-select"><option>Tous les états</option><option>À votre tour</option><option>En cours</option></select>
+            </twig:Ui:Field>
+            <div class="specimen__row">
+              <label class="ui-check">
+                <input type="checkbox" checked />
+                <span class="ui-check__box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7" pathLength="24" /></svg></span>
+                Afficher les missions terminées
+              </label>
+              <label class="ui-switch">
+                <input type="checkbox" role="switch" checked />
+                <span class="ui-switch__track"></span>
+                Alertes de démonstration
+              </label>
+            </div>
+          </div>
+          <div class="specimen">
+            <h3 class="specimen__label">Erreur et indisponibilité</h3>
+            <twig:Ui:Field id="sample-error" label="Référence de mission" help="Exemple de champ en erreur." error="Saisissez une référence au format AR-2026-042.">
+              <twig:Ui:Input id="sample-error" value="AR" :invalid="true" describedBy="sample-error-help sample-error-error" />
+            </twig:Ui:Field>
+            <twig:Ui:Field id="sample-disabled" label="Interlocuteur">
+              <twig:Ui:Input id="sample-disabled" value="Camille Martin" :disabled="true" />
+            </twig:Ui:Field>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+
+    {% if 'feedback' in show %}
+      <section class="catalog-section" id="feedback" aria-labelledby="feedback-title">
+        <div class="catalog-section__head">
+          <h2 id="feedback-title">États &amp; retours</h2>
+          <p>Le texte porte toujours le sens. Le cuivre appelle trois fois, puis se tait ; le bleu se remplit à moitié.</p>
+          <code>Ui:Status, Ui:Badge, Ui:Notice, Ui:Dialog</code>
+        </div>
+        <div class="specimen-board">
+          <div class="specimen">
+            <h3 class="specimen__label">Statuts métier</h3>
+            <div class="specimen__row">
+              <twig:Ui:Status tone="amber" text="À votre tour" />
+              <twig:Ui:Status tone="blue" text="En cours" />
+              <twig:Ui:Status tone="green" text="Terminée" />
+              <twig:Ui:Status text="État non renseigné" />
+            </div>
+            <h3 class="specimen__label">Étiquettes</h3>
+            <div class="specimen__row">
+              <twig:Ui:Badge>Neutre</twig:Ui:Badge>
+              <twig:Ui:Badge tone="green" variant="soft">Disponible</twig:Ui:Badge>
+              <twig:Ui:Badge tone="blue" variant="solid" data-contract="badge-blue-solid">Information</twig:Ui:Badge>
+              <twig:Ui:Badge tone="amber" variant="soft">À compléter</twig:Ui:Badge>
+              <twig:Ui:Badge tone="red" variant="solid" data-contract="badge-red-solid">Erreur</twig:Ui:Badge>
+            </div>
+            <twig:Ui:Notice type="success" message="Les éléments de cette démonstration sont disponibles." />
+            <twig:Ui:Notice type="error" message="Le document n’a pas pu être chargé. Votre vue précédente est conservée." />
+          </div>
+          <div class="specimen specimen--paper specimen--center">
+            <twig:Ui:Guilloche :seed="2" :size="96" />
+            <h3>Un aperçu, sans quitter le dossier.</h3>
+            <p>Élément <code>dialog</code> natif : titre nommé, Échap, retour du focus. Entrée et sortie en CSS (<code>@starting-style</code>).</p>
+            <twig:Ui:Button intent="secondary" data-action="catalog#openDialog">Ouvrir l’aperçu</twig:Ui:Button>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+
+    {% if 'motion' in show %}
+      <section class="catalog-section" id="motion" aria-labelledby="motion-title">
+        <div class="catalog-section__head">
+          <h2 id="motion-title">Le temps fait partie de l’interface</h2>
+          <p>Un seul geste d’auteur, le tracé de la rosette. Le reste répond, sans faire attendre.</p>
+          <code>Ui:Guilloche, Ui:Skeleton, Ui:RegionState</code>
+        </div>
+        <div class="motion-lab" data-catalog-target="lab">
+          <div class="motion-lab__rosette">
+            <twig:Ui:Guilloche :seed="1" :progress="75" :size="240" :animated="true" data-catalog-target="rosette" class="motion-lab__seal" />
+            <output class="motion-lab__value" for="lab-progress" data-catalog-target="output"><strong>75</strong>%</output>
+          </div>
+          <div class="motion-lab__controls">
+            <div class="ui-field">
+              <label class="ui-field__label" for="lab-progress">Avancement de la mission</label>
+              <input class="motion-lab__range" id="lab-progress" type="range" min="0" max="100" step="5" value="75" data-action="input->catalog#progress" />
+            </div>
+            <div class="specimen__row">
+              <twig:Ui:Button intent="secondary" size="sm" data-action="catalog#replay">Rejouer le tracé</twig:Ui:Button>
+              <label class="ui-switch">
+                <input type="checkbox" role="switch" data-action="catalog#reduceMotion" />
+                <span class="ui-switch__track"></span>
+                Réduire le mouvement
+              </label>
+            </div>
+            <dl class="motion-lab__timings">
+              <div><dt>120 ms</dt><dd>réponse d’un contrôle</dd></div>
+              <div><dt>140 ms</dt><dd>avant l’apparition d’un skeleton</dd></div>
+              <div><dt>280 ms</dt><dd>entrée d’un dialogue, d’une ligne</dd></div>
+              <div><dt>520 ms</dt><dd>impression d’une fiche</dd></div>
+              <div><dt>1100 ms</dt><dd>tracé d’une rosette</dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="state-lab">
+          <div class="state-lab__bar">
+            <h3>États d’une région</h3>
+            <div class="segmented" role="group" aria-label="État à prévisualiser">
+              {% for state, label in { full: 'Contenu', loading: 'Chargement', empty: 'Vide', error: 'Erreur' } %}
+                <button type="button" data-action="catalog#state" data-catalog-state-param="{{ state }}" aria-pressed="{{ state == 'full' ? 'true' : 'false' }}">{{ label }}</button>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="state-lab__canvas" data-catalog-target="stateCanvas" aria-live="polite">
+            <div data-state="full"><twig:Mission:MissionList :missions="missions|slice(0, 2)" /></div>
+            <div data-state="loading" hidden><span class="sr-only">Exemple de chargement en cours</span><twig:Ui:Skeleton :rows="2" /></div>
+            <div data-state="empty" hidden><twig:Ui:RegionState state="empty" title="Aucune mission à afficher" message="Modifiez les filtres pour retrouver vos dossiers." /></div>
+            <div data-state="error" hidden><twig:Ui:RegionState state="error" title="Les missions sont indisponibles" message="Votre vue précédente est conservée. Vérifiez la connexion puis réessayez." :retryUrl="path('app_design_system', { section: 'motion' })" /></div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+
+    {% if 'pattern' in show %}
+      <section class="catalog-section" id="patterns" aria-labelledby="patterns-title">
+        <div class="catalog-section__head">
+          <h2 id="patterns-title">Une mission, sa prochaine étape</h2>
+          <p>Les mêmes composants que le produit, sur les mêmes fixtures. Aucun vocabulaire visuel propre au catalogue.</p>
+          <code>Mission:MissionList, Mission:Detail</code>
+        </div>
+        <div class="pattern-board">
+          <twig:Mission:MissionList :missions="missions" :selectedId="1" />
+          <twig:Mission:Detail :mission="missions|first" :documents="documents" />
+        </div>
+        {% if section == 'pattern' %}
+          <div class="catalog-section__head catalog-section__head--sub">
+            <h3>Les pièces du dossier</h3>
+            <code>Document:DocumentList</code>
+          </div>
+          <twig:Document:DocumentList :documents="documents" />
+        {% endif %}
+      </section>
+    {% endif %}
+
+    <twig:Ui:Dialog id="catalog-preview" title="Synthèse de votre situation" data-catalog-target="dialog">
+      <twig:Ui:Badge tone="green" variant="soft">Exemple fictif</twig:Ui:Badge>
+      <p>Une pièce liée à la mission Rémunération du dirigeant. Cet aperçu ne contient aucune donnée réelle.</p>
+      <twig:Ui:Button href="{{ path('app_document_show', { id: 1 }) }}">Ouvrir le document</twig:Ui:Button>
+    </twig:Ui:Dialog>
+    <div class="ui-toast" role="status" aria-live="polite" data-catalog-target="toast"></div>
+  </div>
+{% endblock %}

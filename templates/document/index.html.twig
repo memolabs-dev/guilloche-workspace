@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Documents{% endblock %}
+
+{% block body %}
+  <div class="page-head">
+    <div>
+      <h1>Documents</h1>
+      <p>Votre bibliothèque : synthèses, contrats et comptes rendus, rangés par mission.</p>
+    </div>
+  </div>
+
+  <div {{ include('_results_controller.html.twig', { loadingMessage: 'Chargement des documents…' }) }}>
+    <div class="results-feedback" role="status" aria-live="polite" {{ stimulus_target('filtered-results', 'feedback') }}></div>
+    <div class="results-error" role="alert" hidden {{ stimulus_target('filtered-results', 'error') }}>
+      <twig:Ui:Notice type="error" message="Impossible de charger les documents. Votre vue précédente est conservée." />
+      <twig:Ui:Button intent="secondary" data-action="filtered-results#retry">Réessayer</twig:Ui:Button>
+    </div>
+
+    <turbo-frame id="document-results" data-turbo-action="advance" {{ stimulus_target('filtered-results', 'frame') }}>
+      <form class="filter-bar" action="{{ path('app_document_index') }}" method="get" role="search" aria-label="Filtrer les documents">
+        <twig:Ui:Field label="Rechercher un document" id="document-search">
+          <input id="document-search" type="search" name="q" value="{{ filter.query }}" maxlength="100" placeholder="Nom, mission ou catégorie" {{ stimulus_target('filtered-results', 'search') }} {{ stimulus_action('filtered-results', 'toggleClear', 'input') }} />
+        </twig:Ui:Field>
+        <twig:Ui:Field label="Filtrer par mission" id="document-mission">
+          <select id="document-mission" name="mission">
+            <option value="">Toutes les missions</option>
+            {% for mission in missions %}
+              <option value="{{ mission.id }}" {{ filter.missionId == mission.id ? 'selected' }}>{{ mission.title }}</option>
+            {% endfor %}
+          </select>
+        </twig:Ui:Field>
+        <div class="filter-bar__actions">
+          <twig:Ui:Button type="submit">Rechercher</twig:Ui:Button>
+          <button class="filter-clear" type="button" hidden {{ stimulus_target('filtered-results', 'clear') }} {{ stimulus_action('filtered-results', 'clear') }}>Effacer</button>
+        </div>
+      </form>
+
+      <h2 class="sr-only">Votre bibliothèque</h2>
+      <p class="results-summary" tabindex="-1" {{ stimulus_target('filtered-results', 'summary') }}>
+        <strong>{{ documents|length }} document{{ documents|length > 1 ? 's' }}</strong>{% if filter.query %} pour « {{ filter.query }} »{% endif %}
+      </p>
+      <div class="results-region">
+        <div class="results-region__mask" hidden {{ stimulus_target('filtered-results', 'skeleton') }}><twig:Ui:Skeleton :rows="5" /></div>
+        <div {{ stimulus_target('filtered-results', 'content') }}>
+          <twig:Document:DocumentList :documents="documents" :filter="filter" />
+        </div>
+      </div>
+    </turbo-frame>
+  </div>
+{% endblock %}

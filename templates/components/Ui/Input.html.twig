@@ -1,4 +1,5 @@
 {# Ui:Input — champ natif, état invalide et descriptions explicites #}
+{% props id, type = 'text', name = null, placeholder = null, value = null, describedBy = null, invalid = false, disabled = false %}
 <input {{ attributes.defaults({
   class: 'ui-input',
   type: type,

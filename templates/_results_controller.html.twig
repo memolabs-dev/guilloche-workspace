@@ -1,0 +1,10 @@
+{# Attributs Stimulus d'une région de résultats filtrés (contrôleur filtered-results). #}
+{{ stimulus_controller('filtered-results', { loadingMessage: loadingMessage })
+  |stimulus_action('filtered-results', 'start', 'turbo:before-fetch-request')
+  |stimulus_action('filtered-results', 'response', 'turbo:before-fetch-response')
+  |stimulus_action('filtered-results', 'failure', 'turbo:fetch-request-error')
+  |stimulus_action('filtered-results', 'missing', 'turbo:frame-missing')
+  |stimulus_action('filtered-results', 'beforeRender', 'turbo:before-frame-render')
+  |stimulus_action('filtered-results', 'loaded', 'turbo:frame-load')
+  |stimulus_action('filtered-results', 'handledRejection', 'unhandledrejection@window')
+  |stimulus_action('filtered-results', 'reset', 'turbo:before-cache@document') }}

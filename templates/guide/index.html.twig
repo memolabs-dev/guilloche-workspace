@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+{% block title %}Comprendre la stack{% endblock %}
+{% block body %}
+  <div class="page-head">
+    <div>
+      <h1>Comprendre la stack</h1>
+      <p>Le rôle de chaque outil, à partir du prototype que vous avez sous les yeux.</p>
+    </div>
+  </div>
+
+  <ol class="guide-chain" role="list">
+    {% for step in [
+      { icon: 'building', name: 'Symfony', text: 'Reçoit la requête, lit les filtres, prépare les fixtures et choisit la réponse.' },
+      { icon: 'layers', name: 'Twig', text: 'Rend le HTML avec des composants maison : props, blocs et attributs fusionnés.' },
+      { icon: 'arrow', name: 'Turbo', text: 'Remplace une page ou une région par du HTML serveur, sans API JSON.' },
+      { icon: 'grid', name: 'Stimulus', text: 'Ajoute les comportements locaux : focus, chargement, thème, dialogues.' }
+    ] %}
+      <li class="guide-chain__step">
+        <span class="guide-chain__icon"><twig:Ui:Icon name="{{ step.icon }}" /></span>
+        <strong>{{ step.name }}</strong>
+        <p>{{ step.text }}</p>
+      </li>
+    {% endfor %}
+  </ol>
+
+  <section class="guide-example sheet" aria-labelledby="guide-example">
+    <div>
+      <h2 id="guide-example">Un exemple : ouvrir une mission</h2>
+      <p>
+        Dans Missions, le lien d’une ligne pointe vers <code>/missions?selected=1</code>. Il vit dans la Frame
+        <code>mission-results</code> : Turbo n’échange que cette région et met l’URL à jour. Symfony valide les
+        paramètres et redirige une sélection hors filtre. Stimulus place le focus sur le titre de la fiche. Sans
+        JavaScript, le même lien charge la page complète.
+      </p>
+    </div>
+    <twig:Ui:Button href="{{ path('app_mission_index', { selected: 1 }) }}">Essayer le parcours</twig:Ui:Button>
+  </section>
+
+  <section class="guide-details" aria-label="Détail par outil">
+    <details open>
+      <summary>Symfony : le contrôleur prépare les données</summary>
+      <p>
+        Un contrôleur par rubrique, quelques lignes chacun. Les paramètres d’URL arrivent par
+        <code>#[MapQueryParameter]</code> (un paramètre non scalaire répond 400), le filtrage vit dans le domaine
+        (<code>MissionFilter</code>, enum <code>MissionStatus</code>) et les données passent par l’interface
+        <code>WorkspaceRepository</code>, servie ici par des fixtures en mémoire.
+      </p>
+      <pre><code>#[Route('', name: 'index', methods: ['GET'])]
+public function index(
+    #[MapQueryParameter(validationFailedStatusCode: 400)] string $q = '',
+    #[MapQueryParameter(validationFailedStatusCode: 400)] string $status = '',
+): Response {
+    $filter = new MissionFilter($q, MissionStatus::tryFrom($status));
+
+    return $this->render('mission/index.html.twig', [
+        'missions' => $this->workspace->findMissions($filter),
+    ]);
+}</code></pre>
+      <a class="ui-link" href="https://symfony.com/doc/7.4/controller.html" target="_blank" rel="noopener noreferrer">Documentation Symfony 7.4 : contrôleurs</a>
+    </details>
+
+    <details>
+      <summary>Twig et TwigComponent : un design system de composants maison</summary>
+      <p>
+        Toutes les pages héritent de <code>base.html.twig</code>. Les primitives <code>Ui:*</code> et les composants
+        métier <code>Mission:*</code>, <code>Document:*</code> sont des composants anonymes : des props déclarées par
+        <code>{% verbatim %}{% props %}{% endverbatim %}</code>, un bloc
+        <code>content</code> et fusionnent les attributs avec <code>attributes.defaults()</code> : un
+        <code>data-action</code> Stimulus ou une classe passés par l’appelant sont conservés. La rosette
+        <code>Ui:Guilloche</code> est une classe PHP qui calcule ses courbes ; le gabarit les lit via
+        <code>computed</code> pour ne les calculer qu’une fois par rendu.
+      </p>
+      <pre><code>{% verbatim %}&lt;twig:Ui:Button href="{{ path('app_document_index') }}" intent="secondary"&gt;
+  Ouvrir les documents
+&lt;/twig:Ui:Button&gt;
+
+&lt;twig:Ui:Guilloche :seed="mission.id" :progress="mission.progress" :size="44" /&gt;{% endverbatim %}</code></pre>
+      <a class="ui-link" href="https://symfony.com/bundles/ux-twig-component/current/index.html" target="_blank" rel="noopener noreferrer">Documentation Symfony UX TwigComponent</a>
+    </details>
+
+    <details>
+      <summary>Turbo : navigation, régions et transitions</summary>
+      <p>
+        Turbo Drive charge les pages ; la balise <code>view-transition</code> lui laisse animer le passage d’une page à
+        l’autre avec l’API View Transitions, le rail restant immobile. Les Frames <code>mission-results</code> et
+        <code>document-results</code> ne remplacent que la liste et la fiche après un filtre GET.
+      </p>
+      <pre><code>&lt;meta name="view-transition" content="same-origin"&gt;
+&lt;turbo-frame id="mission-results" data-turbo-action="advance"&gt;
+  &lt;!-- Liste et fiche rendues par Twig --&gt;
+&lt;/turbo-frame&gt;</code></pre>
+      <a class="ui-link" href="https://turbo.hotwired.dev/handbook/frames" target="_blank" rel="noopener noreferrer">Documentation Turbo : Frames</a>
+    </details>
+
+    <details>
+      <summary>Stimulus : petites interactions et cycle de vie</summary>
+      <p>
+        <code>filtered_results_controller.js</code> gère chargement, erreur et focus de la région filtrée de Missions et
+        de Documents, branché dans Twig par <code>stimulus_controller()</code> et <code>stimulus_action()</code>. Le
+        skeleton n’apparaît qu’après 140 ms de requête, jamais pour une réponse rapide.
+        <code>theme_controller.js</code> révèle le thème depuis le bouton. Chaque minuteur est nettoyé à la
+        déconnexion et avant la mise en cache Turbo.
+      </p>
+      <pre><code>export default class extends Controller {
+    static targets = ['skeleton', 'content'];
+    start(event) {
+        this.skeletonTimer = setTimeout(() => this.showSkeleton(), SKELETON_DELAY);
+    }
+    disconnect() { this.stopLoading(); }
+}</code></pre>
+      <a class="ui-link" href="https://stimulus.hotwired.dev/reference/lifecycle-callbacks" target="_blank" rel="noopener noreferrer">Documentation Stimulus : cycle de vie</a>
+    </details>
+
+    <details>
+      <summary>SCSS et Encore : des tokens aux composants</summary>
+      <p>
+        Les styles sont des modules <code>@use</code> rangés par couche : <code>settings</code> (primitives de marque,
+        rôles sémantiques, points de rupture), <code>base</code>, <code>components</code> (un partiel par
+        composant Ui), <code>layout</code>, <code>domain</code>, <code>pages</code> et <code>motion</code>. Les
+        composants ne lisent que des propriétés CSS sémantiques : le thème sombre redéfinit les rôles, pas les
+        composants. Les listes s’adaptent à leur conteneur avec des container queries.
+      </p>
+      <pre><code>// settings/_tokens.scss
+:root { --action: #{brand.$green}; --copper: #8c4810; }
+[data-theme='dark'] { --action: #8fcfa2; }
+
+// components/_status.scss
+.ui-status--amber { --_ink: var(--copper); }</code></pre>
+      <a class="ui-link" href="https://symfony.com/doc/current/frontend/encore/simple-example.html" target="_blank" rel="noopener noreferrer">Documentation Encore</a>
+    </details>
+  </section>
+
+  <p class="page-footnote">
+    Symfony 7.4, Twig 3, TwigComponent 3.6, Stimulus 3 et Turbo 8 sont utilisés ici. Ce guide explique cette réalisation.
+  </p>
+{% endblock %}

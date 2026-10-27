@@ -1,4 +1,5 @@
 {# Ui:Field — label, id, help, error ; le contrôle natif est passé en contenu et relie lui-même ses descriptions #}
+{% props id, label = null, help = null, error = null, required = false %}
 <div {{ attributes.defaults({ class: 'ui-field' ~ (error ? ' ui-field--error' : '') }) }}>
   {% if label %}
     <label class="ui-field__label" for="{{ id }}">{{ label }}{% if required %}<span class="ui-field__required" aria-hidden="true"> *</span>{% endif %}</label>

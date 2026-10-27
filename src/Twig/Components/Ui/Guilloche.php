@@ -24,7 +24,10 @@ final class Guilloche
     /** Anime l'impression du trait : réservé au moment où la valeur apparaît. */
     public bool $animated = false;
 
-    /** Identifiant propre à l'instance, pour référencer la contre-courbe sans collision. */
+    /**
+     * Identifiant propre à l'instance, pour que les <use> visent la contre-courbe de leur rosette.
+     * Un compteur par processus suffit : chaque requête rend sa page, une même page ne se répète pas.
+     */
     public readonly string $uid;
 
     public function __construct()
@@ -32,12 +35,16 @@ final class Guilloche
         $this->uid = 'guilloche-'.++self::$instances;
     }
 
-    /** Angles des copies de la contre-courbe : leur décalage tisse la trame. */
+    /**
+     * Angles des copies de la contre-courbe : leur décalage tisse la trame.
+     *
+     * @return list<float>
+     */
     public function weave(): array
     {
         $loops = self::LOOPS[$this->index($this->seed + 2)];
 
-        return array_map(static fn(int $i): float => round($i * 360 / $loops / 4, 2), [1, 2, 3]);
+        return array_map(static fn (int $i): float => round($i * 360 / $loops / 4, 2), [1, 2, 3]);
     }
 
     /** Courbe principale, celle qui porte l'avancement. */
@@ -112,9 +119,16 @@ final class Guilloche
         return $this->path($points);
     }
 
-    /** Chemin relatif en entiers : compact et suffisamment précis à l'échelle d'affichage. */
+    /**
+     * Chemin relatif en entiers : compact et suffisamment précis à l'échelle d'affichage.
+     *
+     * @param list<array{float|int, float|int}> $points
+     */
     private function path(array $points): string
     {
+        if ([] === $points) {
+            return '';
+        }
         [$px, $py] = [(int) round($points[0][0]), (int) round($points[0][1])];
         $out = 'M'.$px.' '.$py;
         foreach (array_slice($points, 1) as [$x, $y]) {

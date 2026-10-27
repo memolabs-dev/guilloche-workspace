@@ -18,17 +18,17 @@
     animation: sheet-print var(--t-print) var(--ease-out) both;
   }
 
-  &--action {
+  &--amber {
     --rosette-ink: var(--copper-line);
     --sheet-accent: var(--copper);
   }
 
-  &--progress {
+  &--blue {
     --rosette-ink: var(--blue-line);
     --sheet-accent: var(--blue);
   }
 
-  &--done {
+  &--green {
     --rosette-ink: var(--green-line);
     --sheet-accent: var(--green);
   }

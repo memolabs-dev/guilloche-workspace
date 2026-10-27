@@ -1,5 +1,6 @@
-{# Ui:Notice — type info|success|error ; message #}
+{# Ui:Notice — type info|success|error #}
+{% props type = 'info', message %}
 <div {{ attributes.defaults({ class: 'ui-notice ui-notice--' ~ type }) }}>
   <twig:Ui:Icon name="{{ type == 'error' ? 'alert' : type == 'success' ? 'circlecheck' : 'info' }}" />
-  <p>{{ message }}{% block content %}{% endblock %}</p>
+  <p>{{ message }}</p>
 </div>

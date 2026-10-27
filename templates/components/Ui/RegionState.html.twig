@@ -1,4 +1,5 @@
 {# Ui:RegionState — loading | empty | error | full #}
+{% props state = 'full', title = null, message = null, retryUrl = null %}
 <div {{ attributes.defaults({ class: 'ui-region ui-region--' ~ state }) }}>
   {% if state == 'loading' %}
     <span class="sr-only">Chargement en cours</span>

@@ -1,10 +1,9 @@
 {% set current = app.request.attributes.get('_route') %}
-{% set library = library|default(false) %}
 {% set nav = [
-  { route: 'overview', icon: 'grid', label: 'Vue d’ensemble', match: ['overview'] },
-  { route: 'missions', icon: 'briefcase', label: 'Missions', match: ['missions', 'mission_detail'], count: pending_missions() },
-  { route: 'documents', icon: 'file', label: 'Documents', match: ['documents', 'document_detail'] },
-  { route: 'billing', icon: 'wallet', label: 'Facturation', match: ['billing'] }
+  { route: 'app_dashboard', icon: 'grid', label: 'Vue d’ensemble' },
+  { route: 'app_mission_index', icon: 'briefcase', label: 'Missions', count: pending_missions_count() },
+  { route: 'app_document_index', icon: 'file', label: 'Documents' },
+  { route: 'app_billing', icon: 'wallet', label: 'Facturation' }
 ] %}
 <!DOCTYPE html>
 <html lang="fr" data-theme="light">
@@ -24,7 +23,7 @@
     {{ encore_entry_script_tags('app') }}
   </head>
   <body
-    class="app{{ library ? ' studio--library' : '' }}"
+    class="app"
     data-controller="shell theme"
     data-action="keydown@window->shell#shortcut turbo:before-cache@document->shell#reset"
   >
@@ -33,7 +32,7 @@
       <aside class="rail" id="navigation" aria-label="Navigation principale" data-shell-target="sidebar">
         <twig:Ui:Guilloche variant="band" :seed="2" class="rail__band" />
         <div class="rail__top">
-          <a class="wordmark" href="{{ path('overview') }}" aria-label="Guilloché, accueil de l’espace">guilloché<span>.</span></a>
+          <a class="wordmark" href="{{ path('app_dashboard') }}" aria-label="Guilloché, accueil de l’espace">guilloché<span>.</span></a>
           <button class="ui-icon-button rail__close" type="button" data-action="shell#closeNav" aria-label="Fermer le menu">
             <twig:Ui:Icon name="close" />
           </button>
@@ -46,7 +45,8 @@
 
         <nav class="rail__nav" aria-label="Rubriques">
           {% for item in nav %}
-            {% set active = current in item.match %}
+            {# Une rubrique reste active sur ses pages filles : app_mission_index et app_mission_show. #}
+            {% set active = current starts with item.route|replace({ '_index': '' }) %}
             <a class="rail__link{{ active ? ' is-active' : '' }}" href="{{ path(item.route) }}" aria-current="{{ active ? 'page' : 'false' }}">
               <twig:Ui:Icon name="{{ item.icon }}" />
               <span>{{ item.label }}</span>
@@ -56,10 +56,10 @@
         </nav>
 
         <nav class="rail__bottom" aria-label="Sous le capot">
-          <a class="rail__link{{ current == 'design_system' ? ' is-active' : '' }}" href="{{ path('design_system') }}" aria-current="{{ current == 'design_system' ? 'page' : 'false' }}">
+          <a class="rail__link{{ current == 'app_design_system' ? ' is-active' : '' }}" href="{{ path('app_design_system') }}" aria-current="{{ current == 'app_design_system' ? 'page' : 'false' }}">
             <twig:Ui:Icon name="seal" /><span>Design system</span>
           </a>
-          <a class="rail__link{{ current == 'guide' ? ' is-active' : '' }}" href="{{ path('guide') }}" aria-current="{{ current == 'guide' ? 'page' : 'false' }}">
+          <a class="rail__link{{ current == 'app_guide' ? ' is-active' : '' }}" href="{{ path('app_guide') }}" aria-current="{{ current == 'app_guide' ? 'page' : 'false' }}">
             <twig:Ui:Icon name="book" /><span>Comprendre la stack</span>
           </a>
           <p class="rail__concept">Concept indépendant, données fictives.</p>
@@ -133,12 +133,12 @@
       </div>
       <div class="search-dialog__results" data-shell-target="results">
         {% for item in [
-          { href: path('missions', { selected: 1 }), label: 'Rémunération du dirigeant', caption: 'Mission à votre tour', icon: 'briefcase' },
-          { href: path('missions', { selected: 2 }), label: 'Audit de votre structure', caption: 'Mission en cours', icon: 'briefcase' },
-          { href: path('document_detail', { id: 1 }), label: 'Votre synthèse', caption: 'Document de la mission Rémunération du dirigeant', icon: 'file' },
-          { href: path('documents'), label: 'Documents', caption: 'Toutes vos pièces', icon: 'file' },
-          { href: path('billing'), label: 'Facturation', caption: 'Historique des factures', icon: 'wallet' },
-          { href: path('design_system'), label: 'Design system', caption: 'Encres, composants, mouvement', icon: 'seal' }
+          { href: path('app_mission_index', { selected: 1 }), label: 'Rémunération du dirigeant', caption: 'Mission à votre tour', icon: 'briefcase' },
+          { href: path('app_mission_index', { selected: 2 }), label: 'Audit de votre structure', caption: 'Mission en cours', icon: 'briefcase' },
+          { href: path('app_document_show', { id: 1 }), label: 'Votre synthèse', caption: 'Document de la mission Rémunération du dirigeant', icon: 'file' },
+          { href: path('app_document_index'), label: 'Documents', caption: 'Toutes vos pièces', icon: 'file' },
+          { href: path('app_billing'), label: 'Facturation', caption: 'Historique des factures', icon: 'wallet' },
+          { href: path('app_design_system'), label: 'Design system', caption: 'Encres, composants, mouvement', icon: 'seal' }
         ] %}
           <a href="{{ item.href }}" data-search-item data-action="click->shell#closeSearch">
             <twig:Ui:Icon name="{{ item.icon }}" />

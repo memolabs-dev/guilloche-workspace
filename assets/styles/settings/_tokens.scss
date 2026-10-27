@@ -107,12 +107,6 @@
   --shadow-1: 0 1px 2px rgb(20 38 27 / 0.06), 0 1px 1px rgb(20 38 27 / 0.04);
   --shadow-2: 0 12px 32px -14px rgb(20 38 27 / 0.24), 0 2px 6px rgb(20 38 27 / 0.06);
   --shadow-3: 0 32px 80px -24px rgb(8 22 13 / 0.45), 0 8px 24px -12px rgb(8 22 13 / 0.2);
-
-  // Alias consommés par l'archive /explorations, conservée telle quelle
-  --font-body: var(--font-ui);
-  --font-tech: var(--font-serial);
-  --danger-bg: var(--red-soft);
-  --danger-text: var(--red);
 }
 
 // Thème sombre : un billet tenu à contre-jour, encres éclaircies, mêmes rôles.

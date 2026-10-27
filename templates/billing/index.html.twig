@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title %}Facturation{% endblock %}
+{% block body %}
+  <div class="page-head">
+    <div>
+      <h1>Facturation</h1>
+      <p>Une trace claire de votre accompagnement. Les montants de cet exemple sont fictifs.</p>
+    </div>
+  </div>
+
+  <section class="ledger-summary sheet" aria-labelledby="ledger-state">
+    <twig:Ui:Guilloche :seed="4" :progress="100" :size="72" class="ledger-summary__seal" />
+    <div>
+      <h2 id="ledger-state">Tout est à jour.</h2>
+      <p>Aucune facture en attente pour Atelier Rivage.</p>
+    </div>
+    <twig:Ui:Status tone="green" text="Aucun paiement à effectuer" />
+  </section>
+
+  <section class="sheet ledger" aria-labelledby="ledger-title">
+    <div class="section-head ledger__head">
+      <h2 id="ledger-title">Historique des factures</h2>
+      <p>Accompagnement mensuel, exercice 2026</p>
+    </div>
+    <div class="ledger__scroll" tabindex="0" role="region" aria-labelledby="ledger-title">
+      <table class="ledger__table">
+        <thead>
+          <tr>
+            <th scope="col">Facture</th>
+            <th scope="col">Date</th>
+            <th scope="col" class="is-amount">Montant HT</th>
+            <th scope="col">Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for invoice in invoices %}
+            <tr>
+              <td><strong>{{ invoice.label }}</strong><span class="ui-serial">{{ invoice.number }}</span></td>
+              <td class="ui-numeric">{{ invoice.issuedOn|short_date }}</td>
+              <td class="is-amount">{{ invoice.amountInCents|euros }}</td>
+              <td>{% if invoice.paid %}<twig:Ui:Status tone="green" text="Réglée" />{% else %}<twig:Ui:Status tone="amber" text="À régler" />{% endif %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <p class="page-footnote">Aucun système de paiement n’est relié à cette démonstration.</p>
+{% endblock %}

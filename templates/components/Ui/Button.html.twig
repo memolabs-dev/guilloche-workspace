@@ -1,5 +1,6 @@
 {# Ui:Button — intent primary|secondary|danger ; appearance solid|soft|outline|ghost ; size sm|md|lg.
    Avec href : un vrai lien (navigation). Sans href : un bouton (action). Un lien n'a jamais d'état disabled. #}
+{% props intent = 'primary', appearance = 'solid', size = 'md', type = 'button', href = null, disabled = false, loading = false %}
 {% set tag = href ? 'a' : 'button' %}
 {% set defaults = {
   class: 'ui-button ui-button--' ~ intent ~ ' ui-button--' ~ appearance ~ ' ui-button--' ~ size ~ (loading ? ' is-loading' : '')
