@@ -74,3 +74,11 @@ node tests/e2e/browser.mjs                        # Chromium réel, serveur acti
 Le parcours e2e couvre les mises en page de 390 à 1440 px, les filtres et la sélection par Turbo, l'historique, les erreurs réseau et la reprise, le skeleton, le mouvement réduit, les dialogues, le thème et le fonctionnement sans JavaScript.
 
 La CI (GitHub Actions) lance les contrôles PHP et la compilation des assets ; l'image n'est publiée sur GHCR que si tout est vert.
+
+## Consommation réelle du kit Guilloche
+
+Les lignes de missions utilisent maintenant `<twig:Ui:Rosette :seed="mission.reference" />`, provenant de la recette `memolabs-dev/guilloche`. Le calculateur `Guilloche\Signature\RosetteGeometry` et le subscriber `Guilloche\Signature\AutoGeometrySubscriber` sont apportés par Composer ; le hook `PreRenderEvent` calcule les contours dès la réponse HTTP, sans exiger une prop `paths` ni du JavaScript. Les rosettes plus grandes de la page d'accueil restent des éléments de marque historiques, indépendants du nouveau kit neutre.
+
+Le paquet est actuellement référencé comme dépôt VCS et figé au commit `7eccdff` dans `composer.json` / `composer.lock`, dans l'attente d'un tag stable et de la publication Packagist. Ne pas actualiser la branche `dev-main` sans revue du contrat et E2E.
+
+La CI bloque désormais la publication GHCR tant que les tests PHP, les assets **et** le scénario navigateur Chromium n'ont pas tous réussi.
