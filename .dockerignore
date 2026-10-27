@@ -1,11 +1,20 @@
+# Seul ce qu'il faut pour servir l'application entre dans l'image.
 .git
+.github
+.vscode
+.agent
+.agents
+.impeccable
+.hallmark
+docs
+tests
+scripts
 node_modules
 vendor
 var
 public/build
 public/bundles
-.agent/project/screenshots
-.agent/archive
-.impeccable/review
+.env.dev
 .env.local
 .env.*.local
+*.md

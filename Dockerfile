@@ -26,8 +26,7 @@ COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
 COPY --from=vendor /app/vendor vendor
 COPY . .
 COPY --from=assets /app/public/build public/build
-RUN rm -rf node_modules var .agent .impeccable .hallmark tests \
- && composer dump-autoload --no-dev --classmap-authoritative \
+RUN composer dump-autoload --no-dev --classmap-authoritative \
  && APP_SECRET=build php bin/console cache:warmup \
  && chown -R www-data:www-data var
 # Aucun état métier : le secret ne protège que des jetons de démonstration, tiré au démarrage
