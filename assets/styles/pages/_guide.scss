@@ -1,0 +1,159 @@
+@use '../settings/mixins' as *;
+
+.guide-chain {
+  display: grid;
+  gap: var(--s-3);
+  margin-bottom: var(--s-7);
+  counter-reset: step;
+
+  @include up(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up(lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  &__step {
+    position: relative;
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-5);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-surface);
+    background: var(--sheet-raised);
+
+    strong {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 500;
+    }
+
+    p {
+      color: var(--ink-2);
+      font-size: var(--text-sm);
+    }
+  }
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--r-control);
+    background: var(--intaglio);
+    color: var(--intaglio-ink);
+  }
+}
+
+.guide-example {
+  display: grid;
+  gap: var(--s-5);
+  align-items: center;
+  margin-bottom: var(--s-7);
+  padding: var(--s-6);
+
+  @include up(md) {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  h2 {
+    margin-bottom: var(--s-2);
+    font-size: var(--text-xl);
+    font-weight: 600;
+  }
+
+  p {
+    max-width: 72ch;
+    color: var(--ink-2);
+  }
+}
+
+.guide-details {
+  display: grid;
+  gap: var(--s-2);
+
+  details {
+    border: 1px solid var(--rule);
+    border-radius: var(--r-surface);
+    background: var(--sheet-raised);
+    transition: box-shadow var(--t-state) var(--ease-standard);
+
+    &[open] {
+      box-shadow: var(--shadow-1);
+    }
+
+    > :not(summary) {
+      margin: 0 var(--s-5) var(--s-4);
+    }
+
+    p {
+      max-width: 75ch;
+      color: var(--ink-2);
+    }
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 56px;
+    padding: var(--s-3) var(--s-5);
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-right: 1.6px solid currentColor;
+      border-bottom: 1.6px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform var(--t-state) var(--ease-out);
+    }
+  }
+
+  details[open] summary::after {
+    transform: rotate(225deg);
+  }
+
+  // Ouverture animée sans JavaScript (interpolate-size quand le navigateur le permet).
+  details::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size var(--t-enter) var(--ease-out), content-visibility var(--t-enter) allow-discrete;
+  }
+
+  details[open]::details-content {
+    block-size: auto;
+  }
+}
+
+:root {
+  interpolate-size: allow-keywords;
+}
+
+// Code inline et blocs, communs au guide et au catalogue.
+.page :not(pre) > code {
+  padding: 0 var(--s-1);
+  border-radius: 4px;
+  background: var(--sheet-sunken);
+  color: var(--ink);
+  font-size: 0.86em;
+}
+
+.page pre {
+  overflow-x: auto;
+  padding: var(--s-4);
+  border-radius: var(--r-control);
+  background: var(--intaglio);
+  color: var(--intaglio-ink);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  tab-size: 4;
+}

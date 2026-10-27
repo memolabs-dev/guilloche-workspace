@@ -1,0 +1,39 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
+
+# Local macOS and Python artifacts
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+
+# Captures régénérables (tests/browser.mjs, revues Impeccable)
+/.agent/project/screenshots/
+/.impeccable/review/
+
+# Notes de travail privées : recherche, suivi, archives et rendus refusés (restent en local)
+/docs/research/*
+!/docs/research/agent-guides-2026-10-27.md
+/docs/design-system.md
+/docs/design-system-v2.md
+/docs/design-proposal.md
+/docs/screenshots/
+/.agent/project/
+/.agent/archive/
+/.hallmark/
+/.impeccable/questions/

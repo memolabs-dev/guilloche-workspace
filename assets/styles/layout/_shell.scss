@@ -1,0 +1,529 @@
+@use '../settings/config';
+@use '../settings/mixins' as *;
+
+.app-shell {
+  min-height: 100vh;
+}
+
+// Rail : le bandeau d'encre intaille du titre. Navigation standard, monde dans la matière.
+// Sans JavaScript, il reste dans le flux en tête de page ; avec (.js), il devient un tiroir.
+.rail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  padding: var(--s-5) var(--s-4) var(--s-5);
+  overflow: hidden auto;
+  background: var(--intaglio);
+  color: var(--intaglio-ink);
+  view-transition-name: rail;
+
+  .js & {
+    position: fixed;
+    z-index: 40;
+    inset: 0 auto 0 0;
+    width: min(config.$rail-width + 24px, 86vw);
+    visibility: hidden;
+    transform: translateX(-102%);
+    transition: transform var(--t-enter) var(--ease-out), visibility 0s linear var(--t-enter);
+
+    &.is-open {
+      visibility: visible;
+      transform: none;
+      transition: transform var(--t-enter) var(--ease-out), visibility 0s;
+    }
+  }
+
+  @include up(md) {
+    &,
+    .js & {
+      position: fixed;
+      z-index: 40;
+      inset: 0 auto 0 0;
+      width: config.$rail-width;
+      visibility: visible;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__band {
+    --band-opacity: 0.55;
+
+    position: absolute;
+    z-index: 0;
+    inset: 0 0 auto;
+    width: 100%;
+    height: 132px;
+    color: var(--intaglio-line);
+    mask: linear-gradient(to bottom, black 30%, transparent);
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--hit);
+    padding-left: var(--s-2);
+  }
+
+  &__close {
+    color: var(--intaglio-ink-2);
+
+    &:hover {
+      background: var(--intaglio-wash);
+      color: var(--intaglio-ink);
+    }
+
+    html:not(.js) & {
+      display: none;
+    }
+
+    @include up(md) {
+      display: none;
+    }
+  }
+
+  &__company {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3);
+    border: 1px solid var(--intaglio-edge);
+    border-radius: var(--r-surface);
+    background: var(--intaglio-veil);
+
+    strong {
+      display: block;
+      font-size: var(--text-md);
+      font-weight: 600;
+    }
+
+    small {
+      display: block;
+      color: var(--intaglio-ink-2);
+      font-size: var(--text-xs);
+    }
+  }
+
+  &__company-mark {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex: none;
+    border-radius: var(--r-control);
+    background: var(--intaglio-ink);
+    color: var(--intaglio);
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  &__nav {
+    display: grid;
+    gap: 2px;
+  }
+
+  &__link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    min-height: var(--hit);
+    padding: 0 var(--s-3);
+    border-radius: var(--r-control);
+    color: var(--intaglio-ink-2);
+    font-weight: 500;
+    transition: background-color var(--t-feedback) var(--ease-standard), color var(--t-feedback) var(--ease-standard);
+
+    &:hover {
+      background: var(--intaglio-wash);
+      color: var(--intaglio-ink);
+    }
+
+    &.is-active {
+      background: var(--intaglio-wash-strong);
+      color: var(--intaglio-ink);
+      box-shadow: inset 0 0 0 1px var(--intaglio-edge);
+      view-transition-name: rail-active;
+    }
+
+    &:focus-visible {
+      outline-color: var(--intaglio-ink);
+    }
+  }
+
+  &__count {
+    margin-left: auto;
+    display: inline-grid;
+    place-items: center;
+    min-width: 24px;
+    height: 20px;
+    padding: 0 var(--s-2);
+    border-radius: var(--r-pill);
+    background: var(--copper-line);
+    color: var(--count-ink);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__bottom {
+    display: grid;
+    gap: 2px;
+    margin-top: auto;
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--intaglio-edge);
+  }
+
+  &__concept {
+    margin: var(--s-3) var(--s-3) var(--s-1);
+    color: var(--intaglio-ink-2);
+    font-size: var(--text-xs);
+  }
+
+  .ui-microtext {
+    margin: 0 var(--s-3);
+    color: var(--intaglio-line);
+  }
+}
+
+.wordmark {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--intaglio-ink);
+
+  span {
+    color: var(--intaglio-copper);
+  }
+}
+
+.rail-scrim {
+  position: fixed;
+  z-index: 35;
+  inset: 0;
+  background: var(--scrim);
+  animation: scrim-in var(--t-state) var(--ease-standard);
+
+  @include up(md) {
+    display: none;
+  }
+}
+
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
+
+  @include up(md) {
+    margin-left: config.$rail-width;
+  }
+}
+
+// Barre haute : contexte, recherche, thème, profil.
+.topbar {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 64px;
+  padding: var(--s-2) var(--s-4);
+  border-bottom: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px);
+  view-transition-name: topbar;
+
+  @include up(md) {
+    padding: var(--s-2) var(--s-7);
+  }
+
+  &__menu {
+    html:not(.js) & {
+      display: none;
+    }
+
+    @include up(md) {
+      display: none;
+    }
+  }
+
+  &__trail {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    min-width: 0;
+    color: var(--ink-3);
+    font-size: var(--text-sm);
+
+    > span:first-child {
+      @include down(sm) {
+        display: none;
+      }
+    }
+
+    .ui-icon {
+      @include down(sm) {
+        display: none;
+      }
+    }
+
+    [aria-current] {
+      overflow: hidden;
+      color: var(--ink);
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  &__search {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    min-height: 40px;
+    margin-left: auto;
+    padding: 0 var(--s-2) 0 var(--s-3);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--r-control);
+    background: var(--sheet-raised);
+    color: var(--ink-3);
+    font-size: var(--text-sm);
+    transition: border-color var(--t-feedback) var(--ease-standard), box-shadow var(--t-feedback) var(--ease-standard);
+
+    &:hover {
+      border-color: var(--control-line);
+      box-shadow: var(--shadow-1);
+    }
+
+    span {
+      @include down(sm) {
+        @include hide-visually;
+      }
+
+      @include up(lg) {
+        min-width: 160px;
+        text-align: left;
+      }
+    }
+
+    kbd {
+      padding: 2px var(--s-1);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      background: var(--sheet);
+      font-size: 11px;
+      color: var(--ink-2);
+
+      @include down(sm) {
+        display: none;
+      }
+    }
+  }
+
+  &__theme {
+    .topbar__sun {
+      display: none;
+    }
+
+    &[aria-pressed='true'] {
+      .topbar__sun {
+        display: block;
+      }
+
+      .topbar__moon {
+        display: none;
+      }
+    }
+
+    .ui-icon {
+      animation: theme-icon var(--t-enter) var(--ease-out);
+    }
+  }
+
+  &__avatar {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--intaglio);
+    color: var(--intaglio-ink);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--rule-strong);
+  }
+}
+
+@keyframes theme-icon {
+  from {
+    opacity: 0;
+    transform: rotate(-60deg) scale(0.7);
+  }
+}
+
+.page {
+  flex: 1;
+  width: 100%;
+  max-width: config.$content-max + 64px;
+  margin: 0 auto;
+  padding: var(--s-6) var(--s-4) var(--s-9);
+  view-transition-name: page;
+
+  &:focus {
+    outline: none;
+  }
+
+  @include up(md) {
+    padding: var(--s-8) var(--s-7) var(--s-10);
+  }
+}
+
+.app-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-6);
+  padding: var(--s-5) var(--s-4);
+  border-top: 1px solid var(--rule);
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+
+  @include up(md) {
+    padding: var(--s-5) var(--s-7);
+  }
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+}
+
+// Recherche ⌘K
+.search-dialog {
+  width: min(600px, calc(100% - 32px));
+  margin-top: 12vh;
+
+  &__field {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-3) var(--s-3) var(--s-5);
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-3);
+
+    input {
+      flex: 1;
+      min-width: 0;
+      min-height: var(--hit);
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: var(--text-lg);
+
+      &:focus-visible {
+        outline: none;
+      }
+
+      &::placeholder {
+        color: var(--ink-3);
+      }
+    }
+  }
+
+  &__esc {
+    min-height: 32px;
+    padding: 0 var(--s-2);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--sheet);
+    color: var(--ink-2);
+    font-size: var(--text-xs);
+  }
+
+  &__results {
+    display: grid;
+    gap: 2px;
+    max-height: 50vh;
+    padding: var(--s-2);
+    overflow: auto;
+
+    a {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: var(--s-3);
+      min-height: 56px;
+      padding: var(--s-2) var(--s-3);
+      border-radius: var(--r-control);
+      color: var(--ink-2);
+      transition: background-color var(--t-feedback) var(--ease-standard);
+
+      &:hover,
+      &:focus-visible {
+        outline: none;
+        background: var(--action-soft);
+        color: var(--action-ink);
+      }
+
+      &:focus-visible {
+        box-shadow: inset 0 0 0 2px var(--focus);
+      }
+    }
+
+    strong {
+      display: block;
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    small {
+      display: block;
+      font-size: var(--text-xs);
+    }
+  }
+
+  &__empty {
+    padding: var(--s-6);
+    color: var(--ink-3);
+    text-align: center;
+  }
+}
+
+body.nav-open {
+  overflow: clip;
+
+  @include up(md) {
+    overflow: visible;
+    overflow-x: clip;
+  }
+}
+
+@include reduced-motion {
+  .js .rail,
+  .js .rail.is-open {
+    transition: visibility 0s;
+  }
+
+  .topbar__theme .ui-icon {
+    animation: none;
+  }
+}

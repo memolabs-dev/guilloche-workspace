@@ -1,0 +1,16 @@
+{# Ui:RegionState — loading | empty | error | full #}
+<div {{ attributes.defaults({ class: 'ui-region ui-region--' ~ state }) }}>
+  {% if state == 'loading' %}
+    <span class="sr-only">Chargement en cours</span>
+    <twig:Ui:Skeleton :rows="3" />
+  {% elseif state in ['empty', 'error'] %}
+    <div class="ui-region__message">
+      <twig:Ui:Guilloche :seed="state == 'error' ? 5 : 3" :size="88" class="ui-region__seal" />
+      {% if title %}<h3>{{ title }}</h3>{% endif %}
+      {% if message %}<p>{{ message }}</p>{% endif %}
+      {% if retryUrl %}<twig:Ui:Button href="{{ retryUrl }}" intent="secondary" appearance="outline">Réessayer</twig:Ui:Button>{% endif %}
+    </div>
+  {% else %}
+    {% block content %}{% endblock %}
+  {% endif %}
+</div>

@@ -1,0 +1,90 @@
+@use '../settings/mixins' as *;
+
+// En-tête de page : titre en Didone, une phrase de contexte, actions à droite.
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-4) var(--s-6);
+  margin-bottom: var(--s-7);
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: 500;
+    font-variation-settings: 'opsz' 72;
+    letter-spacing: -0.015em;
+    line-height: 1.05;
+  }
+
+  p {
+    max-width: 62ch;
+    margin-top: var(--s-3);
+    color: var(--ink-2);
+    font-size: var(--text-lg);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+}
+
+.page-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: var(--hit);
+  margin-bottom: var(--s-3);
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+
+  .ui-icon {
+    transition: transform var(--t-state) var(--ease-out);
+  }
+
+  &:hover {
+    color: var(--ink);
+
+    .ui-icon {
+      transform: translateX(-3px);
+    }
+  }
+}
+
+// Surface de travail : la feuille posée sur le papier.
+.sheet {
+  border: 1px solid var(--rule);
+  border-radius: var(--r-surface);
+  background: var(--sheet-raised);
+  box-shadow: var(--shadow-1);
+}
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+  margin-bottom: var(--s-4);
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    color: var(--ink-3);
+    font-size: var(--text-sm);
+  }
+}
+
+.page-footnote {
+  margin-top: var(--s-7);
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}

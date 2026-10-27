@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ mission.title }}{% endblock %}
+{% block context %}Missions{% endblock %}
+{% block body %}
+  <div class="standalone">
+    <a class="page-back" href="{{ path('missions') }}">Toutes les missions</a>
+    <twig:Mission:Detail :mission="mission" :documents="documents" :headingLevel="1" />
+  </div>
+{% endblock %}

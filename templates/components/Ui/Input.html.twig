@@ -1,0 +1,11 @@
+{# Ui:Input — champ natif, état invalide et descriptions explicites #}
+<input {{ attributes.defaults({
+  class: 'ui-input',
+  type: type,
+  id: id,
+  name: name ?? false,
+  placeholder: placeholder ?? false,
+  value: value ?? false,
+  'aria-describedby': describedBy ?? false,
+  disabled: disabled
+}|merge(invalid ? { 'aria-invalid': 'true' } : {})) }} />

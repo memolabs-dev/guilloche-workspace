@@ -1,0 +1,3 @@
+{# Ui:Status — code métier (action|progress|done) ; le texte porte le sens, la teinte le confirme #}
+{% set tone = { action: 'amber', progress: 'blue', done: 'green' }[code] ?? 'neutral' %}
+<span {{ attributes.defaults({ class: 'ui-status ui-status--' ~ tone }) }}>{{ text }}</span>

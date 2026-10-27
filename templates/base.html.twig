@@ -1,0 +1,152 @@
+{% set current = app.request.attributes.get('_route') %}
+{% set library = library|default(false) %}
+{% set nav = [
+  { route: 'overview', icon: 'grid', label: 'Vue d’ensemble', match: ['overview'] },
+  { route: 'missions', icon: 'briefcase', label: 'Missions', match: ['missions', 'mission_detail'], count: pending_missions() },
+  { route: 'documents', icon: 'file', label: 'Documents', match: ['documents', 'document_detail'] },
+  { route: 'billing', icon: 'wallet', label: 'Facturation', match: ['billing'] }
+] %}
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="view-transition" content="same-origin" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{% block title %}Votre espace{% endblock %} · Guilloché, concept</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2316301f'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23c9dccb' stroke-width='5'/%3E%3C/svg%3E" />
+    <script data-theme-init>
+      document.documentElement.classList.add('js');
+      try { document.documentElement.dataset.theme = localStorage.getItem('guilloche-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (e) {}
+    </script>
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('app') }}
+  </head>
+  <body
+    class="app{{ library ? ' studio--library' : '' }}"
+    data-controller="shell theme"
+    data-action="keydown@window->shell#shortcut turbo:before-cache@document->shell#reset"
+  >
+    <a class="skip-link" href="#main">Aller au contenu</a>
+    <div class="app-shell">
+      <aside class="rail" id="navigation" aria-label="Navigation principale" data-shell-target="sidebar">
+        <twig:Ui:Guilloche variant="band" :seed="2" class="rail__band" />
+        <div class="rail__top">
+          <a class="wordmark" href="{{ path('overview') }}" aria-label="Guilloché, accueil de l’espace">guilloché<span>.</span></a>
+          <button class="ui-icon-button rail__close" type="button" data-action="shell#closeNav" aria-label="Fermer le menu">
+            <twig:Ui:Icon name="close" />
+          </button>
+        </div>
+
+        <div class="rail__company">
+          <span class="rail__company-mark" aria-hidden="true">AR</span>
+          <span><strong>Atelier Rivage</strong><small>Espace dirigeant, SAS</small></span>
+        </div>
+
+        <nav class="rail__nav" aria-label="Rubriques">
+          {% for item in nav %}
+            {% set active = current in item.match %}
+            <a class="rail__link{{ active ? ' is-active' : '' }}" href="{{ path(item.route) }}" aria-current="{{ active ? 'page' : 'false' }}">
+              <twig:Ui:Icon name="{{ item.icon }}" />
+              <span>{{ item.label }}</span>
+              {% if item.count is defined %}<span class="rail__count"><span class="sr-only">, </span>{{ item.count }}<span class="sr-only"> à votre tour</span></span>{% endif %}
+            </a>
+          {% endfor %}
+        </nav>
+
+        <nav class="rail__bottom" aria-label="Sous le capot">
+          <a class="rail__link{{ current == 'design_system' ? ' is-active' : '' }}" href="{{ path('design_system') }}" aria-current="{{ current == 'design_system' ? 'page' : 'false' }}">
+            <twig:Ui:Icon name="seal" /><span>Design system</span>
+          </a>
+          <a class="rail__link{{ current == 'guide' ? ' is-active' : '' }}" href="{{ path('guide') }}" aria-current="{{ current == 'guide' ? 'page' : 'false' }}">
+            <twig:Ui:Icon name="book" /><span>Comprendre la stack</span>
+          </a>
+          <p class="rail__concept">Concept indépendant, données fictives.</p>
+          <span class="ui-microtext" aria-hidden="true">GUILLOCHÉ ESPACE DIRIGEANT ATELIER RIVAGE GUILLOCHÉ ESPACE DIRIGEANT ATELIER RIVAGE GUILLOCHÉ</span>
+        </nav>
+      </aside>
+      <div class="rail-scrim" data-action="click->shell#closeNav" data-shell-target="scrim" hidden></div>
+
+      <div class="app-main" data-shell-target="main">
+        <header class="topbar">
+          <button
+            class="ui-icon-button topbar__menu"
+            type="button"
+            data-action="shell#toggleNav"
+            aria-label="Ouvrir le menu"
+            aria-controls="navigation"
+            aria-expanded="false"
+            data-shell-target="menu"
+          >
+            <twig:Ui:Icon name="menu" />
+          </button>
+          <nav class="topbar__trail" aria-label="Fil d’Ariane">
+            <span>Atelier Rivage</span>
+            <twig:Ui:Icon name="chevron" size="14" />
+            <span aria-current="page">{% block context %}{{ block('title') }}{% endblock %}</span>
+          </nav>
+          <button class="topbar__search" type="button" data-action="shell#openSearch" aria-keyshortcuts="Meta+K Control+K">
+            <twig:Ui:Icon name="search" size="18" />
+            <span>Rechercher</span>
+            <kbd>⌘K</kbd>
+          </button>
+          <button
+            class="ui-icon-button topbar__theme"
+            type="button"
+            data-action="theme#toggle"
+            data-theme-target="button"
+            aria-pressed="false"
+            aria-label="Thème sombre"
+          >
+            <twig:Ui:Icon name="moon" class="topbar__moon" />
+            <twig:Ui:Icon name="sun" class="topbar__sun" />
+          </button>
+          <span class="topbar__avatar" role="img" aria-label="Alexandre Rivage, profil de démonstration">AR</span>
+        </header>
+
+        <main id="main" class="page" tabindex="-1">
+          {% block body %}{% endblock %}
+        </main>
+
+        <footer class="app-footer">
+          <span><twig:Ui:Icon name="lock" size="16" /> Concept indépendant, données entièrement fictives.</span>
+          <span>Conçu par Guillaume Flambard</span>
+        </footer>
+      </div>
+    </div>
+
+    <dialog class="search-dialog" aria-labelledby="search-title" data-shell-target="searchDialog" data-action="click->shell#backdrop">
+      <h2 class="sr-only" id="search-title">Rechercher dans votre espace</h2>
+      <div class="search-dialog__field">
+        <twig:Ui:Icon name="search" />
+        <label class="sr-only" for="global-search">Rechercher une rubrique, une mission ou un document</label>
+        <input
+          id="global-search"
+          type="search"
+          placeholder="Une mission, un document…"
+          autocomplete="off"
+          data-shell-target="searchInput"
+          data-action="input->shell#filterSearch"
+        />
+        <button class="search-dialog__esc" type="button" data-action="shell#closeSearch">Échap</button>
+      </div>
+      <div class="search-dialog__results" data-shell-target="results">
+        {% for item in [
+          { href: path('missions', { selected: 1 }), label: 'Rémunération du dirigeant', caption: 'Mission à votre tour', icon: 'briefcase' },
+          { href: path('missions', { selected: 2 }), label: 'Audit de votre structure', caption: 'Mission en cours', icon: 'briefcase' },
+          { href: path('document_detail', { id: 1 }), label: 'Votre synthèse', caption: 'Document de la mission Rémunération du dirigeant', icon: 'file' },
+          { href: path('documents'), label: 'Documents', caption: 'Toutes vos pièces', icon: 'file' },
+          { href: path('billing'), label: 'Facturation', caption: 'Historique des factures', icon: 'wallet' },
+          { href: path('design_system'), label: 'Design system', caption: 'Encres, composants, mouvement', icon: 'seal' }
+        ] %}
+          <a href="{{ item.href }}" data-search-item data-action="click->shell#closeSearch">
+            <twig:Ui:Icon name="{{ item.icon }}" />
+            <span><strong>{{ item.label }}</strong><small>{{ item.caption }}</small></span>
+          </a>
+        {% endfor %}
+        <p class="search-dialog__empty" data-shell-target="empty" hidden>Aucun résultat. Essayez « synthèse » ou « facture ».</p>
+      </div>
+    </dialog>
+  </body>
+</html>

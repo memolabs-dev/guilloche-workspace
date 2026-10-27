@@ -1,0 +1,101 @@
+@use '../settings/mixins' as *;
+
+.ledger-summary {
+  --rosette-ink: var(--green-line);
+
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--s-2) var(--s-5);
+  align-items: center;
+  margin-bottom: var(--s-6);
+  padding: var(--s-5) var(--s-6);
+
+  @include up(sm) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 500;
+  }
+
+  p {
+    color: var(--ink-2);
+  }
+
+  .ui-status {
+    grid-column: 1 / -1;
+    justify-self: start;
+
+    @include up(sm) {
+      grid-column: auto;
+    }
+  }
+}
+
+.ledger {
+  &__head {
+    margin: 0;
+    padding: var(--s-5) var(--s-6);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  &__scroll {
+    overflow-x: auto;
+
+    &:focus-visible {
+      outline-offset: -2px;
+    }
+  }
+
+  &__table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+
+    th {
+      @include plate-label;
+
+      padding: var(--s-3) var(--s-6);
+      border-bottom: 1px solid var(--rule);
+      text-align: left;
+    }
+
+    td {
+      padding: var(--s-4) var(--s-6);
+      border-bottom: 1px dashed var(--rule);
+      vertical-align: middle;
+    }
+
+    tbody tr {
+      transition: background-color var(--t-feedback) var(--ease-standard);
+
+      &:hover {
+        background: var(--sheet);
+      }
+
+      &:last-child td {
+        border-bottom: 0;
+      }
+    }
+
+    strong,
+    .ui-serial {
+      display: block;
+    }
+
+    .is-amount {
+      text-align: right;
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 600;
+    }
+
+    th.is-amount {
+      font-family: var(--font-ui);
+      font-size: var(--text-xs);
+    }
+  }
+}

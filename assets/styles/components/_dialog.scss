@@ -1,0 +1,98 @@
+@use '../settings/mixins' as *;
+
+// Dialogues natifs (Ui:Dialog et recherche). Entrée et sortie déclaratives via
+// @starting-style et allow-discrete : aucun minuteur JavaScript à nettoyer.
+.ui-dialog,
+.search-dialog {
+  max-width: calc(100% - 32px);
+  max-height: calc(100dvh - 64px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-dialog);
+  background: var(--sheet-raised);
+  color: var(--ink);
+  box-shadow: var(--shadow-3);
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  transition:
+    opacity var(--t-feedback) var(--ease-in),
+    transform var(--t-feedback) var(--ease-in),
+    overlay var(--t-feedback) allow-discrete,
+    display var(--t-feedback) allow-discrete;
+
+  &[open] {
+    opacity: 1;
+    transform: none;
+    transition-duration: var(--t-enter);
+    transition-timing-function: var(--ease-out);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(12px) scale(0.97);
+    }
+  }
+
+  &::backdrop {
+    background: var(--scrim);
+    opacity: 0;
+    transition: opacity var(--t-state) var(--ease-standard), overlay var(--t-state) allow-discrete,
+      display var(--t-state) allow-discrete;
+  }
+
+  &[open]::backdrop {
+    opacity: 1;
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+}
+
+.ui-dialog {
+  width: min(520px, calc(100% - 32px));
+  overflow: hidden;
+
+  &__band {
+    --band-opacity: 0.6;
+
+    width: 100%;
+    height: 56px;
+    color: var(--guilloche);
+    background: var(--sheet);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  &__close {
+    position: absolute;
+    top: var(--s-2);
+    right: var(--s-2);
+  }
+
+  &__title {
+    padding: var(--s-6) var(--s-6) 0;
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 500;
+  }
+
+  &__body {
+    display: grid;
+    gap: var(--s-4);
+    justify-items: start;
+    padding: var(--s-3) var(--s-6) var(--s-6);
+    color: var(--ink-2);
+  }
+}
+
+@include reduced-motion {
+  .ui-dialog,
+  .search-dialog {
+    transform: none;
+
+    &[open] {
+      @starting-style {
+        transform: none;
+      }
+    }
+  }
+}

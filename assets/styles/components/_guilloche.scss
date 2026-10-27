@@ -1,0 +1,66 @@
+@use '../settings/mixins' as *;
+
+// Ui:Guilloche. Le tracé est servi complet par PHP : sans CSS ni JS la rosette reste lisible.
+// Le CSS n'anime que l'impression du trait jusqu'à l'avancement (--p, 0 à 100).
+.ui-guilloche {
+  --_ink: var(--rosette-ink, var(--guilloche));
+
+  flex: none;
+  overflow: visible;
+
+  path,
+  use {
+    fill: none;
+    stroke: var(--_ink);
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  // Rosette : épaisseurs en unités du dessin (--k = 1000 / taille rendue), pas de
+  // vector-effect: non-scaling-stroke, qui calcule les pointillés en pixels écran et
+  // ignore pathLength : l'avancement ne serait plus proportionnel.
+  &--rosette {
+    .ui-guilloche__counter {
+      stroke-width: calc(0.5px * var(--k, 10));
+      opacity: 0.22;
+    }
+
+    .ui-guilloche__track {
+      stroke-width: calc(0.6px * var(--k, 10));
+      opacity: 0.16;
+    }
+
+    .ui-guilloche__trace {
+      stroke-width: calc(var(--rosette-stroke, 0.9) * 1px * var(--k, 10));
+      stroke-dasharray: var(--p) 100;
+    }
+
+    // Le tracé ne se rejoue pas à chaque rendu Turbo : seulement quand la valeur apparaît.
+    &.is-tracing .ui-guilloche__trace {
+      animation: guilloche-trace var(--t-trace) var(--ease-out) both;
+      animation-delay: calc(var(--i, 0) * 70ms + 120ms);
+    }
+
+    &.is-complete .ui-guilloche__counter {
+      opacity: 0.4;
+    }
+  }
+
+  &--band path {
+    vector-effect: non-scaling-stroke;
+    stroke-width: 0.7;
+    opacity: var(--band-opacity, 0.45);
+  }
+}
+
+@keyframes guilloche-trace {
+  from {
+    stroke-dasharray: 0 100;
+  }
+}
+
+@include reduced-motion {
+  .ui-guilloche--rosette.is-tracing .ui-guilloche__trace {
+    animation: none;
+  }
+}

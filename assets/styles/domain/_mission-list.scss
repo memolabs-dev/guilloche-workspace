@@ -1,0 +1,166 @@
+@use '../settings/mixins' as *;
+
+// Mission:MissionList. Chaque ligne porte sa rosette, tracée au prorata de l'avancement.
+.mission-list {
+  container: mission-list / inline-size;
+  display: grid;
+  gap: 2px;
+  padding: 0;
+  list-style: none;
+
+  &__item {
+    --rosette-ink: var(--neutral-line);
+
+    position: relative;
+
+    &:has(.ui-status--amber) {
+      --rosette-ink: var(--copper-line);
+    }
+
+    &:has(.ui-status--blue) {
+      --rosette-ink: var(--blue-line);
+    }
+
+    &:has(.ui-status--green) {
+      --rosette-ink: var(--green-line);
+    }
+  }
+
+  &__link {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    grid-template-areas:
+      'seal main chevron'
+      'seal state chevron';
+    align-items: center;
+    gap: var(--s-1) var(--s-4);
+    min-height: 76px;
+    padding: var(--s-3) var(--s-3) var(--s-3) var(--s-4);
+    border: 1px solid transparent;
+    border-radius: var(--r-surface);
+    transition: background-color var(--t-feedback) var(--ease-standard), border-color var(--t-feedback) var(--ease-standard),
+      box-shadow var(--t-state) var(--ease-standard);
+
+    @container mission-list (min-width: 560px) {
+      grid-template-columns: 44px minmax(0, 1fr) auto 92px 20px;
+      grid-template-areas: 'seal main state date chevron';
+      gap: var(--s-4);
+    }
+
+    &:hover {
+      background: var(--sheet-raised);
+      border-color: var(--rule);
+      box-shadow: var(--shadow-1);
+
+      .mission-list__chevron {
+        color: var(--ink);
+        transform: translateX(3px);
+      }
+    }
+
+    &:focus-visible {
+      outline-offset: -2px;
+    }
+
+    &[aria-current='true'] {
+      background: var(--sheet-raised);
+      border-color: var(--rule-strong);
+      box-shadow: var(--shadow-2);
+
+      .mission-list__title {
+        color: var(--ink);
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -1px;
+        width: 3px;
+        height: 28px;
+        border-radius: 0 3px 3px 0;
+        background: var(--rosette-ink);
+        transform: translateY(-50%);
+        view-transition-name: mission-marker;
+      }
+    }
+  }
+
+  &__rosette {
+    grid-area: seal;
+    transition: transform 600ms var(--ease-out);
+  }
+
+  &__main {
+    grid-area: main;
+    display: grid;
+    min-width: 0;
+  }
+
+  &__title {
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--ink);
+    font-weight: 600;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  &__step {
+    color: var(--ink-3);
+    font-size: var(--text-sm);
+  }
+
+  &__state {
+    grid-area: state;
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+
+  &__percent {
+    min-width: 4ch;
+    color: var(--ink-3);
+    font-size: var(--text-xs);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  &__date {
+    grid-area: date;
+    display: none;
+    color: var(--ink-2);
+    font-size: var(--text-sm);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+
+    @container mission-list (min-width: 560px) {
+      display: block;
+    }
+  }
+
+  &__chevron {
+    grid-area: chevron;
+    color: var(--ink-3);
+    transition: transform var(--t-state) var(--ease-out), color var(--t-feedback) var(--ease-standard);
+  }
+
+  &__empty {
+    border: 1px dashed var(--rule-strong);
+    border-radius: var(--r-surface);
+  }
+}
+
+@include reduced-motion {
+  .mission-list__link:hover .mission-list__rosette,
+  .mission-list__link:hover .mission-list__chevron {
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}

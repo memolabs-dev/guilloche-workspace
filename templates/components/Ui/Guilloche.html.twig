@@ -1,0 +1,28 @@
+{# Ui:Guilloche — variant rosette|band ; seed ; progress (0-100, rosette) ; size ; label ; animated (anime le tracé).
+   Les courbes sont calculées en PHP (Ui\Guilloche) et mises en cache par `computed` pour ce rendu. #}
+{% if variant == 'band' %}
+  <svg {{ attributes.defaults({
+    class: 'ui-guilloche ui-guilloche--band',
+    viewBox: '0 0 1200 120',
+    preserveAspectRatio: 'none',
+    'aria-hidden': 'true',
+    focusable: 'false'
+  }) }}>
+    {% for line in computed.bandLines %}<path d="{{ line }}" />{% endfor %}
+  </svg>
+{% else %}
+  {% set value = progress ?? 100 %}
+  <svg {{ attributes.defaults({
+    class: 'ui-guilloche ui-guilloche--rosette' ~ (this.complete ? ' is-complete' : '') ~ (animated ? ' is-tracing' : ''),
+    style: '--p: ' ~ value ~ '; --k: ' ~ (1000 / size)|round(3),
+    viewBox: '0 0 1000 1000',
+    width: size,
+    height: size,
+    focusable: 'false'
+  }|merge(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true' })) }}>
+    <path class="ui-guilloche__counter" id="{{ uid }}" d="{{ computed.counter }}" />
+    {% for angle in computed.weave %}<use class="ui-guilloche__counter" href="#{{ uid }}" transform="rotate({{ angle }} 500 500)" />{% endfor %}
+    {% if progress is not null %}<path class="ui-guilloche__track" d="{{ computed.trace }}" />{% endif %}
+    <path class="ui-guilloche__trace" d="{{ computed.trace }}" pathLength="100" stroke-dasharray="{{ value }} 100" />
+  </svg>
+{% endif %}

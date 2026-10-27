@@ -1,0 +1,11 @@
+.git
+node_modules
+vendor
+var
+public/build
+public/bundles
+.agent/project/screenshots
+.agent/archive
+.impeccable/review
+.env.local
+.env.*.local

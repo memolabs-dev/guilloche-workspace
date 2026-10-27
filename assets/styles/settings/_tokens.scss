@@ -1,0 +1,178 @@
+@use 'brand';
+
+// Rôles sémantiques. Un composant lit un rôle, jamais une valeur.
+// Monde : titre fiduciaire. Encre intaille sur papier de sécurité, encres de contrôle
+// cuivre (à votre tour), bleu (en cours) et vert (terminé), action au vert de marque.
+:root {
+  // Typographie
+  --font-ui: #{brand.$font-ui}, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Bodoni Moda Variable', 'Bodoni 72', Didot, 'Times New Roman', serif;
+  --font-serial: #{brand.$font-tech}, ui-monospace, 'SF Mono', Menlo, monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-md: 0.875rem;
+  --text-lg: 1rem;
+  --text-xl: 1.125rem;
+  --text-2xl: 1.375rem;
+  --text-3xl: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+  --text-4xl: clamp(2.25rem, 1.6rem + 2.4vw, 3.25rem);
+
+  // Espacement, base 4
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 32px;
+  --s-8: 40px;
+  --s-9: 56px;
+  --s-10: 72px;
+
+  // Formes : rayons de marque, attribués par rôle
+  --r-control: #{brand.$radius-sm};
+  --r-chip: #{brand.$radius-sm};
+  --r-surface: #{brand.$radius-lg};
+  --r-dialog: #{brand.$radius-xl};
+  --r-pill: 999px;
+  --control-h: 40px;
+  --hit: 44px;
+
+  // Mouvement
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --t-feedback: 120ms;
+  --t-state: 180ms;
+  --t-enter: 280ms;
+  --t-trace: 1100ms;
+  --t-print: 520ms;
+
+  color-scheme: light;
+  --paper: #edf1ea;
+  --sheet: #fbfcf9;
+  --sheet-raised: #ffffff;
+  --sheet-sunken: #e3e9e0;
+  --ink: #14261b;
+  --ink-2: #435448;
+  --ink-3: #56665a;
+  --rule: #d3dbcf;
+  --rule-strong: #b0bdae;
+  --control-line: #7b8b7f;
+  --focus: #1f5a33;
+
+  --intaglio: #15301f;
+  --intaglio-2: #1c3d29;
+  --intaglio-ink: #eef4ee;
+  --intaglio-ink-2: #a9c3ae;
+  --intaglio-line: #7fae89;
+  --intaglio-copper: #dc9150;
+  --intaglio-veil: rgb(255 255 255 / 0.04);
+  --intaglio-wash: rgb(255 255 255 / 0.07);
+  --intaglio-wash-strong: rgb(255 255 255 / 0.11);
+  --intaglio-edge: rgb(255 255 255 / 0.12);
+  --intaglio-perforation: rgb(255 255 255 / 0.2);
+  --count-ink: #1c1006;
+  --sheen: rgb(255 255 255 / 0.12);
+
+  --action: #{brand.$green};
+  --action-hover: #{brand.$green-hover};
+  --action-press: #23482d;
+  --on-action: #ffffff;
+  --action-soft: #dce9dc;
+  --action-ink: #285a35;
+
+  --copper: #8c4810;
+  --copper-line: #c27530;
+  --copper-soft: #f4e5d4;
+  --blue: #29497a;
+  --blue-line: #5b81b6;
+  --blue-soft: #e0e8f3;
+  --green: #2a6237;
+  --green-line: #589a66;
+  --green-soft: #dbeadb;
+  --red: #a02f29;
+  --red-line: #cf645b;
+  --red-soft: #f6e0dc;
+  --neutral: #4b584f;
+  --neutral-line: #97a499;
+  --neutral-soft: #e2e8e0;
+
+  --guilloche: #2d5a3b;
+  --selection: #cfe2cf;
+  --skeleton: #dde4d9;
+  --skeleton-hatch: #cbd6c7;
+  --scrim: rgb(9 20 13 / 0.42);
+
+  --shadow-1: 0 1px 2px rgb(20 38 27 / 0.06), 0 1px 1px rgb(20 38 27 / 0.04);
+  --shadow-2: 0 12px 32px -14px rgb(20 38 27 / 0.24), 0 2px 6px rgb(20 38 27 / 0.06);
+  --shadow-3: 0 32px 80px -24px rgb(8 22 13 / 0.45), 0 8px 24px -12px rgb(8 22 13 / 0.2);
+
+  // Alias consommés par l'archive /explorations, conservée telle quelle
+  --font-body: var(--font-ui);
+  --font-tech: var(--font-serial);
+  --danger-bg: var(--red-soft);
+  --danger-text: var(--red);
+}
+
+// Thème sombre : un billet tenu à contre-jour, encres éclaircies, mêmes rôles.
+[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #0c1610;
+  --sheet: #111d16;
+  --sheet-raised: #16251c;
+  --sheet-sunken: #09120d;
+  --ink: #e6eee7;
+  --ink-2: #b3c3b6;
+  --ink-3: #98aa9b;
+  --rule: #223429;
+  --rule-strong: #34493b;
+  --control-line: #6c8272;
+  --focus: #9fd8b0;
+
+  --intaglio: #07100a;
+  --intaglio-2: #0e1d13;
+  --intaglio-ink: #e6efe7;
+  --intaglio-ink-2: #93ad98;
+  --intaglio-line: #4f7a59;
+  --intaglio-copper: #e5a160;
+  --intaglio-veil: rgb(255 255 255 / 0.03);
+  --intaglio-wash: rgb(255 255 255 / 0.05);
+  --intaglio-wash-strong: rgb(255 255 255 / 0.08);
+  --intaglio-edge: rgb(255 255 255 / 0.1);
+  --intaglio-perforation: rgb(255 255 255 / 0.16);
+  --sheen: rgb(255 255 255 / 0.08);
+
+  --action: #8fcfa2;
+  --action-hover: #a8ddb8;
+  --action-press: #7bbf90;
+  --on-action: #0a1a10;
+  --action-soft: #183022;
+  --action-ink: #a4dbb4;
+
+  --copper: #eaa96a;
+  --copper-line: #c98546;
+  --copper-soft: #33230f;
+  --blue: #a6c2ea;
+  --blue-line: #6f94c8;
+  --blue-soft: #172337;
+  --green: #9ad5a8;
+  --green-line: #5f9d6d;
+  --green-soft: #142c1d;
+  --red: #f1a49a;
+  --red-line: #c9675e;
+  --red-soft: #381b18;
+  --neutral: #b7c3b9;
+  --neutral-line: #6b796f;
+  --neutral-soft: #1c2820;
+
+  --guilloche: #9cc9a8;
+  --selection: #2a4a34;
+  --skeleton: #18271e;
+  --skeleton-hatch: #213529;
+  --scrim: rgb(0 0 0 / 0.6);
+
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-2: 0 14px 34px -14px rgb(0 0 0 / 0.7), 0 2px 6px rgb(0 0 0 / 0.35);
+  --shadow-3: 0 32px 80px -24px rgb(0 0 0 / 0.85);
+}

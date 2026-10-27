@@ -1,0 +1,46 @@
+@use 'sass:map';
+@use 'config';
+
+// Mobile d'abord : le style de base vise le petit écran, chaque palier l'élargit.
+@mixin up($name) {
+  @media (min-width: map.get(config.$breakpoints, $name)) {
+    @content;
+  }
+}
+
+@mixin down($name) {
+  @media (max-width: map.get(config.$breakpoints, $name) - 0.02px) {
+    @content;
+  }
+}
+
+@mixin focus-ring($offset: 3px) {
+  outline: 2px solid var(--focus);
+  outline-offset: $offset;
+}
+
+// Le mouvement spatial est retiré ; les changements d'opacité et de couleur restent.
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+@mixin hide-visually {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Libellé : la police d'interface, un cran plus petite, en casse de phrase, sans espacement.
+@mixin plate-label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink-3);
+}

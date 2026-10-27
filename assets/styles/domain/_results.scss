@@ -1,0 +1,91 @@
+@use '../settings/mixins' as *;
+
+// Barre de filtres GET partagée par Missions et Documents.
+.filter-bar {
+  display: grid;
+  gap: var(--s-3);
+  align-items: end;
+  margin-bottom: var(--s-4);
+  padding: var(--s-4);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-surface);
+  background: var(--sheet);
+
+  @include up(sm) {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2);
+  }
+}
+
+.filter-clear {
+  min-height: var(--hit);
+  padding: 0 var(--s-2);
+  border: 0;
+  background: none;
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover {
+    color: var(--ink);
+  }
+}
+
+.results-summary {
+  margin: 0 0 var(--s-3) var(--s-1);
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+
+  &:focus {
+    outline: none;
+  }
+
+  strong {
+    color: var(--ink);
+  }
+}
+
+.results-feedback {
+  @include hide-visually;
+}
+
+.results-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+
+// Région de résultats : le skeleton se pose par-dessus, le contenu garde ses dimensions.
+.results-region {
+  position: relative;
+
+  &__mask {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    overflow: hidden;
+    border-radius: var(--r-surface);
+    background: var(--paper);
+    animation: fade-in var(--t-state) var(--ease-standard);
+  }
+
+  .is-pending {
+    opacity: 0.35;
+  }
+}
+
+turbo-frame[aria-busy='true'] .mission-workspace,
+turbo-frame[aria-busy='true'] .document-list {
+  transition: opacity var(--t-state) var(--ease-standard);
+}

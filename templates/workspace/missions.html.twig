@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block title %}Missions{% endblock %}
+{% block body %}
+  <div class="page-head">
+    <div>
+      <h1>Missions</h1>
+      <p>Chaque mission porte sa rosette : le trait s’imprime à mesure que le dossier avance.</p>
+    </div>
+  </div>
+
+  <div
+    data-controller="missions"
+    data-missions-loading-message-value="Chargement des missions…"
+    data-action="turbo:before-fetch-request->missions#start turbo:before-fetch-response->missions#response turbo:fetch-request-error->missions#failure turbo:frame-missing->missions#missing turbo:before-frame-render->missions#beforeRender turbo:frame-load->missions#loaded unhandledrejection@window->missions#handledRejection turbo:before-cache@document->missions#reset"
+  >
+    <div class="results-feedback" role="status" aria-live="polite" data-missions-target="feedback"></div>
+    <div class="results-error" hidden data-missions-target="error" role="alert">
+      <twig:Ui:Notice type="error" message="Impossible de charger les missions. Votre vue précédente est conservée." />
+      <twig:Ui:Button intent="secondary" data-action="missions#retry">Réessayer</twig:Ui:Button>
+    </div>
+
+    <turbo-frame id="mission-results" data-turbo-action="advance" data-missions-target="frame">
+      <form class="filter-bar" action="{{ path('missions') }}" method="get" role="search" aria-label="Filtrer les missions">
+        <twig:Ui:Field label="Rechercher une mission" id="mission-search">
+          <input id="mission-search" type="search" name="q" value="{{ query }}" maxlength="100" placeholder="Nom ou catégorie" data-missions-target="search" />
+        </twig:Ui:Field>
+        <twig:Ui:Field label="État" id="mission-status">
+          <select id="mission-status" name="status">
+            {% for code, label in { '': 'Tous les états', action: 'À votre tour', progress: 'En cours', done: 'Terminée' } %}
+              <option value="{{ code }}" {{ status == code ? 'selected' : '' }}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </twig:Ui:Field>
+        {% if selected %}<input type="hidden" name="selected" value="{{ selected.id }}" />{% endif %}
+        <div class="filter-bar__actions">
+          <twig:Ui:Button type="submit">Rechercher</twig:Ui:Button>
+          <button class="filter-clear" type="button" data-missions-target="clear" data-action="missions#clear" hidden>Effacer</button>
+        </div>
+      </form>
+
+      <div class="mission-workspace{{ selected ? ' has-selection' : '' }}" data-selected="{{ selected ? selected.id : '' }}">
+        <section class="mission-workspace__list" aria-labelledby="mission-count">
+          <p class="results-summary" id="mission-count" tabindex="-1" data-missions-target="summary">
+            <strong>{{ missions|length }} mission{{ missions|length > 1 ? 's' : '' }}</strong>{% if query %} pour « {{ query }} »{% endif %}
+          </p>
+          <div class="results-region">
+            <div class="results-region__mask" hidden data-missions-target="skeleton"><twig:Ui:Skeleton :rows="5" /></div>
+            <div data-missions-target="content">
+              <twig:Mission:MissionList :missions="missions" :query="query" :status="status" :selectedId="selected ? selected.id : null" />
+            </div>
+          </div>
+        </section>
+
+        <div class="mission-workspace__reader">
+          {% if selected %}
+            <a class="page-back" href="{{ path('missions', { q: query ?: null, status: status ?: null }) }}">Toutes les missions</a>
+            <twig:Mission:Detail :mission="selected" :documents="documents" focusTarget="missions" />
+          {% else %}
+            <div class="mission-workspace__placeholder">
+              <twig:Ui:RegionState state="empty" title="Une mission, sa prochaine étape" message="Choisissez une mission pour lire son avancement, ses pièces et votre interlocuteur." />
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </turbo-frame>
+  </div>
+{% endblock %}

@@ -1,0 +1,278 @@
+@use '../settings/mixins' as *;
+
+// Mission:Detail. La fiche s'imprime : le bandeau se dévoile, puis la rosette trace l'avancement.
+.mission-sheet {
+  --rosette-ink: var(--neutral-line);
+  --sheet-accent: var(--neutral);
+
+  container: mission-sheet / inline-size;
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-surface);
+  background: var(--sheet-raised);
+  box-shadow: var(--shadow-2);
+
+  &.is-entering {
+    animation: sheet-print var(--t-print) var(--ease-out) both;
+  }
+
+  &--action {
+    --rosette-ink: var(--copper-line);
+    --sheet-accent: var(--copper);
+  }
+
+  &--progress {
+    --rosette-ink: var(--blue-line);
+    --sheet-accent: var(--blue);
+  }
+
+  &--done {
+    --rosette-ink: var(--green-line);
+    --sheet-accent: var(--green);
+  }
+
+  &__head {
+    position: relative;
+    padding: var(--s-6) var(--s-6) var(--s-5);
+    border-bottom: 1px solid var(--rule);
+    background: var(--sheet);
+  }
+
+  // La trame occupe une bande à elle, au-dessus du texte, jamais derrière.
+  &__band {
+    --band-opacity: 0.5;
+
+    position: absolute;
+    inset: 0 0 auto;
+    width: 100%;
+    height: 36px;
+    color: var(--rosette-ink);
+    border-bottom: 1px solid var(--rule);
+    pointer-events: none;
+  }
+
+  &__serial {
+    position: relative;
+    margin: var(--s-6) 0 var(--s-2);
+  }
+
+  &__title {
+    position: relative;
+    max-width: 22ch;
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    font-variation-settings: 'opsz' 48;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__value {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--s-6);
+    padding: var(--s-6);
+
+    @include down(sm) {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+  }
+
+  &__seal {
+    position: relative;
+    display: grid;
+    place-items: center;
+
+    .ui-guilloche {
+      --rosette-stroke: 1.1;
+    }
+  }
+
+  &__percent {
+    position: absolute;
+    display: flex;
+    align-items: baseline;
+    padding: var(--s-1) var(--s-2);
+    border-radius: var(--r-control);
+    background: color-mix(in srgb, var(--sheet-raised) 88%, transparent);
+    color: var(--ink-2);
+    font-size: var(--text-sm);
+
+    strong {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 600;
+      font-variant-numeric: lining-nums;
+      line-height: 1;
+      color: var(--ink);
+    }
+  }
+
+  &__facts {
+    display: grid;
+    gap: var(--s-3);
+    min-width: 0;
+
+    @include down(sm) {
+      width: 100%;
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--s-3);
+      padding-bottom: var(--s-3);
+      border-bottom: 1px dashed var(--rule);
+    }
+
+    div:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    dt {
+      @include plate-label;
+    }
+
+    dd {
+      color: var(--ink);
+      font-weight: 500;
+      text-align: right;
+    }
+  }
+
+  // Une bande teintée de bord à bord, pas une boîte dans la fiche.
+  &__next {
+    display: grid;
+    justify-items: start;
+    gap: var(--s-3);
+    padding: var(--s-5) var(--s-6);
+    border-block: 1px solid color-mix(in srgb, var(--rosette-ink) 30%, transparent);
+    background: color-mix(in srgb, var(--rosette-ink) 10%, var(--sheet-raised));
+
+    h3 {
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--ink);
+    }
+  }
+
+  &__documents {
+    padding: var(--s-6);
+
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: var(--s-2);
+      margin-bottom: var(--s-3);
+      font-size: var(--text-md);
+      font-weight: 600;
+    }
+  }
+
+  &__empty {
+    padding: var(--s-4);
+    border: 1px dashed var(--rule-strong);
+    border-radius: var(--r-control);
+    color: var(--ink-3);
+    font-size: var(--text-sm);
+  }
+}
+
+.document-mini {
+  display: grid;
+
+  li + li {
+    border-top: 1px solid var(--rule);
+  }
+
+  a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--s-3);
+    min-height: 56px;
+    padding: var(--s-2) 0;
+    color: var(--ink-2);
+    transition: color var(--t-feedback) var(--ease-standard);
+
+    &:hover {
+      color: var(--ink);
+
+      .document-mini__chevron {
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  strong {
+    display: block;
+    overflow: hidden;
+    color: var(--ink);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  small {
+    display: block;
+    color: var(--ink-3);
+    font-size: var(--text-xs);
+  }
+
+  &__chevron {
+    transition: transform var(--t-state) var(--ease-out);
+  }
+}
+
+// Fiche étroite (colonne de lecture, catalogue) : rosette réduite, faits plus serrés.
+@container mission-sheet (max-width: 460px) {
+  .mission-sheet__value {
+    gap: var(--s-4);
+    padding: var(--s-5);
+  }
+
+  .mission-sheet__seal .ui-guilloche {
+    width: 116px;
+    height: 116px;
+  }
+
+  .mission-sheet__percent strong {
+    font-size: 1.75rem;
+  }
+
+  .mission-sheet__head,
+  .mission-sheet__documents {
+    padding-inline: var(--s-5);
+  }
+
+  .mission-sheet__next {
+    padding-inline: var(--s-5);
+  }
+}
+
+@keyframes sheet-print {
+  from {
+    clip-path: inset(0 0 100% 0 round var(--r-surface));
+    opacity: 0.4;
+  }
+
+  to {
+    clip-path: inset(0 0 0 0 round var(--r-surface));
+  }
+}
+
+@include reduced-motion {
+  .mission-sheet.is-entering {
+    animation-name: fade-in;
+  }
+}

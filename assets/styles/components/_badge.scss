@@ -1,0 +1,57 @@
+// Ui:Badge : étiquette libre. Le ton (couleur) est indépendant de la variante (poids).
+.ui-badge {
+  --_ink: var(--neutral);
+  --_line: var(--neutral-line);
+  --_soft: var(--neutral-soft);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  min-height: 22px;
+  padding: 0 var(--s-2);
+  border: 1px solid transparent;
+  border-radius: var(--r-chip);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+
+  &--green {
+    --_ink: var(--green);
+    --_line: var(--green-line);
+    --_soft: var(--green-soft);
+  }
+
+  &--blue {
+    --_ink: var(--blue);
+    --_line: var(--blue-line);
+    --_soft: var(--blue-soft);
+  }
+
+  &--amber {
+    --_ink: var(--copper);
+    --_line: var(--copper-line);
+    --_soft: var(--copper-soft);
+  }
+
+  &--red {
+    --_ink: var(--red);
+    --_line: var(--red-line);
+    --_soft: var(--red-soft);
+  }
+
+  &--solid {
+    background: var(--_ink);
+    color: var(--sheet-raised);
+  }
+
+  &--soft {
+    background: var(--_soft);
+    color: var(--_ink);
+  }
+
+  &--outline {
+    border-color: var(--_line);
+    color: var(--_ink);
+  }
+}

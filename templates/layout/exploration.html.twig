@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>
+      {{ names[direction] }} — Exploration Missions
+    </title>{{ encore_entry_link_tags('explorations') }}{{ encore_entry_script_tags('explorations') }}
+  </head>
+  <body class="explore explore--{{ direction }}">
+    <a class="skip-link" href="#exploration-main">Aller au contenu</a>
+    <div class="exp-comparison">
+      <span>Exploration du design</span><nav aria-label="Comparer les propositions">
+        {% for key, name in names %}
+          <a
+            href="{{
+            path(
+              'exploration_missions',
+              { direction: key, selected: selected ? selected.id : null, q: query, status: status }
+            )
+            }}"
+            data-exploration-direction="{{ key }}"
+            aria-current="{{ direction == key ? 'page' : 'false' }}"
+          >
+            {{ name }}
+          </a>
+        {% endfor %}
+      </nav><a class="exp-original" href="{{ path('missions') }}">Prototype actuel</a>
+    </div>
+    <div class="exp-shell">
+      <header class="exp-navigation">
+        <a class="exp-brand" href="{{ path('exploration_missions', { direction: direction }) }}">
+          <span class="exp-brand-mark">AR</span><span>Atelier Rivage<small>Espace dirigeant</small></span>
+        </a><nav aria-label="Navigation de l’espace">
+          <a
+            href="{{ path('exploration_missions', { direction: direction }) }}"
+            aria-current="page"
+          >
+            {% import 'components/ui.html.twig' as ui %}{{ ui.icon('briefcase') }}Missions
+          </a><a href="{{ path('documents') }}">{{ ui.icon('file') }}Documents</a><a
+            href="{{ path('billing') }}"
+          >
+            {{ ui.icon('wallet') }}Facturation
+          </a>
+        </nav>
+        <div class="exp-nav-foot">
+          Concept indépendant<br />Données fictives
+        </div>
+      </header>
+      <main id="exploration-main" class="exp-main" tabindex="-1">
+        {% block body %}
+
+        {% endblock %}
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+{# Mission:MissionList — missions, query, status (filtres conservés dans les liens), selectedId #}
+<ol {{ attributes.defaults({ class: 'mission-list', role: 'list' }) }}>
+  {% for mission in missions %}
+    {% set isSelected = mission.id == selectedId %}
+    <li class="mission-list__item{{ isSelected ? ' is-selected' : '' }}">
+      <a
+        class="mission-list__link"
+        href="{{ path('missions', { q: query ?: null, status: status ?: null, selected: mission.id }) }}"
+        aria-current="{{ isSelected ? 'true' : 'false' }}"
+      >
+        <twig:Ui:Guilloche :seed="mission.id" :progress="mission.progress" :size="44" class="mission-list__rosette" />
+        <span class="mission-list__main">
+          <span class="mission-list__title">{{ mission.title }}</span>
+          <span class="mission-list__step">{{ mission.step }}</span>
+        </span>
+        <span class="mission-list__state">
+          <twig:Ui:Status :code="mission.status" :text="mission.label" />
+          <span class="mission-list__percent">{{ mission.progress }} %</span>
+        </span>
+        <span class="mission-list__date"><span class="sr-only">Échéance </span>{{ mission.date }}</span>
+        <twig:Ui:Icon name="chevron" class="mission-list__chevron" />
+      </a>
+    </li>
+  {% else %}
+    <li class="mission-list__empty">
+      <twig:Ui:RegionState state="empty" title="Aucune mission trouvée" message="Modifiez la recherche ou l’état pour retrouver vos dossiers." />
+    </li>
+  {% endfor %}
+</ol>

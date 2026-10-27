@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "mblode.twig-language-2",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode"
+  ]
+}

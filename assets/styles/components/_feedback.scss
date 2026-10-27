@@ -1,0 +1,203 @@
+@use '../settings/mixins' as *;
+
+// Ui:Notice
+.ui-notice {
+  --_ink: var(--blue);
+  --_soft: var(--blue-soft);
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid color-mix(in srgb, var(--_ink) 22%, transparent);
+  border-radius: var(--r-control);
+  background: var(--_soft);
+  color: var(--_ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+
+  .ui-icon {
+    margin-top: 1px;
+  }
+
+  p {
+    color: inherit;
+  }
+
+  &--success {
+    --_ink: var(--green);
+    --_soft: var(--green-soft);
+  }
+
+  &--error {
+    --_ink: var(--red);
+    --_soft: var(--red-soft);
+  }
+}
+
+// Ui:Progress
+.ui-progress {
+  display: block;
+  height: 4px;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--sheet-sunken);
+
+  &__bar {
+    display: block;
+    width: calc(var(--p) * 1%);
+    height: 100%;
+    border-radius: inherit;
+    background: var(--action);
+    transform-origin: left;
+    animation: progress-fill var(--t-trace) var(--ease-out) both;
+  }
+}
+
+@keyframes progress-fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+// Ui:Skeleton : des lignes hachurées qui défilent, comme une feuille en cours d'impression.
+.ui-skeleton {
+  display: grid;
+  gap: var(--s-2);
+
+  &__row {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 96px;
+    align-items: center;
+    gap: var(--s-4);
+    padding: var(--s-3) var(--s-4);
+    border-radius: var(--r-surface);
+    background: var(--sheet);
+    animation: skeleton-in var(--t-state) var(--ease-out) both;
+    animation-delay: calc(var(--i) * 40ms);
+  }
+
+  &__mark,
+  &__lines span,
+  &__chip {
+    display: block;
+    border-radius: var(--r-pill);
+    background: repeating-linear-gradient(-55deg, var(--skeleton) 0 6px, var(--skeleton-hatch) 6px 7px) 0 0 / 200% 100%;
+    animation: skeleton-hatch 1.4s linear infinite;
+  }
+
+  &__mark {
+    width: 44px;
+    height: 44px;
+  }
+
+  &__lines {
+    display: grid;
+    gap: 8px;
+
+    span:first-child {
+      width: 62%;
+      height: 12px;
+    }
+
+    span:last-child {
+      width: 38%;
+      height: 10px;
+    }
+  }
+
+  &__chip {
+    height: 22px;
+  }
+}
+
+@keyframes skeleton-hatch {
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes skeleton-in {
+  from {
+    opacity: 0;
+  }
+}
+
+// Ui:RegionState
+.ui-region__message {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-2);
+  padding: var(--s-8) var(--s-6);
+  text-align: center;
+
+  h3 {
+    margin-top: var(--s-2);
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+
+  p {
+    max-width: 45ch;
+    color: var(--ink-2);
+  }
+
+  .ui-button {
+    margin-top: var(--s-3);
+  }
+}
+
+.ui-region__seal {
+  --rosette-ink: var(--rule-strong);
+}
+
+.ui-region--error .ui-region__seal {
+  --rosette-ink: var(--red-line);
+}
+
+// Toast : une confirmation qui monte du bas, puis repart.
+.ui-toast {
+  position: fixed;
+  z-index: 60;
+  bottom: var(--s-6);
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  max-width: min(440px, calc(100% - 32px));
+  padding: var(--s-3) var(--s-5) var(--s-3) var(--s-4);
+  border-radius: var(--r-surface);
+  background: var(--intaglio);
+  color: var(--intaglio-ink);
+  box-shadow: var(--shadow-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 16px) scale(0.98);
+  transition: opacity var(--t-state) var(--ease-in), transform var(--t-state) var(--ease-in);
+
+  &.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    transition-timing-function: var(--ease-out);
+    transition-duration: var(--t-enter);
+  }
+
+  .ui-icon {
+    color: var(--intaglio-ink-2);
+  }
+}
+
+@include reduced-motion {
+  .ui-skeleton__mark,
+  .ui-skeleton__lines span,
+  .ui-skeleton__chip,
+  .ui-progress__bar {
+    animation: none;
+  }
+
+  .ui-toast {
+    transform: translate(-50%, 0);
+  }
+}

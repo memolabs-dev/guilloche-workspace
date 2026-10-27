@@ -1,0 +1,133 @@
+@use '../settings/mixins' as *;
+
+// Document:DocumentList
+.document-list {
+  container: document-list / inline-size;
+  display: grid;
+  gap: 2px;
+}
+
+.document-item {
+  &__link {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    grid-template-areas:
+      'sheet main chevron'
+      'sheet status chevron';
+    align-items: center;
+    gap: var(--s-1) var(--s-4);
+    min-height: 72px;
+    padding: var(--s-3) var(--s-3) var(--s-3) var(--s-4);
+    border: 1px solid transparent;
+    border-radius: var(--r-surface);
+    transition: background-color var(--t-feedback) var(--ease-standard), border-color var(--t-feedback) var(--ease-standard),
+      box-shadow var(--t-state) var(--ease-standard);
+
+    @container document-list (min-width: 680px) {
+      grid-template-columns: 40px minmax(0, 1fr) 120px 150px 120px 20px;
+      grid-template-areas: 'sheet main category date status chevron';
+    }
+
+    &:hover {
+      background: var(--sheet-raised);
+      border-color: var(--rule);
+      box-shadow: var(--shadow-1);
+
+      .document-item__sheet {
+        transform: translateY(-2px) rotate(-3deg);
+        box-shadow: var(--shadow-2);
+      }
+
+      .document-item__chevron {
+        transform: translateX(3px);
+        color: var(--ink);
+      }
+    }
+
+    .ui-status {
+      grid-area: status;
+      justify-self: start;
+    }
+  }
+
+  // La pièce : une petite feuille avec son liseré guilloché.
+  &__sheet {
+    grid-area: sheet;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 48px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    background:
+      repeating-linear-gradient(0deg, transparent 0 5px, color-mix(in srgb, var(--guilloche) 10%, transparent) 5px 6px) 0 0 / 100% 10px no-repeat,
+      var(--sheet-raised);
+    color: var(--ink-2);
+    box-shadow: var(--shadow-1);
+    transition: transform var(--t-state) var(--ease-out), box-shadow var(--t-state) var(--ease-standard);
+  }
+
+  &__main {
+    grid-area: main;
+    display: grid;
+    min-width: 0;
+  }
+
+  &__title {
+    overflow: hidden;
+    color: var(--ink);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__meta {
+    overflow: hidden;
+    color: var(--ink-3);
+    font-size: var(--text-sm);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__category,
+  &__date {
+    display: none;
+    color: var(--ink-2);
+    font-size: var(--text-sm);
+
+    @container document-list (min-width: 680px) {
+      display: block;
+    }
+  }
+
+  &__category {
+    grid-area: category;
+  }
+
+  &__date {
+    grid-area: date;
+  }
+
+  &__size {
+    display: block;
+    color: var(--ink-3);
+    font-size: var(--text-xs);
+  }
+
+  &__serial {
+    font-size: 11px;
+  }
+
+  &__chevron {
+    grid-area: chevron;
+    color: var(--ink-3);
+    transition: transform var(--t-state) var(--ease-out), color var(--t-feedback) var(--ease-standard);
+  }
+}
+
+@include reduced-motion {
+  .document-item__link:hover .document-item__sheet,
+  .document-item__link:hover .document-item__chevron {
+    transform: none;
+  }
+}

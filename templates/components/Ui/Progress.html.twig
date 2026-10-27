@@ -1,0 +1,4 @@
+{# Ui:Progress — barre de valeur, le nombre reste affiché à côté par le parent #}
+<span {{ attributes.defaults({ class: 'ui-progress' }) }} role="progressbar" aria-valuenow="{{ value }}" aria-valuemin="0" aria-valuemax="100" aria-label="Avancement">
+  <span class="ui-progress__bar" style="--p: {{ value }}"></span>
+</span>

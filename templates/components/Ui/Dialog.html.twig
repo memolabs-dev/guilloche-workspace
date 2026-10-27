@@ -1,0 +1,9 @@
+{# Ui:Dialog — élément natif, titre nommé, fermeture par formulaire method=dialog #}
+<dialog {{ attributes.defaults({ class: 'ui-dialog', id: id, 'aria-labelledby': id ~ '-title' }) }}>
+  <twig:Ui:Guilloche variant="band" :seed="4" class="ui-dialog__band" />
+  <form method="dialog" class="ui-dialog__close">
+    <button type="submit" class="ui-icon-button" aria-label="Fermer"><twig:Ui:Icon name="close" /></button>
+  </form>
+  <h2 class="ui-dialog__title" id="{{ id }}-title">{{ title }}</h2>
+  <div class="ui-dialog__body">{% block content %}{% endblock %}</div>
+</dialog>

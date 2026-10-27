@@ -1,0 +1,909 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-27T13:01:15+00:00",
+  "title": "Design System: Guilloché Workspace",
+  "extensions": {
+    "colorMeta": {
+      "action": {
+        "role": "primary",
+        "displayName": "Vert de marque",
+        "canonical": "#376b44",
+        "oklch": "oklch(48.0% 0.084 150.3)",
+        "dark": "#8fcfa2",
+        "tonalRamp": [
+          "#001003",
+          "#052f13",
+          "#1c512c",
+          "#40744c",
+          "#63986e",
+          "#87bd92",
+          "#a9e1b4",
+          "#cbfed4"
+        ]
+      },
+      "action-hover": {
+        "role": "primary",
+        "displayName": "Vert de marque survolé",
+        "canonical": "#2d5a38",
+        "oklch": "oklch(42.5% 0.075 150.1)",
+        "dark": "#a8ddb8",
+        "tonalRamp": [
+          "#001003",
+          "#052f13",
+          "#23502f",
+          "#45724f",
+          "#689671",
+          "#8cbc95",
+          "#aee0b7",
+          "#cbfed4"
+        ]
+      },
+      "action-press": {
+        "role": "primary",
+        "displayName": "Vert de marque pressé",
+        "canonical": "#23482d",
+        "oklch": "oklch(36.6% 0.063 151.0)",
+        "dark": "#7bbf90",
+        "tonalRamp": [
+          "#001003",
+          "#082f15",
+          "#2a4f33",
+          "#4b7153",
+          "#6d9476",
+          "#91ba9a",
+          "#b4ddbc",
+          "#d1fbd9"
+        ]
+      },
+      "on-action": {
+        "role": "primary",
+        "displayName": "Blanc sur action",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "dark": "#0a1a10",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "action-soft": {
+        "role": "primary",
+        "displayName": "Lavis vert de marque",
+        "canonical": "#dce9dc",
+        "oklch": "oklch(92.1% 0.022 145.4)",
+        "dark": "#183022",
+        "tonalRamp": [
+          "#060e06",
+          "#202920",
+          "#3e483e",
+          "#5e6a5e",
+          "#818d81",
+          "#a6b2a6",
+          "#c8d5c8",
+          "#e6f3e6"
+        ]
+      },
+      "action-ink": {
+        "role": "primary",
+        "displayName": "Encre vert de marque",
+        "canonical": "#285a35",
+        "oklch": "oklch(42.2% 0.082 150.1)",
+        "dark": "#a4dbb4",
+        "tonalRamp": [
+          "#010f04",
+          "#003011",
+          "#1f512d",
+          "#41734d",
+          "#64976f",
+          "#88bd93",
+          "#abe1b5",
+          "#c8ffd2"
+        ]
+      },
+      "intaglio": {
+        "role": "secondary",
+        "displayName": "Encre intaille",
+        "canonical": "#15301f",
+        "oklch": "oklch(28.2% 0.046 154.5)",
+        "dark": "#07100a",
+        "tonalRamp": [
+          "#001005",
+          "#122d1c",
+          "#314c3a",
+          "#516e5a",
+          "#74927d",
+          "#98b7a1",
+          "#badac4",
+          "#d8f8e1"
+        ]
+      },
+      "intaglio-2": {
+        "role": "secondary",
+        "displayName": "Encre intaille claire",
+        "canonical": "#1c3d29",
+        "oklch": "oklch(32.8% 0.053 155.4)",
+        "dark": "#0e1d13",
+        "tonalRamp": [
+          "#010f05",
+          "#0c2e1b",
+          "#2c4e39",
+          "#4d6f59",
+          "#70937b",
+          "#94b8a0",
+          "#b6dcc2",
+          "#d3fadf"
+        ]
+      },
+      "intaglio-ink": {
+        "role": "secondary",
+        "displayName": "Papier sur intaille",
+        "canonical": "#eef4ee",
+        "oklch": "oklch(96.1% 0.010 145.5)",
+        "dark": "#e6efe7",
+        "tonalRamp": [
+          "#090c09",
+          "#232823",
+          "#424742",
+          "#636863",
+          "#858b85",
+          "#aab0aa",
+          "#cdd3cd",
+          "#eaf0ea"
+        ]
+      },
+      "intaglio-ink-2": {
+        "role": "secondary",
+        "displayName": "Encre secondaire sur intaille",
+        "canonical": "#a9c3ae",
+        "oklch": "oklch(79.2% 0.041 150.9)",
+        "dark": "#93ad98",
+        "tonalRamp": [
+          "#001003",
+          "#172c1c",
+          "#354b3a",
+          "#556d5a",
+          "#78917d",
+          "#9cb6a1",
+          "#bfd9c4",
+          "#dcf7e1"
+        ]
+      },
+      "intaglio-line": {
+        "role": "secondary",
+        "displayName": "Filet sur intaille",
+        "canonical": "#7fae89",
+        "oklch": "oklch(70.7% 0.074 150.7)",
+        "dark": "#4f7a59",
+        "tonalRamp": [
+          "#001004",
+          "#062f14",
+          "#235030",
+          "#457250",
+          "#689672",
+          "#8cbc96",
+          "#afdfb8",
+          "#ccfdd5"
+        ]
+      },
+      "intaglio-copper": {
+        "role": "secondary",
+        "displayName": "Cuivre sur intaille",
+        "canonical": "#dc9150",
+        "oklch": "oklch(72.0% 0.122 59.9)",
+        "dark": "#e5a160",
+        "tonalRamp": [
+          "#150700",
+          "#3b1e04",
+          "#673704",
+          "#935516",
+          "#be7533",
+          "#e69a5a",
+          "#fdc496",
+          "#ffeada"
+        ]
+      },
+      "guilloche": {
+        "role": "secondary",
+        "displayName": "Encre guilloché",
+        "canonical": "#2d5a3b",
+        "oklch": "oklch(42.6% 0.072 152.3)",
+        "dark": "#9cc9a8",
+        "tonalRamp": [
+          "#001004",
+          "#052f16",
+          "#235032",
+          "#457252",
+          "#679674",
+          "#8cbc98",
+          "#aedfba",
+          "#cbfdd7"
+        ]
+      },
+      "copper": {
+        "role": "tertiary",
+        "displayName": "Cuivre (à votre tour)",
+        "canonical": "#8c4810",
+        "oklch": "oklch(47.7% 0.112 53.6)",
+        "dark": "#eaa96a",
+        "tonalRamp": [
+          "#170600",
+          "#3e1c01",
+          "#69350a",
+          "#96511d",
+          "#bd7543",
+          "#e59a68",
+          "#fcc39f",
+          "#ffeadd"
+        ]
+      },
+      "copper-line": {
+        "role": "tertiary",
+        "displayName": "Trait cuivre",
+        "canonical": "#c27530",
+        "oklch": "oklch(63.4% 0.127 58.8)",
+        "dark": "#c98546",
+        "tonalRamp": [
+          "#160700",
+          "#3c1e02",
+          "#683600",
+          "#955311",
+          "#c1742f",
+          "#e99956",
+          "#fbc49b",
+          "#feeadc"
+        ]
+      },
+      "copper-soft": {
+        "role": "tertiary",
+        "displayName": "Lavis cuivre",
+        "canonical": "#f4e5d4",
+        "oklch": "oklch(92.9% 0.028 70.9)",
+        "dark": "#33230f",
+        "tonalRamp": [
+          "#120901",
+          "#2f2417",
+          "#4f4335",
+          "#716455",
+          "#948777",
+          "#baab9b",
+          "#ddcebe",
+          "#fbecdb"
+        ]
+      },
+      "blue": {
+        "role": "tertiary",
+        "displayName": "Bleu fiduciaire (en cours)",
+        "canonical": "#29497a",
+        "oklch": "oklch(40.6% 0.091 258.7)",
+        "dark": "#a6c2ea",
+        "tonalRamp": [
+          "#000924",
+          "#052452",
+          "#254475",
+          "#45679a",
+          "#678ac0",
+          "#8bb0e8",
+          "#b7d3fd",
+          "#e5effe"
+        ]
+      },
+      "blue-line": {
+        "role": "tertiary",
+        "displayName": "Trait bleu",
+        "canonical": "#5b81b6",
+        "oklch": "oklch(59.7% 0.092 256.8)",
+        "dark": "#6f94c8",
+        "tonalRamp": [
+          "#000a21",
+          "#012552",
+          "#224575",
+          "#42679a",
+          "#648bc1",
+          "#88b0e8",
+          "#b5d3fd",
+          "#e5efff"
+        ]
+      },
+      "blue-soft": {
+        "role": "tertiary",
+        "displayName": "Lavis bleu",
+        "canonical": "#e0e8f3",
+        "oklch": "oklch(92.8% 0.017 256.3)",
+        "dark": "#172337",
+        "tonalRamp": [
+          "#070b12",
+          "#21272f",
+          "#3f464e",
+          "#606770",
+          "#838a94",
+          "#a7afb9",
+          "#cad2dc",
+          "#e7effa"
+        ]
+      },
+      "green": {
+        "role": "tertiary",
+        "displayName": "Vert terminé",
+        "canonical": "#2a6237",
+        "oklch": "oklch(44.6% 0.092 149.0)",
+        "dark": "#9ad5a8",
+        "tonalRamp": [
+          "#010f03",
+          "#023010",
+          "#195228",
+          "#3d7448",
+          "#60996a",
+          "#85be8e",
+          "#a7e2b0",
+          "#c9ffd1"
+        ]
+      },
+      "green-line": {
+        "role": "tertiary",
+        "displayName": "Trait vert",
+        "canonical": "#589a66",
+        "oklch": "oklch(62.8% 0.103 149.5)",
+        "dark": "#5f9d6d",
+        "tonalRamp": [
+          "#001003",
+          "#003010",
+          "#095424",
+          "#347644",
+          "#599b67",
+          "#7dc18a",
+          "#a0e4ad",
+          "#ccfdd4"
+        ]
+      },
+      "green-soft": {
+        "role": "tertiary",
+        "displayName": "Lavis vert",
+        "canonical": "#dbeadb",
+        "oklch": "oklch(92.2% 0.026 145.4)",
+        "dark": "#142c1d",
+        "tonalRamp": [
+          "#050e05",
+          "#1f2a1f",
+          "#3d493d",
+          "#5d6a5d",
+          "#808e80",
+          "#a4b3a4",
+          "#c7d6c7",
+          "#e4f3e4"
+        ]
+      },
+      "red": {
+        "role": "tertiary",
+        "displayName": "Rouge erreur",
+        "canonical": "#a02f29",
+        "oklch": "oklch(47.7% 0.150 27.4)",
+        "dark": "#f1a49a",
+        "tonalRamp": [
+          "#1e0101",
+          "#4f0103",
+          "#830d0f",
+          "#ab3a32",
+          "#d55f55",
+          "#ff8578",
+          "#fdc0b7",
+          "#fde9e6"
+        ]
+      },
+      "red-line": {
+        "role": "tertiary",
+        "displayName": "Trait rouge",
+        "canonical": "#cf645b",
+        "oklch": "oklch(63.0% 0.137 26.6)",
+        "dark": "#c9675e",
+        "tonalRamp": [
+          "#1e0001",
+          "#4c0708",
+          "#7f1818",
+          "#a63f39",
+          "#cf645b",
+          "#f9897f",
+          "#febfb8",
+          "#fee9e6"
+        ]
+      },
+      "red-soft": {
+        "role": "tertiary",
+        "displayName": "Lavis rouge",
+        "canonical": "#f6e0dc",
+        "oklch": "oklch(92.3% 0.025 29.9)",
+        "dark": "#381b18",
+        "tonalRamp": [
+          "#140706",
+          "#32221f",
+          "#52403d",
+          "#74615e",
+          "#988480",
+          "#bda8a5",
+          "#e1cbc7",
+          "#ffe9e5"
+        ]
+      },
+      "neutral": {
+        "role": "neutral",
+        "displayName": "Neutre",
+        "canonical": "#4b584f",
+        "oklch": "oklch(44.6% 0.022 155.2)",
+        "dark": "#b7c3b9",
+        "tonalRamp": [
+          "#040e07",
+          "#1e2a22",
+          "#3c4940",
+          "#5d6a61",
+          "#7f8d83",
+          "#a4b2a8",
+          "#c6d5cb",
+          "#e4f3e8"
+        ]
+      },
+      "neutral-line": {
+        "role": "neutral",
+        "displayName": "Trait neutre",
+        "canonical": "#97a499",
+        "oklch": "oklch(70.5% 0.022 150.0)",
+        "dark": "#6b796f",
+        "tonalRamp": [
+          "#050e07",
+          "#1f2a21",
+          "#3d483f",
+          "#5e6a60",
+          "#808d82",
+          "#a5b2a7",
+          "#c8d5ca",
+          "#e5f3e7"
+        ]
+      },
+      "neutral-soft": {
+        "role": "neutral",
+        "displayName": "Lavis neutre",
+        "canonical": "#e2e8e0",
+        "oklch": "oklch(92.4% 0.012 137.8)",
+        "dark": "#1c2820",
+        "tonalRamp": [
+          "#090c08",
+          "#242822",
+          "#424740",
+          "#636861",
+          "#868b84",
+          "#aab0a8",
+          "#cdd3cb",
+          "#ebf1e9"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papier de sécurité",
+        "canonical": "#edf1ea",
+        "oklch": "oklch(95.3% 0.010 131.4)",
+        "dark": "#0c1610",
+        "tonalRamp": [
+          "#0a0c08",
+          "#252822",
+          "#434641",
+          "#646761",
+          "#878a84",
+          "#acafa9",
+          "#ced2cc",
+          "#ecf0e9"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Feuille",
+        "canonical": "#fbfcf9",
+        "oklch": "oklch(98.9% 0.004 121.6)",
+        "dark": "#111d16",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#262725",
+          "#454543",
+          "#666664",
+          "#898987",
+          "#adaeab",
+          "#d0d1ce",
+          "#eeefec"
+        ]
+      },
+      "sheet-raised": {
+        "role": "neutral",
+        "displayName": "Feuille surélevée",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "dark": "#16251c",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "sheet-sunken": {
+        "role": "neutral",
+        "displayName": "Feuille en creux",
+        "canonical": "#e3e9e0",
+        "oklch": "oklch(92.7% 0.014 134.9)",
+        "dark": "#09120d",
+        "tonalRamp": [
+          "#090c07",
+          "#242821",
+          "#42473f",
+          "#636860",
+          "#868b83",
+          "#aab0a7",
+          "#cdd3ca",
+          "#ebf1e8"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Encre",
+        "canonical": "#14261b",
+        "oklch": "oklch(24.9% 0.032 156.4)",
+        "dark": "#e6eee7",
+        "tonalRamp": [
+          "#010f06",
+          "#192b20",
+          "#374a3e",
+          "#586c5f",
+          "#7a8f81",
+          "#9eb4a6",
+          "#c1d8c8",
+          "#def5e6"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Encre secondaire",
+        "canonical": "#435448",
+        "oklch": "oklch(42.7% 0.029 154.3)",
+        "dark": "#b3c3b6",
+        "tonalRamp": [
+          "#020f06",
+          "#1b2b20",
+          "#394a3e",
+          "#5a6b5f",
+          "#7c8f81",
+          "#a0b4a6",
+          "#c3d7c9",
+          "#e0f5e6"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Encre de métadonnée",
+        "canonical": "#56665a",
+        "oklch": "oklch(49.3% 0.027 152.9)",
+        "dark": "#98aa9b",
+        "tonalRamp": [
+          "#030e06",
+          "#1c2a20",
+          "#3a493e",
+          "#5b6b5f",
+          "#7d8e81",
+          "#a2b3a6",
+          "#c4d6c9",
+          "#e2f4e6"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Filet",
+        "canonical": "#d3dbcf",
+        "oklch": "oklch(88.2% 0.018 134.9)",
+        "dark": "#223429",
+        "tonalRamp": [
+          "#080d06",
+          "#232920",
+          "#41473e",
+          "#62695e",
+          "#848c81",
+          "#a9b1a5",
+          "#ccd4c8",
+          "#e9f1e5"
+        ]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Filet appuyé",
+        "canonical": "#b0bdae",
+        "oklch": "oklch(78.4% 0.025 141.5)",
+        "dark": "#34493b",
+        "tonalRamp": [
+          "#060e05",
+          "#202a1e",
+          "#3e493c",
+          "#5e6a5c",
+          "#818d7f",
+          "#a5b2a3",
+          "#c8d5c6",
+          "#e5f3e3"
+        ]
+      },
+      "control-line": {
+        "role": "neutral",
+        "displayName": "Contour de champ",
+        "canonical": "#7b8b7f",
+        "oklch": "oklch(62.0% 0.026 153.2)",
+        "dark": "#6c8272",
+        "tonalRamp": [
+          "#040e06",
+          "#1d2a20",
+          "#3b493f",
+          "#5b6b5f",
+          "#7e8e82",
+          "#a2b3a6",
+          "#c5d6c9",
+          "#e2f4e6"
+        ]
+      },
+      "focus": {
+        "role": "neutral",
+        "displayName": "Anneau de focus",
+        "canonical": "#1f5a33",
+        "oklch": "oklch(41.8% 0.089 151.6)",
+        "dark": "#9fd8b0",
+        "tonalRamp": [
+          "#000f04",
+          "#062f15",
+          "#16522c",
+          "#3b754c",
+          "#5e996e",
+          "#83be92",
+          "#a5e2b4",
+          "#c7ffd4"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Titre de page en Bodoni Moda, un par écran."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Titre de fiche mission."
+      },
+      "value": {
+        "displayName": "Value",
+        "purpose": "Pourcentage au centre de la rosette."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Prochaine étape, en-têtes de région."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texte courant Inter."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Libellés et métadonnées, casse de phrase."
+      },
+      "serial": {
+        "displayName": "Serial",
+        "purpose": "Numéros de série Fira Code en cuivre."
+      }
+    },
+    "themes": {
+      "light": ":root",
+      "dark": "[data-theme='dark']",
+      "rule": "Le thème sombre redéfinit les rôles, rien d’autre. Valeurs sombres dans colorMeta.<token>.dark.",
+      "contrast": "tests/system-contrast.py, 48 paires, deux thèmes"
+    },
+    "shadows": [
+      {
+        "name": "shadow-1",
+        "value": "0 1px 2px rgb(20 38 27 / 0.06), 0 1px 1px rgb(20 38 27 / 0.04)",
+        "dark": "0 1px 2px rgb(0 0 0 / 0.4)",
+        "purpose": "Posée : bouton primaire, ligne survolée, pastille d’interrupteur."
+      },
+      {
+        "name": "shadow-2",
+        "value": "0 12px 32px -14px rgb(20 38 27 / 0.24), 0 2px 6px rgb(20 38 27 / 0.06)",
+        "dark": "0 14px 34px -14px rgb(0 0 0 / 0.7), 0 2px 6px rgb(0 0 0 / 0.35)",
+        "purpose": "Feuille : fiche mission, ligne sélectionnée, survol du primaire."
+      },
+      {
+        "name": "shadow-3",
+        "value": "0 32px 80px -24px rgb(8 22 13 / 0.45), 0 8px 24px -12px rgb(8 22 13 / 0.2)",
+        "dark": "0 32px 80px -24px rgb(0 0 0 / 0.85)",
+        "purpose": "Flottante : dialogue et toast."
+      },
+      {
+        "name": "focus-ring",
+        "value": "outline: 2px solid var(--focus); outline-offset: 3px",
+        "purpose": "Focus clavier de tout contrôle."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Entrées, tracé, impression."
+      },
+      {
+        "name": "ease-in",
+        "value": "cubic-bezier(0.5, 0, 0.75, 0)",
+        "purpose": "Sorties de dialogue et toast."
+      },
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.2, 0, 0, 1)",
+        "purpose": "Changements d’état."
+      },
+      {
+        "name": "t-feedback",
+        "value": "120ms",
+        "purpose": "Retour de survol, pression, sortie de dialogue."
+      },
+      {
+        "name": "skeleton-threshold",
+        "value": "140ms",
+        "purpose": "Délai avant affichage du squelette (polished_results_controller.js)."
+      },
+      {
+        "name": "t-state",
+        "value": "180ms",
+        "purpose": "Changement d’état, fond de dialogue."
+      },
+      {
+        "name": "t-enter",
+        "value": "280ms",
+        "purpose": "Entrée de dialogue, toast, tiroir du rail."
+      },
+      {
+        "name": "t-print",
+        "value": "520ms",
+        "purpose": "Impression de la fiche (clip-path) ; révélation circulaire du thème."
+      },
+      {
+        "name": "t-trace",
+        "value": "1100ms",
+        "purpose": "Tracé de la rosette et remplissage de la progression."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Retire tracé, impression de fiche et mouvement spatial ; garde opacité et couleur."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "600px"
+      },
+      {
+        "name": "md",
+        "value": "960px"
+      },
+      {
+        "name": "lg",
+        "value": "1200px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Bouton primaire",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Action principale, un par contexte ; trame guillochée qui moire au survol.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Ouvrir le document</button>",
+      "css": ".ds-btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;overflow:hidden;border:1px solid transparent;border-radius:var(--r-control,6px);font:600 0.875rem/1 var(--font-ui,Inter,sans-serif);cursor:pointer;transition:background-color 120ms cubic-bezier(0.2,0,0,1),box-shadow 180ms cubic-bezier(0.2,0,0,1),transform 120ms cubic-bezier(0.2,0,0,1);}.ds-btn:active{transform:scale(0.98);}.ds-btn:focus-visible{outline:2px solid var(--focus,#1f5a33);outline-offset:3px;}.ds-btn-primary{background:var(--action,#376b44);color:var(--on-action,#fff);box-shadow:var(--shadow-1),inset 0 1px 0 var(--sheen,rgb(255 255 255 / .12));}.ds-btn-primary::before{content:'';position:absolute;inset:0;z-index:-1;background:currentColor;opacity:.1;mask:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='12'%3E%3Cg fill='none' stroke='%23000' stroke-width='.8'%3E%3Cpath d='M0 6Q12 0 24 6T48 6'/%3E%3Cpath d='M0 6Q12 12 24 6T48 6'/%3E%3C/g%3E%3C/svg%3E\") 0 0/48px 12px,url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='12'%3E%3Cg fill='none' stroke='%23000' stroke-width='.8'%3E%3Cpath d='M0 6Q12 0 24 6T48 6'/%3E%3Cpath d='M0 6Q12 12 24 6T48 6'/%3E%3C/g%3E%3C/svg%3E\") 0 3px/52px 12px;transition:mask-position 900ms cubic-bezier(0.16,1,0.3,1),opacity 180ms;}.ds-btn-primary:hover{background:var(--action-hover,#2d5a38);box-shadow:var(--shadow-2),inset 0 1px 0 var(--sheen,rgb(255 255 255 / .12));}.ds-btn-primary:hover::before{opacity:.16;mask-position:48px 0,-26px 3px;}.ds-btn-primary:active{background:var(--action-press,#23482d);}"
+    },
+    {
+      "name": "Bouton secondaire",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Action d’appoint sur feuille, contour de champ.",
+      "html": "<button class=\"ds-btn ds-btn-secondary\">Rechercher</button>",
+      "css": ".ds-btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;overflow:hidden;border:1px solid transparent;border-radius:var(--r-control,6px);font:600 0.875rem/1 var(--font-ui,Inter,sans-serif);cursor:pointer;transition:background-color 120ms cubic-bezier(0.2,0,0,1),box-shadow 180ms cubic-bezier(0.2,0,0,1),transform 120ms cubic-bezier(0.2,0,0,1);}.ds-btn:active{transform:scale(0.98);}.ds-btn:focus-visible{outline:2px solid var(--focus,#1f5a33);outline-offset:3px;}.ds-btn-secondary{background:var(--sheet-raised,#fff);color:var(--ink,#14261b);border-color:var(--control-line,#7b8b7f);}.ds-btn-secondary:hover{background:var(--sheet,#fbfcf9);}.ds-btn-secondary:active{background:var(--sheet-sunken,#e3e9e0);}"
+    },
+    {
+      "name": "Bouton doux",
+      "kind": "button",
+      "refersTo": "button-soft",
+      "description": "Action secondaire teintée du vert de marque.",
+      "html": "<button class=\"ds-btn ds-btn-soft\">Télécharger</button>",
+      "css": ".ds-btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;overflow:hidden;border:1px solid transparent;border-radius:var(--r-control,6px);font:600 0.875rem/1 var(--font-ui,Inter,sans-serif);cursor:pointer;transition:background-color 120ms cubic-bezier(0.2,0,0,1),box-shadow 180ms cubic-bezier(0.2,0,0,1),transform 120ms cubic-bezier(0.2,0,0,1);}.ds-btn:active{transform:scale(0.98);}.ds-btn:focus-visible{outline:2px solid var(--focus,#1f5a33);outline-offset:3px;}.ds-btn-soft{background:var(--action-soft,#dce9dc);color:var(--action-ink,#285a35);}.ds-btn-soft:hover{background:color-mix(in srgb,var(--action-soft,#dce9dc) 80%,var(--action,#376b44));}"
+    },
+    {
+      "name": "Champ",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Champ natif 44px, label relié, halo de focus.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field__label\">Rechercher une mission</span><input class=\"ds-input\" placeholder=\"Nom ou catégorie\"></label>",
+      "css": ".ds-field{display:grid;gap:8px;font-family:var(--font-ui,Inter,sans-serif);}.ds-field__label{font-size:0.8125rem;font-weight:600;color:var(--ink,#14261b);}.ds-input{min-height:44px;padding:0 12px;border:1px solid var(--control-line,#7b8b7f);border-radius:var(--r-control,6px);background:var(--sheet-raised,#fff);color:var(--ink,#14261b);font:0.875rem var(--font-ui,Inter,sans-serif);transition:border-color 120ms;}.ds-input::placeholder{color:var(--ink-3,#56665a);}.ds-input:hover{border-color:var(--ink-2,#435448);}.ds-input:focus-visible{outline:none;border-color:var(--focus,#1f5a33);box-shadow:0 0 0 3px color-mix(in srgb,var(--focus,#1f5a33) 22%,transparent);}"
+    },
+    {
+      "name": "Statuts",
+      "kind": "chip",
+      "refersTo": "status-action",
+      "description": "Pilules d’état : le texte porte le sens, l’encre le confirme.",
+      "html": "<span class=\"ds-status ds-status--amber\">À votre tour</span> <span class=\"ds-status ds-status--blue\">En cours</span> <span class=\"ds-status ds-status--green\">Terminée</span>",
+      "css": ".ds-status{display:inline-flex;align-items:center;min-height:24px;padding:0 8px;border-radius:999px;font:600 0.75rem/1.2 var(--font-ui,Inter,sans-serif);white-space:nowrap;}.ds-status--amber{background:var(--copper-soft,#f4e5d4);color:var(--copper,#8c4810);}.ds-status--blue{background:var(--blue-soft,#e0e8f3);color:var(--blue,#29497a);}.ds-status--green{background:var(--green-soft,#dbeadb);color:var(--green,#2a6237);}"
+    },
+    {
+      "name": "Navigation du rail",
+      "kind": "nav",
+      "refersTo": "rail",
+      "description": "Rail d’encre intaille, liens de 44px, actif sur lavis, compteur cuivre.",
+      "html": "<nav class=\"ds-rail\"><a class=\"ds-rail__link\" href=\"#\">Vue d’ensemble</a><a class=\"ds-rail__link is-active\" href=\"#\" aria-current=\"page\">Missions <span class=\"ds-rail__count\">2</span></a><a class=\"ds-rail__link\" href=\"#\">Documents</a></nav>",
+      "css": ".ds-rail{display:grid;gap:2px;width:256px;padding:16px;background:var(--intaglio,#15301f);font:500 0.875rem var(--font-ui,Inter,sans-serif);}.ds-rail__link{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 12px;border-radius:var(--r-control,6px);color:var(--intaglio-ink-2,#a9c3ae);text-decoration:none;transition:background-color 120ms,color 120ms;}.ds-rail__link:hover{background:var(--intaglio-wash,rgb(255 255 255 / .07));color:var(--intaglio-ink,#eef4ee);}.ds-rail__link.is-active{background:var(--intaglio-wash-strong,rgb(255 255 255 / .11));color:var(--intaglio-ink,#eef4ee);box-shadow:inset 0 0 0 1px var(--intaglio-edge,rgb(255 255 255 / .12));}.ds-rail__link:focus-visible{outline:2px solid var(--intaglio-ink,#eef4ee);outline-offset:3px;}.ds-rail__count{margin-left:auto;display:inline-grid;place-items:center;min-width:24px;height:20px;padding:0 8px;border-radius:999px;background:var(--copper-line,#c27530);color:var(--count-ink,#1c1006);font-size:0.75rem;font-weight:700;}"
+    },
+    {
+      "name": "Rosette guillochée",
+      "kind": "custom",
+      "refersTo": "mission-sheet",
+      "description": "Ui:Guilloche : épitrochoïde calculée en PHP (graine = id), avancement par pathLength=100 et stroke-dasharray, épaisseurs en unités du dessin.",
+      "html": "<svg class=\"ds-rosette\" viewBox=\"0 0 1000 1000\" width=\"96\" height=\"96\" style=\"--p:75;--k:10.417\" role=\"img\" aria-label=\"Avancement 75 %\"><path class=\"ds-rosette__counter\" d=\"M538 263 L533 261 L529 256 L528 250 L528 242 L531 234 L537 227 L546 220 L556 215 L568 212 L580 212 L593 215 L604 220 L614 227 L622 236 L628 247 L631 257 L631 267 L629 275 L625 281 L620 285 L614 287 L609 286 L605 282 L603 277 L604 271 L606 264 L612 257 L620 251 L630 248 L641 246 L653 247 L665 251 L676 257 L686 266 L693 276 L698 287 L700 298 L699 309 L696 318 L692 326 L686 331 L680 333 L674 333 L670 330 L667 326 L667 320 L669 314 L674 308 L682 304 L691 301 L702 300 L713 302 L724 307 L734 314 L743 324 L749 335 L753 347 L754 359 L752 370 L749 380 L743 388 L736 394 L729 396 L723 397 L718 395 L714 391 L713 386 L715 380 L719 375 L725 371 L733 369 L743 369 L753 372 L764 378 L773 386 L780 396 L785 407 L788 420 L788 432 L785 444 L780 454 L773 463 L766 469 L758 472 L750 472 L744 471 L739 467 L737 462 L738 457 L741 453 L746 449 L754 447 L762 448 L772 451 L781 457 L788 465 L795 475 L799 487 L800 500 L799 513 L795 525 L788 535 L781 543 L772 549 L762 552 L754 553 L746 551 L741 547 L738 543 L737 538 L739 533 L744 529 L750 528 L758 528 L766 531 L773 537 L780 546 L785 556 L788 568 L788 580 L785 593 L780 604 L773 614 L764 622 L753 628 L743 631 L733 631 L725 629 L719 625 L715 620 L713 614 L714 609 L718 605 L723 603 L729 604 L736 606 L743 612 L749 620 L752 630 L754 641 L753 653 L749 665 L743 676 L734 686 L724 693 L713 698 L702 700 L691 699 L682 696 L674 692 L669 686 L667 680 L667 674 L670 670 L674 667 L680 667 L686 669 L692 674 L696 682 L699 691 L700 702 L698 713 L693 724 L686 734 L676 743 L665 749 L653 753 L641 754 L630 752 L620 749 L612 743 L606 736 L604 729 L603 723 L605 718 L609 714 L614 713 L620 715 L625 719 L629 725 L631 733 L631 743 L628 753 L622 764 L614 773 L604 780 L593 785 L580 788 L568 788 L556 785 L546 780 L537 773 L531 766 L528 758 L528 750 L529 744 L533 739 L538 737 L543 738 L547 741 L551 746 L553 754 L552 762 L549 772 L543 781 L535 788 L525 795 L513 799 L500 800 L487 799 L475 795 L465 788 L457 781 L451 772 L448 762 L447 754 L449 746 L453 741 L457 738 L462 737 L467 739 L471 744 L472 750 L472 758 L469 766 L463 773 L454 780 L444 785 L432 788 L420 788 L407 785 L396 780 L386 773 L378 764 L372 753 L369 743 L369 733 L371 725 L375 719 L380 715 L386 713 L391 714 L395 718 L397 723 L396 729 L394 736 L388 743 L380 749 L370 752 L359 754 L347 753 L335 749 L324 743 L314 734 L307 724 L302 713 L300 702 L301 691 L304 682 L308 674 L314 669 L320 667 L326 667 L330 670 L333 674 L333 680 L331 686 L326 692 L318 696 L309 699 L298 700 L287 698 L276 693 L266 686 L257 676 L251 665 L247 653 L246 641 L248 630 L251 620 L257 612 L264 606 L271 604 L277 603 L282 605 L286 609 L287 614 L285 620 L281 625 L275 629 L267 631 L257 631 L247 628 L236 622 L227 614 L220 604 L215 593 L212 580 L212 568 L215 556 L220 546 L227 537 L234 531 L242 528 L250 528 L256 529 L261 533 L263 538 L262 543 L259 547 L254 551 L246 553 L238 552 L228 549 L219 543 L212 535 L205 525 L201 513 L200 500 L201 487 L205 475 L212 465 L219 457 L228 451 L238 448 L246 447 L254 449 L259 453 L262 457 L263 462 L261 467 L256 471 L250 472 L242 472 L234 469 L227 463 L220 454 L215 444 L212 432 L212 420 L215 407 L220 396 L227 386 L236 378 L247 372 L257 369 L267 369 L275 371 L281 375 L285 380 L287 386 L286 391 L282 395 L277 397 L271 396 L264 394 L257 388 L251 380 L248 370 L246 359 L247 347 L251 335 L257 324 L266 314 L276 307 L287 302 L298 300 L309 301 L318 304 L326 308 L331 314 L333 320 L333 326 L330 330 L326 333 L320 333 L314 331 L308 326 L304 318 L301 309 L300 298 L302 287 L307 276 L314 266 L324 257 L335 251 L347 247 L359 246 L370 248 L380 251 L388 257 L394 264 L396 271 L397 277 L395 282 L391 286 L386 287 L380 285 L375 281 L371 275 L369 267 L369 257 L372 247 L378 236 L386 227 L396 220 L407 215 L420 212 L432 212 L444 215 L454 220 L463 227 L469 234 L472 242 L472 250 L471 256 L467 261 L462 263 L457 262 L453 259 L449 254 L447 246 L448 238 L451 228 L457 219 L465 212 L475 205 L487 201 L500 200 L513 201 L525 205 L535 212 L543 219 L549 228 L552 238 L553 246 L551 254 L547 259 L543 262 L538 263\"/><path class=\"ds-rosette__trace\" pathLength=\"100\" d=\"M500 175 L485 172 L472 163 L463 150 L458 133 L458 113 L465 94 L477 76 L495 60 L516 50 L540 44 L565 45 L590 51 L611 63 L629 80 L641 99 L648 120 L649 141 L644 159 L634 174 L621 184 L607 189 L592 188 L578 181 L568 169 L563 153 L563 136 L569 117 L581 100 L598 86 L619 77 L643 72 L667 74 L691 82 L712 95 L730 112 L742 133 L749 155 L749 177 L744 197 L734 214 L721 225 L705 231 L690 232 L676 226 L665 216 L659 202 L658 185 L663 168 L674 152 L690 139 L710 131 L733 127 L757 130 L780 138 L801 152 L818 171 L830 193 L836 216 L836 239 L830 260 L819 278 L805 291 L789 299 L773 300 L758 296 L746 287 L739 274 L737 258 L740 242 L750 227 L765 215 L784 207 L806 205 L829 208 L851 217 L871 232 L887 251 L898 274 L903 298 L902 322 L896 344 L884 363 L869 377 L852 386 L834 388 L818 385 L805 377 L796 365 L793 350 L795 335 L803 321 L817 309 L834 302 L855 299 L877 303 L898 313 L917 328 L931 347 L941 370 L945 395 L944 420 L936 443 L923 462 L907 477 L889 486 L870 489 L852 487 L837 479 L827 468 L822 454 L823 439 L830 425 L842 413 L858 406 L877 404 L897 407 L917 417 L934 432 L948 452 L957 475 L960 500 L957 525 L948 548 L934 568 L917 583 L897 593 L877 596 L858 594 L842 587 L830 575 L823 561 L822 546 L827 532 L837 521 L852 513 L870 511 L889 514 L907 523 L923 538 L936 557 L944 580 L945 605 L941 630 L931 653 L917 672 L898 687 L877 697 L855 701 L834 698 L817 691 L803 679 L795 665 L793 650 L796 635 L805 623 L818 615 L834 612 L852 614 L869 623 L884 637 L896 656 L902 678 L903 702 L898 726 L887 749 L871 768 L851 783 L829 792 L806 795 L784 793 L765 785 L750 773 L740 758 L737 742 L739 726 L746 713 L758 704 L773 700 L789 701 L805 709 L819 722 L830 740 L836 761 L836 784 L830 807 L818 829 L801 848 L780 862 L757 870 L733 873 L710 869 L690 861 L674 848 L663 832 L658 815 L659 798 L665 784 L676 774 L690 768 L705 769 L721 775 L734 786 L744 803 L749 823 L749 845 L742 867 L730 888 L712 905 L691 918 L667 926 L643 928 L619 923 L598 914 L581 900 L569 883 L563 864 L563 847 L568 831 L578 819 L592 812 L607 811 L621 816 L634 826 L644 841 L649 859 L648 880 L641 901 L629 920 L611 937 L590 949 L565 955 L540 956 L516 950 L495 940 L477 924 L465 906 L458 887 L458 867 L463 850 L472 837 L485 828 L500 825 L515 828 L528 837 L537 850 L542 867 L542 887 L535 906 L523 924 L505 940 L484 950 L460 956 L435 955 L410 949 L389 937 L371 920 L359 901 L352 880 L351 859 L356 841 L366 826 L379 816 L393 811 L408 812 L422 819 L432 831 L437 847 L437 864 L431 883 L419 900 L402 914 L381 923 L357 928 L333 926 L309 918 L288 905 L270 888 L258 867 L251 845 L251 823 L256 803 L266 786 L279 775 L295 769 L310 768 L324 774 L335 784 L341 798 L342 815 L337 832 L326 848 L310 861 L290 869 L267 873 L243 870 L220 862 L199 848 L182 829 L170 807 L164 784 L164 761 L170 740 L181 722 L195 709 L211 701 L227 700 L242 704 L254 713 L261 726 L263 742 L260 758 L250 773 L235 785 L216 793 L194 795 L171 792 L149 783 L129 768 L113 749 L102 726 L97 702 L98 678 L104 656 L116 637 L131 623 L148 614 L166 612 L182 615 L195 623 L204 635 L207 650 L205 665 L197 679 L183 691 L166 698 L145 701 L123 697 L102 687 L83 672 L69 653 L59 630 L55 605 L56 580 L64 557 L77 538 L93 523 L111 514 L130 511 L148 513 L163 521 L173 532 L178 546 L177 561 L170 575 L158 587 L142 594 L123 596 L103 593 L83 583 L66 568 L52 548 L43 525 L40 500 L43 475 L52 452 L66 432 L83 417 L103 407 L123 404 L142 406 L158 413 L170 425 L177 439 L178 454 L173 468 L163 479 L148 487 L130 489 L111 486 L93 477 L77 462 L64 443 L56 420 L55 395 L59 370 L69 347 L83 328 L102 313 L123 303 L145 299 L166 302 L183 309 L197 321 L205 335 L207 350 L204 365 L195 377 L182 385 L166 388 L148 386 L131 377 L116 363 L104 344 L98 322 L97 298 L102 274 L113 251 L129 232 L149 217 L171 208 L194 205 L216 207 L235 215 L250 227 L260 242 L263 258 L261 274 L254 287 L242 296 L227 300 L211 299 L195 291 L181 278 L170 260 L164 239 L164 216 L170 193 L182 171 L199 152 L220 138 L243 130 L267 127 L290 131 L310 139 L326 152 L337 168 L342 185 L341 202 L335 216 L324 226 L310 232 L295 231 L279 225 L266 214 L256 197 L251 177 L251 155 L258 133 L270 112 L288 95 L309 82 L333 74 L357 72 L381 77 L402 86 L419 100 L431 117 L437 136 L437 153 L432 169 L422 181 L408 188 L393 189 L379 184 L366 174 L356 159 L351 141 L352 120 L359 99 L371 80 L389 63 L410 51 L435 45 L460 44 L484 50 L505 60 L523 76 L535 94 L542 113 L542 133 L537 150 L528 163 L515 172 L500 175\"/></svg>",
+      "css": ".ds-rosette{overflow:visible;}.ds-rosette path{fill:none;stroke:var(--copper-line,#c27530);stroke-linejoin:round;stroke-linecap:round;}.ds-rosette__counter{stroke-width:calc(0.5px * var(--k));opacity:.22;}.ds-rosette__trace{stroke-width:calc(1.1px * var(--k));stroke-dasharray:var(--p) 100;animation:ds-trace 1100ms cubic-bezier(0.16,1,0.3,1) 120ms both;}@keyframes ds-trace{from{stroke-dasharray:0 100;}}@media (prefers-reduced-motion:reduce){.ds-rosette__trace{animation:none;}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Le titre guilloché",
+    "overview": "L'espace dirigeant se lit comme un titre fiduciaire : chaque mission est une valeur émise, numérotée, protégée. Encre intaille vert profond sur papier de sécurité vert très pâle, feuilles blanches pour les pièces de travail. Le monde vit dans la matière (rail d'encre, rosettes, bandes guillochées, numéros de série), jamais dans les contrôles, qui restent standards et lisibles.\n\nLa densité est celle d'un outil de travail : en-tête de page en Didone, puis listes, filtres et fiches en Inter. La rosette de chaque mission est calculée côté serveur et son trait s'imprime jusqu'à l'avancement ; c'est le seul endroit où le décor porte une donnée. Le système refuse le tableau de bord SaaS gris, accent vert et cartes arrondies indistinctes.\n\nDeux thèmes partagent les mêmes rôles : le sombre est un billet tenu à contre-jour, encres éclaircies, aucun rôle nouveau.",
+    "keyCharacteristics": [
+      "Les composants lisent uniquement des propriétés CSS sémantiques (`settings/_tokens.scss`) ; les primitives de marque (`settings/_brand.scss`) ne sont jamais lues directement.",
+      "`[data-theme='dark']` redéfinit les rôles, rien d'autre.",
+      "Guilloché en trois lieux seulement : rosette, bande, trame du bouton primaire.",
+      "Trois encres de contrôle pour l'état : cuivre (à votre tour), bleu (en cours), vert (terminé).",
+      "Rendu complet sans JavaScript ; le mouvement est une couche optionnelle."
+    ],
+    "rules": [
+      {
+        "name": "The Role Only Rule",
+        "body": "Un composant lit un rôle, jamais une valeur. Une couleur nouvelle entre par `_tokens.scss` dans les deux thèmes, puis dans `tests/system-contrast.py` (48 paires vérifiées aujourd'hui, toutes conformes).",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink Means State Rule",
+        "body": "Cuivre, bleu et vert disent l'état d'une mission et rien d'autre ; l'action reste au vert de marque.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sentence Case Rule",
+        "body": "Libellés en casse de phrase, sans espacement de lettres ni capitales.",
+        "section": "typography"
+      },
+      {
+        "name": "The Serial Only Rule",
+        "body": "Fira Code n'écrit que des numéros de série, du code et le micro-texte. Les dates et nombres de l'interface restent en Inter, chiffres tabulaires.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper Stack Rule",
+        "body": "La profondeur dit le rôle d'une feuille (posée, sélectionnée, flottante), jamais la décoration.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** lire un rôle sémantique et l'ajouter dans les deux thèmes, puis à `tests/system-contrast.py`.",
+      "**Do** donner une rosette à toute valeur d'avancement, graine = id, trait à l'encre de l'état.",
+      "**Do** réserver la trame guillochée au bouton primaire plein, un par contexte.",
+      "**Do** garder les libellés en casse de phrase, sans espacement de lettres.",
+      "**Do** rendre chaque écran lisible sans JavaScript et sans mouvement."
+    ],
+    "donts": [
+      "**Don't** placer du guilloché derrière du texte courant : bande, rosette ou bouton, rien d'autre.",
+      "**Don't** utiliser `vector-effect: non-scaling-stroke` sur une rosette.",
+      "**Don't** employer cuivre, bleu ou vert pour autre chose qu'un état.",
+      "**Don't** ajouter de point de statut décoratif, de surtitre ou de libellé en capitales espacées.",
+      "**Don't** rejouer le tracé ou l'impression quand la sélection ne change pas."
+    ]
+  }
+}

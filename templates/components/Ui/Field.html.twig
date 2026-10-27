@@ -1,0 +1,9 @@
+{# Ui:Field — label, id, help, error ; le contrôle natif est passé en contenu et relie lui-même ses descriptions #}
+<div {{ attributes.defaults({ class: 'ui-field' ~ (error ? ' ui-field--error' : '') }) }}>
+  {% if label %}
+    <label class="ui-field__label" for="{{ id }}">{{ label }}{% if required %}<span class="ui-field__required" aria-hidden="true"> *</span>{% endif %}</label>
+  {% endif %}
+  <div class="ui-field__control">{% block content %}{% endblock %}</div>
+  {% if help %}<p class="ui-field__help" id="{{ id }}-help">{{ help }}</p>{% endif %}
+  {% if error %}<p class="ui-field__error" id="{{ id }}-error"><twig:Ui:Icon name="alert" size="16" />{{ error }}</p>{% endif %}
+</div>

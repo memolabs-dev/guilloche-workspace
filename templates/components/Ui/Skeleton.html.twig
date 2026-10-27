@@ -1,0 +1,10 @@
+{# Ui:Skeleton — forme du contenu attendu, décorative #}
+<div {{ attributes.defaults({ class: 'ui-skeleton' }) }} aria-hidden="true">
+  {% for i in 1..rows %}
+    <div class="ui-skeleton__row" style="--i: {{ i }}">
+      <span class="ui-skeleton__mark"></span>
+      <span class="ui-skeleton__lines"><span></span><span></span></span>
+      <span class="ui-skeleton__chip"></span>
+    </div>
+  {% endfor %}
+</div>

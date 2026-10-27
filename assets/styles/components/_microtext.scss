@@ -1,0 +1,17 @@
+// Micro-texte de sécurité : filet décoratif fait de texte minuscule répété. Toujours aria-hidden.
+.ui-microtext {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--font-serial);
+  font-size: 5.5px;
+  font-variant-ligatures: none;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0.55;
+  user-select: none;
+}
+
+.ui-icon {
+  flex: none;
+}

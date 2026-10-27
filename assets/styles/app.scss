@@ -1,0 +1,34 @@
+/* Hallmark · v2.0.0 · direction: custom, « titre guilloché » (by request) · genre: editorial · scope: app · surface: Symfony/Twig app shell */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 · weakest: P, the shell stays a standard app; the argument lives in the rosette traced to each mission's progress */
+/* Hallmark · answered F7 · the cards share one recipe because they play one role, a sheet of paper; pills stay on counts, progress and statuses, which read as tokens of value */
+// Point d'entrée Encore. Ordre des couches : réglages, base, composants Ui,
+// mise en page, composants métier, pages, mouvement.
+@use 'settings/tokens';
+@use 'base/reset';
+@use 'base/document';
+
+@use 'components/button';
+@use 'components/guilloche';
+@use 'components/status';
+@use 'components/badge';
+@use 'components/field';
+@use 'components/feedback';
+@use 'components/dialog';
+@use 'components/microtext';
+
+@use 'layout/shell';
+@use 'layout/page';
+
+@use 'domain/mission-list';
+@use 'domain/mission-sheet';
+@use 'domain/document-list';
+@use 'domain/results';
+
+@use 'pages/missions';
+@use 'pages/overview';
+@use 'pages/documents';
+@use 'pages/billing';
+@use 'pages/guide';
+@use 'pages/catalog';
+
+@use 'motion/transitions';

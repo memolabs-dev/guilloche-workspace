@@ -1,0 +1,10 @@
+// Primitives de marque. Les composants n'y accèdent jamais directement : ils lisent
+// les rôles sémantiques de settings/_tokens.scss.
+$green: #376b44;
+$green-hover: #2d5a38;
+$radius-sm: 6px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$font-ui: 'Inter';
+$font-tech: 'Fira Code';

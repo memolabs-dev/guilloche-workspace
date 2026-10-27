@@ -1,0 +1,230 @@
+@use '../settings/mixins' as *;
+
+// Le coupon : l'action qui attend le dirigeant, détachable comme un talon de chèque.
+.coupon {
+  position: relative;
+  display: grid;
+  gap: var(--s-5);
+  align-items: center;
+  margin-bottom: var(--s-8);
+  padding: var(--s-6);
+  overflow: hidden;
+  border-radius: var(--r-surface);
+  border: 1px solid var(--rule);
+  background: var(--intaglio);
+  color: var(--intaglio-ink);
+  box-shadow: var(--shadow-2);
+
+  @include up(sm) {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  @include up(lg) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    padding: var(--s-7) var(--s-8);
+  }
+
+  > * {
+    position: relative;
+  }
+
+  // Perforation du talon
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 196px;
+    width: 0;
+    border-left: 2px dotted var(--intaglio-perforation);
+
+    @include down(sm) {
+      display: none;
+    }
+  }
+
+  &__band {
+    --band-opacity: 0.5;
+
+    position: absolute !important;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--intaglio-line);
+    // La trame reste du côté du sceau, jamais sous le texte.
+    mask: linear-gradient(to right, black 0, black 120px, transparent 196px);
+  }
+
+  &__seal {
+    --rosette-ink: var(--copper-line);
+
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 148px;
+  }
+
+  &__percent {
+    position: absolute;
+    color: var(--intaglio-ink-2);
+    font-size: var(--text-sm);
+
+    strong {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--intaglio-ink);
+    }
+  }
+
+  &__body {
+    display: grid;
+    justify-items: start;
+    gap: var(--s-2);
+
+    @include up(sm) {
+      padding-left: var(--s-6);
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 500;
+      line-height: 1.12;
+    }
+
+    p {
+      color: var(--intaglio-ink-2);
+    }
+
+    .ui-serial {
+      color: var(--intaglio-copper);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-4);
+
+    @include up(sm) {
+      grid-column: 2;
+      padding-left: var(--s-6);
+    }
+
+    @include up(lg) {
+      grid-column: auto;
+      flex-direction: column;
+      align-items: stretch;
+      padding-left: 0;
+      text-align: center;
+    }
+
+    .ui-link {
+      color: var(--intaglio-ink);
+    }
+  }
+
+  // Sur fond intaille, l'action principale s'inverse pour garder son contraste.
+  .ui-button--primary.ui-button--solid {
+    --_bg: var(--intaglio-ink);
+    --_bg-hover: var(--sheet-raised);
+    --_bg-press: var(--intaglio-ink-2);
+    --_fg: var(--intaglio);
+  }
+
+  .ui-status {
+    background: var(--intaglio-wash);
+    color: var(--intaglio-copper);
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-3);
+  }
+}
+
+.overview-grid {
+  display: grid;
+  gap: var(--s-7);
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    align-items: start;
+  }
+
+  &__side {
+    display: grid;
+    gap: var(--s-4);
+  }
+}
+
+.advisor {
+  display: grid;
+  gap: var(--s-4);
+  padding: var(--s-5);
+
+  &__who {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+
+    h2 {
+      font-size: var(--text-lg);
+      font-weight: 600;
+    }
+
+    p {
+      color: var(--ink-3);
+      font-size: var(--text-sm);
+    }
+  }
+
+  &__avatar {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--action-soft);
+    color: var(--action-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+  }
+
+  &__meeting {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--rule);
+    color: var(--ink-2);
+
+    strong,
+    span {
+      display: block;
+    }
+
+    strong {
+      color: var(--ink);
+      font-size: var(--text-sm);
+    }
+
+    span {
+      font-size: var(--text-sm);
+    }
+  }
+
+  &__note {
+    color: var(--ink-3);
+    font-size: var(--text-xs);
+  }
+}
+
+.recent {
+  padding: var(--s-5);
+}

@@ -1,0 +1,12 @@
+{# Ui:Button — intent primary|secondary|danger ; appearance solid|soft|outline|ghost ; size sm|md|lg.
+   Avec href : un vrai lien (navigation). Sans href : un bouton (action). Un lien n'a jamais d'état disabled. #}
+{% set tag = href ? 'a' : 'button' %}
+{% set defaults = {
+  class: 'ui-button ui-button--' ~ intent ~ ' ui-button--' ~ appearance ~ ' ui-button--' ~ size ~ (loading ? ' is-loading' : '')
+}|merge(href ? { href: href } : { type: type, disabled: disabled or loading })|merge(loading and not href ? { 'aria-busy': 'true' } : {}) %}
+<{{ tag }} {{ attributes.defaults(defaults) }}>
+  {%- if loading -%}
+    <svg class="ui-button__spinner" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" pathLength="100" /></svg>
+  {%- endif -%}
+  <span class="ui-button__label">{% block content %}{% endblock %}</span>
+</{{ tag }}>

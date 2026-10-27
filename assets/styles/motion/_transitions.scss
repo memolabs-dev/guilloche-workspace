@@ -1,0 +1,45 @@
+@use '../settings/mixins' as *;
+
+// Transitions de page Turbo Drive (View Transitions API, déclenchées par Turbo grâce à
+// <meta name="view-transition">). Pas de transition inter-documents native : un rechargement
+// complet (réessai, sans JavaScript) reste instantané.
+// Le rail et la barre haute restent immobiles ; seul le contenu change de feuille.
+
+// Fondu enchaîné natif : l'ancien et le nouveau contenu se mélangent en plus-lighter,
+// sans passer par un fond vide. Un fondu sortant puis entrant crée un creux visible.
+::view-transition-old(page),
+::view-transition-new(page) {
+  animation-duration: 200ms;
+  animation-timing-function: var(--ease-standard);
+}
+
+::view-transition-group(rail-active),
+::view-transition-group(catalog-tab),
+::view-transition-group(mission-marker) {
+  animation-duration: 320ms;
+  animation-timing-function: var(--ease-out);
+}
+
+// Le thème se révèle depuis son bouton : pas de fondu, l'ancien reste dessous.
+.is-theme-reveal {
+  &::view-transition-old(root) {
+    animation: none;
+  }
+
+  &::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  &::view-transition-group(*) {
+    animation: none;
+  }
+}
+
+@include reduced-motion {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
