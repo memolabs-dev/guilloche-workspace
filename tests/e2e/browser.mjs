@@ -192,15 +192,19 @@ try {
     for (const width of [390, 1440]) {
         await cmd('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false});
         await go('/kit-lab/dashboard');
+        await until('location.pathname === "/kit-lab/dashboard" && document.querySelectorAll(".gp__stats .ui-stat").length===3');
         check(await js('document.querySelectorAll(".gp__stats .ui-stat").length===3'), 'kit lab renders dynamic stats');
         check(await js('document.querySelectorAll(".gp .ui-table tbody tr").length===5'), 'kit lab lists the real repository missions');
         check(await js('document.documentElement.scrollWidth<=innerWidth+2'), 'kit lab dashboard has no horizontal overflow at '+width);
         await go('/kit-lab/mission/1');
+        await until('location.pathname === "/kit-lab/mission/1" && document.body.textContent.includes("AR-2026-042")');
         check(await js('document.body.textContent.includes("AR-2026-042")'), 'kit lab mission 1 is dynamic');
         await go('/kit-lab/mission/2');
+        await until('location.pathname === "/kit-lab/mission/2" && document.body.textContent.includes("Audit de votre structure")');
         check(await js('document.body.textContent.includes("Audit de votre structure")'), 'kit lab mission 2 has different content');
         check(await js('document.documentElement.scrollWidth<=innerWidth+2'), 'kit lab detail has no horizontal overflow at '+width);
         await go('/kit-lab/form?title=Audit%20pilote&mission=1');
+        await until('location.pathname === "/kit-lab/form" && document.body.textContent.includes("Aperçu confirmé")');
         check(await js('document.body.textContent.includes("Aperçu confirmé")'), 'kit lab form GET confirms server-validated values');
         check(await js('document.querySelector("form").method==="get"'), 'kit lab form never posts data');
         check(await js('document.documentElement.scrollWidth<=innerWidth+2'), 'kit lab form has no horizontal overflow at '+width);

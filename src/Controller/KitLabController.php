@@ -93,7 +93,7 @@ final class KitLabController extends AbstractController
             if (!is_string($value)) {
                 throw new BadRequestHttpException('Valeur non scalaire.');
             }
-            $values[$key] = mb_substr(trim($value), 0, $key === 'notes' ? 400 : 80);
+            $values[$key] = mb_substr(trim($value), 0, 'notes' === $key ? 400 : 80);
         }
         $submitted = isset($query['title']) || isset($query['mission']) || isset($query['notes']);
         $validMission = array_find($missions, static fn (Mission $m): bool => (string) $m->id === $values['mission']);
@@ -124,7 +124,8 @@ final class KitLabController extends AbstractController
     private function theme(Request $request): string
     {
         $theme = $request->query->get('theme', 'light');
-        return $theme === 'dark' ? 'dark' : 'light';
+
+        return 'dark' === $theme ? 'dark' : 'light';
     }
 
     private function tone(MissionStatus $status): string
