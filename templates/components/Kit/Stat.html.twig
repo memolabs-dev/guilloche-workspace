@@ -1,0 +1,14 @@
+{# Ui:Stat — indicateur chiffre. label, value et hint sont des textes passes en
+   props ; trend : up|down|flat affiche une fleche et un texte accessible. #}
+{% props label, value, hint = null, trend = null %}
+{% set arrows = { up: '↑', down: '↓', flat: '→' } %}
+<div {{ attributes.defaults({ class: 'ui-stat' }) }}>
+  <p class="ui-stat__label">{{ label }}</p>
+  <p class="ui-stat__value">
+    {{ value }}
+    {% if trend and arrows[trend] is defined %}
+      <span class="ui-stat__trend ui-stat__trend--{{ trend }}" aria-hidden="true">{{ arrows[trend] }}</span>
+    {% endif %}
+  </p>
+  {% if hint %}<p class="ui-stat__hint">{{ hint }}</p>{% endif %}
+</div>

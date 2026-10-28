@@ -1,0 +1,12 @@
+{# Ui:Textarea — zone de saisie multiligne. Meme contrat que Ui:Input. #}
+{% props id, name = null, rows = 4, placeholder = null, value = null, describedBy = null, invalid = false, disabled = false, required = false %}
+<textarea {{ attributes.defaults({
+  class: 'ui-textarea',
+  id: id,
+  name: name ?? id,
+  rows: rows,
+  placeholder: placeholder ?? false,
+  required: required,
+  disabled: disabled,
+  'aria-describedby': describedBy ?? false
+}|merge(invalid ? { 'aria-invalid': 'true' } : {})) }}>{{ value }}</textarea>

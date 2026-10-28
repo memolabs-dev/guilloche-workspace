@@ -1,0 +1,20 @@
+{# Ui:Select — liste native. options : liste de { value, label } ou de chaines.
+   placeholder : option vide proposee quand aucune valeur n'est choisie. #}
+{% props id, name = null, options = [], value = null, placeholder = null, describedBy = null, invalid = false, disabled = false, required = false %}
+<select {{ attributes.defaults({
+  class: 'ui-select',
+  id: id,
+  name: name ?? id,
+  required: required,
+  disabled: disabled,
+  'aria-describedby': describedBy ?? false
+}|merge(invalid ? { 'aria-invalid': 'true' } : {})) }}>
+  {% if placeholder %}
+    <option value="" {{ value is null or value == '' ? 'selected' }} disabled>{{ placeholder }}</option>
+  {% endif %}
+  {% for option in options %}
+    {% set optionValue = option.value ?? option %}
+    {% set optionLabel = option.label ?? option %}
+    <option value="{{ optionValue }}" {{ optionValue == value ? 'selected' }}>{{ optionLabel }}</option>
+  {% endfor %}
+</select>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr" data-ui-theme="{{ theme == 'dark' ? 'dark' : 'light' }}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>{% block title %}Guilloche · Test consommateur{% endblock %}</title>
+  <link rel="stylesheet" href="{{ asset('guilloche/fonts.css') }}" />
+  <link rel="stylesheet" href="{{ asset('guilloche/guilloche.css') }}" />
+  <link rel="stylesheet" href="{{ asset('kit-lab/patterns.css') }}" />
+  <link rel="stylesheet" href="{{ asset('kit-lab/lab.css') }}" />
+</head>
+<body class="ui-scope kit-lab">
+<a class="kit-lab__skip" href="#main">Aller au contenu</a>
+<header class="kit-lab__bar">
+  <a class="kit-lab__brand" href="{{ path('app_kit_lab_home', {theme:theme}) }}">Guilloche <span>/ Consommateur Symfony</span></a>
+  <nav class="kit-lab__nav" aria-label="Test d’intégration">
+    <a href="{{ path('app_kit_lab_dashboard', {theme:theme}) }}" {% if app.request.attributes.get('_route') == 'app_kit_lab_dashboard' %}aria-current="page"{% endif %}>Pilotage</a>
+    <a href="{{ path('app_kit_lab_mission', {id:1,theme:theme}) }}" {% if app.request.attributes.get('_route') == 'app_kit_lab_mission' %}aria-current="page"{% endif %}>Dossier</a>
+    <a href="{{ path('app_kit_lab_form', {theme:theme}) }}" {% if app.request.attributes.get('_route') == 'app_kit_lab_form' %}aria-current="page"{% endif %}>Formulaire</a>
+    <a href="{{ path(app.request.attributes.get('_route'), {id: app.request.attributes.get('id', 1), theme: theme == 'dark' ? 'light' : 'dark'}) }}">{{ theme == 'dark' ? 'Clair' : 'Sombre' }}</a>
+  </nav>
+</header>
+<main class="kit-lab__main" id="main">
+  <p class="kit-lab__note">Application Symfony indépendante · Données fictives issues de WorkspaceRepository · Composants originaux préservés, recettes Guilloche copiées sous Kit.</p>
+  {% block body %}{% endblock %}
+</main>
+<footer class="kit-lab__footer">Laboratoire non persistant · <a href="https://ui.guilloche.memolabs.dev/patterns">Voir les compositions de référence</a></footer>
+</body>
+</html>

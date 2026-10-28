@@ -1,0 +1,52 @@
+{% extends 'kit_lab/base.html.twig' %}
+{% block title %}Formulaire GET · Guilloche{% endblock %}
+{% block body %}
+<section class="gp gp--form" aria-label="Formulaire de préparation">
+  <header class="gp__header">
+    <div>
+      <p class="gp__eyebrow">PRÉVISUALISATION SANS PERSISTANCE</p>
+      <h1 class="gp__title">Préparer une mission</h1>
+      <p class="gp__lead">Les options viennent du repository. Soumission GET, validation serveur, aucune écriture.</p>
+    </div>
+  </header>
+  <twig:Kit:Alert type="info" title="Démonstration fictive" message="Utilisez uniquement les données de démonstration. Ne saisissez aucune information sensible." />
+  {% if submitted and errors is not empty %}
+    <div class="kit-lab__result" role="alert">
+      <twig:Kit:Alert type="error" title="Informations incomplètes" :message="errors|join(' ')" />
+    </div>
+  {% elseif submitted %}
+    <div class="kit-lab__result" role="status" aria-live="polite">
+      <twig:Kit:Alert type="success" title="Aperçu confirmé" message="Le formulaire est valide. Aucune information n’a été enregistrée." />
+      <twig:Kit:Card title="Récapitulatif" description="Valeurs contrôlées côté Symfony">
+        <twig:Kit:DescriptionList :items="[
+          {term:'Objet', description: values.title},
+          {term:'Mission sélectionnée', description: selectedMission.title},
+          {term:'Notes', description: values.notes ?: 'Aucune'}
+        ]" />
+      </twig:Kit:Card>
+    </div>
+  {% endif %}
+  <form class="gp__form kit-lab__form" action="{{ path('app_kit_lab_form') }}" method="get">
+    <input type="hidden" name="theme" value="{{ theme }}" />
+    <twig:Kit:FormSection title="Informations générales" description="Champs natifs, vérifiés par le navigateur et par Symfony.">
+      <div class="gp__form-grid">
+        <twig:Kit:Field id="kit-title" label="Objet de la demande" required help="80 caractères maximum.">
+          <twig:Kit:Input id="kit-title" name="title" :value="values.title" placeholder="Préparer un audit" maxlength="80" required describedBy="kit-title-help" />
+        </twig:Kit:Field>
+        <twig:Kit:Field id="kit-mission" label="Mission existante" required>
+          <twig:Kit:Select id="kit-mission" name="mission" :options="options" :value="values.mission" placeholder="Choisir une mission" required />
+        </twig:Kit:Field>
+      </div>
+    </twig:Kit:FormSection>
+    <twig:Kit:FormSection title="Contexte" description="Ce formulaire ne modifie pas les missions du repository.">
+      <twig:Kit:Field id="kit-notes" label="Notes de démonstration">
+        <twig:Kit:Textarea id="kit-notes" name="notes" :rows="4" :value="values.notes" placeholder="Objectifs et contexte" maxlength="400" />
+      </twig:Kit:Field>
+    </twig:Kit:FormSection>
+    <footer class="gp__form-actions">
+      <span>Lecture seule · Aucune sauvegarde</span>
+      <twig:Kit:Button type="submit">Prévisualiser</twig:Kit:Button>
+    </footer>
+  </form>
+</section>
+{% endblock %}

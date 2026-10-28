@@ -188,6 +188,27 @@ try {
         await until('location.search.includes("mission=2") && document.querySelectorAll(".document-item--library").length === 2');
         check(await js('document.querySelector(".results-error").hidden'),`documents ${kind} retry recovers filters`);
     }
+    stage='kit-lab';
+    for (const width of [390, 1440]) {
+        await cmd('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false});
+        await go('/kit-lab/dashboard');
+        check(await js('document.querySelectorAll(".gp__stats .ui-stat").length===3'), 'kit lab renders dynamic stats');
+        check(await js('document.querySelectorAll(".gp .ui-table tbody tr").length===5'), 'kit lab lists the real repository missions');
+        check(await js('document.documentElement.scrollWidth<=innerWidth+2'), 'kit lab dashboard has no horizontal overflow at '+width);
+        await go('/kit-lab/mission/1');
+        check(await js('document.body.textContent.includes("AR-2026-042")'), 'kit lab mission 1 is dynamic');
+        await go('/kit-lab/mission/2');
+        check(await js('document.body.textContent.includes("Audit de votre structure")'), 'kit lab mission 2 has different content');
+        check(await js('document.documentElement.scrollWidth<=innerWidth+2'), 'kit lab detail has no horizontal overflow at '+width);
+        await go('/kit-lab/form?title=Audit%20pilote&mission=1');
+        check(await js('document.body.textContent.includes("Aperçu confirmé")'), 'kit lab form GET confirms server-validated values');
+        check(await js('document.querySelector("form").method==="get"'), 'kit lab form never posts data');
+        check(await js('document.documentElement.scrollWidth<=innerWidth+2'), 'kit lab form has no horizontal overflow at '+width);
+        const shot=await cmd('Page.captureScreenshot',{format:'png',captureBeyondViewport:true});
+        writeFileSync('var/e2e/kit-lab-form-'+width+'.png',Buffer.from(shot.data,'base64'));
+    }
+    await go('/kit-lab/mission/9999');
+    check(await js('document.title.includes("Erreur") || document.body.textContent.includes("404")'), 'kit lab rejects unknown mission');
     stage='system';
     await cmd('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'no-preference'},{name:'prefers-color-scheme',value:'light'}]});
     for(const width of [320,390,768,1280,1440]) {

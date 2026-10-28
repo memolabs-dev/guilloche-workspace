@@ -1,0 +1,10 @@
+{# Ui:FormSection — section de formulaire. title et description sont des textes
+   passes en props ; les champs viennent du slot. #}
+{% props title, description = null %}
+<section {{ attributes.defaults({ class: 'ui-form-section' }) }}>
+  <header class="ui-form-section__header">
+    <h2 class="ui-form-section__title">{{ title }}</h2>
+    {% if description %}<p class="ui-form-section__description">{{ description }}</p>{% endif %}
+  </header>
+  <div class="ui-form-section__body">{% block content %}{% endblock %}</div>
+</section>

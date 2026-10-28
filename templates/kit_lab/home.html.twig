@@ -1,0 +1,14 @@
+{% extends 'kit_lab/base.html.twig' %}
+{% block title %}Intégration des compositions · Guilloche{% endblock %}
+{% block body %}
+<section class="gp" aria-labelledby="lab-title">
+  <p class="gp__eyebrow">APPLICATION CONSOMMATRICE INDÉPENDANTE</p>
+  <h1 class="gp__title" id="lab-title">Trois compositions. Un vrai Symfony.</h1>
+  <p class="gp__lead">Les exemples utilisent les recettes du kit et des données fournies par le repository métier.</p>
+  <div class="kit-lab__index">
+    <a href="{{ path('app_kit_lab_dashboard', {theme:theme}) }}"><strong>Tableau de bord</strong><span>{{ missionCount }} missions dans le repository.</span></a>
+    <a href="{{ path('app_kit_lab_mission', {id:1,theme:theme}) }}"><strong>Fiche de mission</strong><span>Route dynamique et documents liés.</span></a>
+    <a href="{{ path('app_kit_lab_form', {theme:theme}) }}"><strong>Saisie guidée</strong><span>Prévisualisation GET validée, sans écriture.</span></a>
+  </div>
+</section>
+{% endblock %}

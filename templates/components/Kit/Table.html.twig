@@ -1,0 +1,12 @@
+{# Ui:Table — cadre de tableau. caption est le titre accessible du tableau ;
+   l'application fournit thead, tbody et tr. Les cellules numeriques portent
+   la classe ui-table__num pour aligner les chiffres.
+   serial marque la premiere colonne de données ; les autres colonnes peuvent
+   utiliser .ui-serial sur leurs cellules. #}
+{% props caption = null, serial = false %}
+<div class="ui-table-wrapper">
+  <table {{ attributes.defaults({ class: 'ui-table' ~ (serial ? ' ui-table--serial-first' : '') }) }}>
+    {% if caption %}<caption class="ui-table__caption">{{ caption }}</caption>{% endif %}
+    {% block content %}{% endblock %}
+  </table>
+</div>

@@ -1,0 +1,17 @@
+/* Polices du kit, declarees hors Sass pour qu'AssetMapper reecrive les URL
+   et versionne les fichiers. Geist pour l'UI, Geist Mono pour le code. */
+@font-face {
+    font-family: 'Geist';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('fonts/geist/geist-variable.woff2') format('woff2-variations');
+}
+
+@font-face {
+    font-family: 'Geist Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('fonts/geist-mono/geist-mono-400.woff2') format('woff2');
+}

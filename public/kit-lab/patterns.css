@@ -1,0 +1,135 @@
+/*
+ * Compositions Guilloche — CSS d'application, pas une recette du kit.
+ * Copier ce fichier avec les exemples Twig pour reproduire leur mise en page.
+ * Tokens ui-* fournis par le design system ; aucune dépendance Bootstrap.
+ */
+.gp {
+    --gp-line: var(--ui-border);
+    --gp-muted: var(--ui-muted-foreground);
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: clamp(18px, 3vw, 34px);
+    border: 1px solid var(--gp-line);
+    border-radius: 15px;
+    background: var(--ui-background);
+    color: var(--ui-foreground);
+    font-family: var(--ui-font-sans);
+}
+.gp * { box-sizing: border-box; }
+.gp__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+}
+.gp__header > div { min-width: 0; }
+.gp__eyebrow {
+    margin: 0 0 9px;
+    color: var(--ui-muted-foreground);
+    font-size: 10px;
+    font-weight: 680;
+    letter-spacing: .1em;
+}
+.gp__title {
+    margin: 0;
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 680;
+    letter-spacing: -.045em;
+    line-height: 1.2;
+}
+.gp__lead {
+    margin: 9px 0 0;
+    font-size: 13px;
+    color: var(--gp-muted);
+    line-height: 1.6;
+}
+.gp__stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.gp__stats > .ui-stat {
+    padding: 19px;
+    border: 1px solid var(--gp-line);
+    border-radius: 11px;
+    background: var(--ui-surface);
+}
+.gp__columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(200px, .85fr);
+    gap: 15px;
+    align-items: start;
+}
+.gp__main-column, .gp__side-column { min-width: 0; }
+.gp__main-column { display: grid; gap: 13px; }
+.gp__side-column { display: grid; gap: 13px; }
+.gp .ui-card { height: 100%; min-width: 0; }
+.gp .ui-card__body { min-width: 0; }
+.gp .ui-table-wrapper { max-width: 100%; }
+.gp .ui-table { min-width: 450px; }
+.gp .ui-table td, .gp .ui-table th { white-space: nowrap; }
+.gp .ui-timeline { margin: 0; }
+.gp__breadcrumb {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 19px;
+    font-size: 11px;
+    color: var(--gp-muted);
+}
+.gp__detail-heading {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 18px; flex-wrap: wrap; margin-bottom: 21px;
+}
+.gp__detail-heading .ui-page-header { flex: 1 1 200px; margin: 0; min-width: 0; }
+.gp__detail-heading .ui-badge { flex: none; }
+.gp__detail-meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 16px 0;
+    gap: 16px;
+    margin-bottom: 20px;
+    border-block: 1px solid var(--gp-line);
+}
+.gp__detail-meta > div { min-width: 0; display: grid; gap: 6px; }
+.gp__detail-meta span { color: var(--gp-muted); font-size: 11px; }
+.gp__detail-meta strong { font-size: 13px; font-weight: 610; overflow-wrap: anywhere; }
+.gp--detail .gp__main-column .ui-alert { margin-top: 0; }
+.gp--form .ui-alert { margin: 0 0 22px; }
+.gp__form { display: grid; gap: 22px; }
+.gp__form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+.gp__form .ui-form-section { min-width: 0; }
+.gp__form .ui-form-section__body { min-width: 0; }
+.gp__form .ui-field { min-width: 0; }
+.gp__form .ui-input, .gp__form .ui-select, .gp__form .ui-textarea { width: 100%; min-width: 0; }
+.gp__form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-top: 1px solid var(--gp-line);
+    padding-top: 20px;
+}
+.gp__form-status { font-size: 12px; color: var(--gp-muted); margin: 0; line-height: 1.6; }
+@media (max-width: 820px) {
+    .gp__columns { grid-template-columns: minmax(0, 1fr); }
+    .gp__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .gp__stats > :last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 500px) {
+    .gp { padding: 15px; border-radius: 11px; }
+    .gp__stats, .gp__detail-meta, .gp__form-grid { grid-template-columns: minmax(0, 1fr); }
+    .gp__stats > :last-child { grid-column: auto; }
+    .gp__detail-meta { gap: 13px; }
+    .gp__form-actions { align-items: stretch; flex-direction: column; }
+    .gp__form-actions .ui-button { width: 100%; }
+}

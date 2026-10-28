@@ -1,0 +1,38 @@
+{% extends 'kit_lab/base.html.twig' %}
+{% block title %}{{ mission.title }} · Guilloche{% endblock %}
+{% block body %}
+<section class="gp gp--detail" aria-label="Fiche de mission">
+  <nav class="gp__breadcrumb" aria-label="Fil d’Ariane">
+    <a href="{{ path('app_kit_lab_dashboard', {theme:theme}) }}">Missions</a>
+    <span aria-hidden="true">/</span>
+    {{ mission.reference }}
+  </nav>
+  <div class="gp__detail-heading">
+    <twig:Kit:PageHeader :title="mission.title" :description="mission.reference" :headingLevel="1" />
+    <twig:Kit:Badge :tone="tone">{{ mission.status.label }}</twig:Kit:Badge>
+  </div>
+  <div class="gp__detail-meta">
+    <div><span>Responsable</span><strong>{{ mission.advisor }}</strong></div>
+    <div><span>Échéance</span><strong>{{ mission.dueOn|date('d/m/Y') }}</strong></div>
+    <div><span>Progression</span><strong>{{ mission.progress }} %</strong></div>
+  </div>
+  <div class="gp__columns gp__columns--detail">
+    <div class="gp__main-column">
+      <twig:Kit:Card title="Détails de mission" description="Valeurs injectées par le contrôleur">
+        <twig:Kit:DescriptionList :items="details" />
+      </twig:Kit:Card>
+      <twig:Kit:Alert type="info" title="Intégration Symfony" message="Cette fiche est rendue par le kit à partir du repository, sans modifier les données." />
+      <p><twig:Kit:Button variant="outline" size="sm" href="{{ path('app_mission_show', {id:mission.id}) }}">Ouvrir la fiche métier</twig:Kit:Button></p>
+    </div>
+    <aside class="gp__side-column">
+      <twig:Kit:Card title="Documents liés" description="Historique filtré par mission">
+        {% if events is not empty %}
+          <twig:Kit:Timeline :items="events" />
+        {% else %}
+          <p>Aucun document pour cette mission.</p>
+        {% endif %}
+      </twig:Kit:Card>
+    </aside>
+  </div>
+</section>
+{% endblock %}
