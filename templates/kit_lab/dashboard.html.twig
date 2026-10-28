@@ -18,7 +18,8 @@
   <div class="gp__columns">
     <div class="gp__main-column">
       <twig:Kit:Card title="Missions" description="Toutes les missions du repository">
-        <twig:Kit:Table caption="Missions fictives du repository" serial>
+        <div class="kit-lab__table-region" role="region" aria-label="Tableau des missions, faire défiler horizontalement" tabindex="0">
+          <twig:Kit:Table caption="Missions fictives du repository" serial>
           <thead><tr><th scope="col">Référence</th><th scope="col">Mission</th><th scope="col">État</th><th scope="col">Avancement</th></tr></thead>
           <tbody>
           {% for mission in missions %}
@@ -32,7 +33,9 @@
             </tr>
           {% endfor %}
           </tbody>
-        </twig:Kit:Table>
+          </twig:Kit:Table>
+        </div>
+        <p class="kit-lab__table-hint">Faites défiler le tableau pour voir toutes les colonnes.</p>
       </twig:Kit:Card>
     </div>
     <aside class="gp__side-column">
