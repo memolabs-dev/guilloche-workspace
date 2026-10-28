@@ -1,0 +1,31 @@
+#!/bin/sh
+set -eu
+cd "$(git rev-parse --show-toplevel)"
+git diff --cached --check
+if git diff --cached --name-only --diff-filter=ACMR | grep -E '(^|/)\.env($|\.(local|production|development|test)$)|\.(pem|p12|p8)$' >/dev/null; then
+  echo "pre-commit: private environment/key file staged" >&2
+  exit 1
+fi
+
+changed="$(git diff --cached --name-only --diff-filter=ACMR)"
+if printf '%s\n' "$changed" | grep -E '\.php$' >/dev/null; then
+  if command -v php >/dev/null 2>&1; then
+    printf '%s\n' "$changed" | grep -E '\.php$' |
+      while IFS= read -r file; do
+        git show ":$file" | php -l >/dev/null || { echo "Invalid staged PHP: $file" >&2; exit 1; }
+      done
+    if [ -x vendor/bin/php-cs-fixer ]; then
+      PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer check --diff
+    fi
+  else
+    echo "pre-commit: PHP CLI unavailable; PHP lint is enforced by CI" >&2
+  fi
+fi
+if command -v php >/dev/null 2>&1 && [ -f vendor/autoload.php ]; then
+  if printf '%s\n' "$changed" | grep -E '(^templates/|\.twig$)' >/dev/null; then
+    php bin/console lint:twig templates
+  fi
+  if printf '%s\n' "$changed" | grep -E '^config/.*\.ya?ml$' >/dev/null; then
+    php bin/console lint:yaml config --parse-tags
+  fi
+fi

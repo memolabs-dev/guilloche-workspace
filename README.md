@@ -82,3 +82,11 @@ Les lignes de missions utilisent maintenant `<twig:Ui:Rosette :seed="mission.ref
 Le paquet est actuellement référencé comme dépôt VCS et figé au commit `7eccdff` dans `composer.json` / `composer.lock`, dans l'attente d'un tag stable et de la publication Packagist. Ne pas actualiser la branche `dev-main` sans revue du contrat et E2E.
 
 La CI bloque désormais la publication GHCR tant que les tests PHP, les assets **et** le scénario navigateur Chromium n'ont pas tous réussi.
+
+## Git hooks locaux
+
+`composer install` installe automatiquement `.githooks/pre-commit` dans le clone Git ;
+`composer hooks` permet de réinstaller manuellement. Le hook contrôle les fichiers
+indexés (espaces et fichiers secrets), la syntaxe PHP et, si les dépendances locales
+sont disponibles, PHP-CS-Fixer, Twig et YAML. Les contrôles non disponibles sur la
+machine restent obligatoires dans GitHub Actions.
