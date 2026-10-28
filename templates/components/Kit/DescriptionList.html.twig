@@ -1,0 +1,17 @@
+{# Ui:DescriptionList — paires libelle et valeur. items : liste de
+   { term, description }. #}
+{% props items = [], serial = false %}
+<dl {{ attributes.defaults({ class: 'ui-description-list' }) }}>
+  {% for item in items %}
+    <div class="ui-description-list__row">
+      <dt class="ui-description-list__term">{{ item.term }}</dt>
+      <dd class="ui-description-list__value">
+        {% if item.serial is defined ? item.serial : serial %}
+          <code class="ui-serial">{{ item.prefix|default('') }}{{ item.description }}</code>
+        {% else %}
+          {{ item.description }}
+        {% endif %}
+      </dd>
+    </div>
+  {% endfor %}
+</dl>

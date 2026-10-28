@@ -1,0 +1,4 @@
+{# Ui:Badge — étiquette courte. tone : neutral|primary|success|warning|danger|info ;
+   variant : soft|solid|outline. Le texte vient du slot, jamais du composant. #}
+{% props tone = 'neutral', variant = 'soft' %}
+<span {{ attributes.defaults({ class: 'ui-badge ui-badge--' ~ tone ~ ' ui-badge--' ~ variant }) }}>{% block content %}{% endblock %}</span>

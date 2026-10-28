@@ -1,0 +1,14 @@
+{# Ui:Input — champ natif. invalid pose aria-invalid ; describedBy relie
+   l'aide et l'erreur. Aucun attribut n'est invente : le natif reste la base. #}
+{% props id, type = 'text', name = null, placeholder = null, value = null, describedBy = null, invalid = false, disabled = false, required = false %}
+<input {{ attributes.defaults({
+  class: 'ui-input',
+  type: type,
+  id: id,
+  name: name ?? id,
+  placeholder: placeholder ?? false,
+  value: value ?? false,
+  required: required,
+  disabled: disabled,
+  'aria-describedby': describedBy ?? false
+}|merge(invalid ? { 'aria-invalid': 'true' } : {})) }} />

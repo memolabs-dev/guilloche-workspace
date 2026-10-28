@@ -1,0 +1,13 @@
+{# Ui:Card — surface de contenu. title, description et footer sont des textes
+   passes en props ; le corps vient du slot. Aucun libelle en dur. #}
+{% props title = null, description = null, footer = null %}
+<article {{ attributes.defaults({ class: 'ui-card' }) }}>
+  {% if title or description %}
+    <header class="ui-card__header">
+      {% if title %}<h3 class="ui-card__title">{{ title }}</h3>{% endif %}
+      {% if description %}<p class="ui-card__description">{{ description }}</p>{% endif %}
+    </header>
+  {% endif %}
+  <div class="ui-card__body">{% block content %}{% endblock %}</div>
+  {% if footer %}<footer class="ui-card__footer">{{ footer }}</footer>{% endif %}
+</article>

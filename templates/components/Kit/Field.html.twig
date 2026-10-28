@@ -1,0 +1,11 @@
+{# Ui:Field — enveloppe de champ : label, aide, erreur. Le controle natif est
+   passe dans le slot et relie lui-meme ses descriptions via aria-describedby. #}
+{% props id, label = null, help = null, error = null, required = false %}
+<div {{ attributes.defaults({ class: 'ui-field' ~ (error ? ' ui-field--error' : '') }) }}>
+  {% if label %}
+    <label class="ui-field__label" for="{{ id }}">{{ label }}{% if required %}<span class="ui-field__required" aria-hidden="true"> *</span>{% endif %}</label>
+  {% endif %}
+  <div class="ui-field__control">{% block content %}{% endblock %}</div>
+  {% if help %}<p class="ui-field__help" id="{{ id }}-help">{{ help }}</p>{% endif %}
+  {% if error %}<p class="ui-field__error" id="{{ id }}-error"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>{{ error }}</p>{% endif %}
+</div>

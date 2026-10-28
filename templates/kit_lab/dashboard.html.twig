@@ -1,0 +1,45 @@
+{% extends 'kit_lab/base.html.twig' %}
+{% block title %}Pilotage dynamique · Guilloche{% endblock %}
+{% block body %}
+<section class="gp gp--dashboard" aria-label="Pilotage des missions">
+  <header class="gp__header">
+    <div>
+      <p class="gp__eyebrow">DONNÉES DU REPOSITORY / LECTURE SEULE</p>
+      <h1 class="gp__title">Pilotage des missions</h1>
+      <p class="gp__lead">Les chiffres et les dossiers sont construits depuis WorkspaceRepository, non inscrits dans le Twig.</p>
+    </div>
+    <twig:Kit:Button href="{{ path('app_mission_index') }}" variant="outline" size="sm">Vue métier originale</twig:Kit:Button>
+  </header>
+  <div class="gp__stats" aria-label="Indicateurs du repository">
+    <twig:Kit:Stat label="Missions en cours" :value="openCount" hint="Hors missions terminées" />
+    <twig:Kit:Stat label="À votre tour" :value="pendingCount" hint="Actions en attente" />
+    <twig:Kit:Stat label="Total des factures" :value="invoiceTotal|number_format(2, ',', ' ') ~ ' €'" hint="Montants des fixtures" />
+  </div>
+  <div class="gp__columns">
+    <div class="gp__main-column">
+      <twig:Kit:Card title="Missions" description="Toutes les missions du repository">
+        <twig:Kit:Table caption="Missions fictives du repository" serial>
+          <thead><tr><th scope="col">Référence</th><th scope="col">Mission</th><th scope="col">État</th><th scope="col">Avancement</th></tr></thead>
+          <tbody>
+          {% for mission in missions %}
+            <tr>
+              <td>{{ mission.reference }}</td>
+              <td><a href="{{ path('app_kit_lab_mission', {id:mission.id, theme:theme}) }}">{{ mission.title }}</a></td>
+              <td>
+                <twig:Kit:Badge :tone="mission.status.value == 'done' ? 'success' : (mission.status.value == 'action' ? 'warning' : 'info')">{{ mission.status.label }}</twig:Kit:Badge>
+              </td>
+              <td class="ui-table__num">{{ mission.progress }} %</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </twig:Kit:Table>
+      </twig:Kit:Card>
+    </div>
+    <aside class="gp__side-column">
+      <twig:Kit:Card title="Documents récents" description="Activité issue des fixtures">
+        <twig:Kit:Timeline :items="activity" />
+      </twig:Kit:Card>
+    </aside>
+  </div>
+</section>
+{% endblock %}

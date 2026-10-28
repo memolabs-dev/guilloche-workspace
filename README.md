@@ -90,3 +90,32 @@ La CI bloque désormais la publication GHCR tant que les tests PHP, les assets *
 indexés (espaces et fichiers secrets), la syntaxe PHP et, si les dépendances locales
 sont disponibles, PHP-CS-Fixer, Twig et YAML. Les contrôles non disponibles sur la
 machine restent obligatoires dans GitHub Actions.
+
+## Intégration de compositions Guilloche (test consommateur)
+
+Les routes /kit-lab, /kit-lab/dashboard, /kit-lab/mission/{id} et
+/kit-lab/form constituent un laboratoire indépendant du produit existant.
+
+- 14 recettes Twig extraites de memolabs-dev/guilloche au commit
+  00beaa370fb40f713f8fd8865f80d931fbe16786 sont copiées sous
+  templates/components/Kit. Ce namespace évite les collisions avec
+  les composants historiques Ui de Workspace, y compris sur macOS.
+- La feuille CSS, les polices et les styles de composition proviennent
+  du même commit, uniquement chargés depuis kit_lab/base.html.twig.
+  L'application métier historique ne les charge jamais.
+- Les contrôleurs lisent le vrai WorkspaceRepository : indicateurs,
+  missions, factures, détails et documents sont dynamiques.
+- Le formulaire ne persiste rien : GET, validation côté serveur,
+  jamais de POST ; ne pas y saisir de données sensibles.
+- La CI compare les fichiers copiés à ce commit source précis, puis
+  les tests PHPUnit et Chromium contrôlent le vrai consommateur.
+
+**Limitation de distribution** : l'installateur Guilloche actuel écrit
+dans templates/components/ui. Sur Workspace, il entre en collision
+avec les composants locaux Ui sur certains systèmes de fichiers.
+Cette intégration emploie une copie contrôlée sous Kit, pas encore
+l'installateur standard. Un namespace configurable reste à réaliser.
+
+Le paquet Composer reste épinglé au commit historique 7eccdff,
+pour préserver le runtime Rosette. Cette validation ne prétend donc pas
+avoir testé une mise à niveau Composer complète vers main.

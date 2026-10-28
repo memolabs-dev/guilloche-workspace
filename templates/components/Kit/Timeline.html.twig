@@ -1,0 +1,16 @@
+{# Ui:Timeline — suite d'evenements dates. items : liste de
+   { date, title, description }. Les elements sont rendus dans une liste
+   ordonnee, donc l'ordre est porte par la semantique. #}
+{% props items = [] %}
+<ol {{ attributes.defaults({ class: 'ui-timeline' }) }}>
+  {% for item in items %}
+    <li class="ui-timeline__item">
+      <span class="ui-timeline__dot" aria-hidden="true"></span>
+      <div class="ui-timeline__content">
+        {% if item.date %}<p class="ui-timeline__date">{{ item.date }}</p>{% endif %}
+        <p class="ui-timeline__title">{{ item.title }}</p>
+        {% if item.description %}<p class="ui-timeline__description">{{ item.description }}</p>{% endif %}
+      </div>
+    </li>
+  {% endfor %}
+</ol>

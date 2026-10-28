@@ -10,4 +10,4 @@ if ('cli-server' === php_sapi_name() && '/' !== $path && is_file($file)) {
     return false;
 }
 
-require __DIR__.'/../../public/index.php';
+return require __DIR__.'/../../public/index.php';

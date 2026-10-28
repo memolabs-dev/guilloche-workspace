@@ -1,0 +1,28 @@
+{# Ui:PageHeader — titres et actions fournis par l'application.
+   Filigrane discret : opt-in, uniquement en thème sombre et toujours décoratif.
+   watermarkPath : tracé SVG calculé côté serveur pour un identifiant de page. #}
+{% props title, description = null, headingLevel = 1, watermark = false, watermarkPath = null %}
+{% set heading = 'h' ~ headingLevel %}
+<header {{ attributes.defaults({ class: 'ui-page-header' ~ (watermark ? ' ui-page-header--watermark' : '') }) }}>
+  {% if watermark %}
+    <svg class="ui-page-header__watermark" aria-hidden="true" focusable="false" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.9">
+      {% if watermarkPath %}
+        <path d="{{ watermarkPath }}" />
+      {% else %}
+        <g transform="translate(50 50) scale(0.53)">
+          {% for rotation in [0, 30, 60, 90, 120, 150] %}
+            <ellipse cx="0" cy="0" rx="91" ry="34" transform="rotate({{ rotation }})" />
+          {% endfor %}
+          <circle cx="0" cy="0" r="92" />
+        </g>
+      {% endif %}
+    </svg>
+  {% endif %}
+  <div class="ui-page-header__text">
+    <{{ heading }} class="ui-page-header__title">{{ title }}</{{ heading }}>
+    {% if description %}<p class="ui-page-header__description">{{ description }}</p>{% endif %}
+  </div>
+  {% if block.content is defined %}
+    <div class="ui-page-header__actions">{% block content %}{% endblock %}</div>
+  {% endif %}
+</header>
