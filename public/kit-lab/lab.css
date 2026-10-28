@@ -21,3 +21,10 @@ body.kit-lab { background:var(--ui-background);color:var(--ui-foreground);font:1
 .kit-lab__main a:not(.ui-button) {text-underline-offset:3px;}
 .kit-lab__footer {font-size:12px;line-height:1.6;color:var(--ui-muted-foreground);padding:22px clamp(16px,3vw,32px);border-top:1px solid var(--ui-border);}
 @media(max-width:720px){.kit-lab__index{grid-template-columns:1fr;}}
+
+/* La table conserve toutes ses colonnes tout en restant consultable au clavier. */
+.kit-lab__table-region {max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;}
+.kit-lab__table-region:focus-visible {outline:2px solid var(--ui-ring);outline-offset:2px;border-radius:8px;}
+.kit-lab__table-region > .ui-table-wrapper {width:max-content;min-width:100%;max-width:none;overflow:visible;}
+.kit-lab__table-hint {display:none;font-size:11px;line-height:1.5;color:var(--ui-muted-foreground);margin:10px 0 0;}
+@media(max-width:720px){.kit-lab__table-hint{display:block;}}

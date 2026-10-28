@@ -195,6 +195,12 @@ try {
         await until('location.pathname === "/kit-lab/dashboard" && document.querySelectorAll(".gp__stats .ui-stat").length===3');
         check(await js('document.querySelectorAll(".gp__stats .ui-stat").length===3'), 'kit lab renders dynamic stats');
         check(await js('document.querySelectorAll(".gp .ui-table tbody tr").length===5'), 'kit lab lists the real repository missions');
+        if(width===390) {
+            check(await js('document.querySelector(".kit-lab__table-region").scrollWidth > document.querySelector(".kit-lab__table-region").clientWidth'),
+                'kit lab table exposes horizontal scroll on mobile');
+            check(await js('getComputedStyle(document.querySelector(".kit-lab__table-hint")).display !== "none"'),
+                'kit lab mobile users see horizontal scroll guidance');
+        }
         check(await js('document.documentElement.scrollWidth<=innerWidth+2'), 'kit lab dashboard has no horizontal overflow at '+width);
         await go('/kit-lab/mission/1');
         await until('location.pathname === "/kit-lab/mission/1" && document.body.textContent.includes("AR-2026-042")');

@@ -30,6 +30,7 @@ final class KitLabControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
         self::assertCount(3, $crawler->filter('.gp__stats .ui-stat'));
         self::assertCount(5, $crawler->filter('.gp__columns .ui-table tbody tr'));
+        self::assertCount(1, $crawler->filter('.kit-lab__table-region[tabindex="0"][role="region"]'));
         self::assertCount(3, $crawler->filter('.gp__columns .ui-timeline__item'));
         self::assertGreaterThanOrEqual(1, $crawler->filter('a[href="/kit-lab/mission/1?theme=light"]')->count());
         self::assertStringContainsString('Rémunération du dirigeant', $crawler->filter('.gp__columns .ui-table')->text());
