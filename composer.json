@@ -58,11 +58,14 @@
             "importmap:install": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "@hooks"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
-        ]
+            "@auto-scripts",
+            "@hooks"
+        ],
+        "hooks": "sh scripts/install-git-hooks.sh"
     },
     "conflict": {
         "symfony/symfony": "*"
